@@ -1,0 +1,2731 @@
+VGA:
+  RESOLUTION: (640,480)
+  BACKGROUND: res/VGA/background.png
+  BUTTON:
+    FUNC:
+      BUTTON_FUNC_VFO:
+      BUTTON_FUNC_BAND:
+      BUTTON_FUNC_MODE:
+      BUTTON_FUNC_CW:
+      BUTTON_FUNC_MEM:
+      BUTTON_FUNC_SCOPE:
+    PANEL:
+      PANEL_BAND:
+        '1.8':
+          POS:  (131,312,200,357)
+          FUNC: 'BAND_SET_1.8'
+        '3.5':
+          POS:  (208,312,277,357)
+          FUNC: 'BAND_SET_3.5'
+        '5.3':
+          POS:  (285,312,354,357)
+          FUNC: 'BAND_SET_5.3'
+        '7.0':
+          POS:  (362,312,431,357)
+          FUNC: 'BAND_SET_7.0'
+        '10':
+          POS:  (439,312,508,357)
+          FUNC: 'BAND_SET_10'
+        '14':
+          POS:  (131,365,200,410)
+          FUNC: 'BAND_SET_14'
+        '18':
+          POS:  (208,365,277,410)
+          FUNC: 'BAND_SET_18'
+        '21':
+          POS:  (285,365,354,410)
+          FUNC: 'BAND_SET_21'
+        '24':
+          POS:  (362,365,431,410)
+          FUNC: 'BAND_SET_24'
+        '28':
+          POS:  (439,365,508,410)
+          FUNC: 'BAND_SET_28'
+        '50':
+          POS:  (131,418,200,463)
+          FUNC: 'BAND_SET_50'
+        'GEN':
+          POS:  (208,418,277,463)
+          FUNC: 'BAND_SET_GEN'
+        'UP':
+          POS:  (362,418,431,463)
+          FUNC: 'BAND_SET_UP'
+        'DOWN':
+          POS:  (439,418,508,463)
+          FUNC: 'BAND_SET_DOWN'
+      PANEL_MODE:
+        'LSB':
+          POS:  (131,312,200,357)
+          FUNC: 'MODE_SET_LSB'
+        'CW-L':
+          POS:  (208,312,277,357)
+          FUNC: 'MODE_SET_CW-L'
+        'RTTY-L':
+          POS:  (285,312,354,357)
+          FUNC: 'MODE_SET_RTTY-L'
+        'DATA-L':
+          POS:  (362,312,431,357)
+          FUNC: 'MODE_SET_DATA-L'
+        'AM':
+          POS:  (439,312,508,357)
+          FUNC: 'MODE_SET_AM'
+        'USB':
+          POS:  (131,365,200,410)
+          FUNC: 'MODE_SET_USB'
+        'CW-U':
+          POS:  (208,365,277,410)
+          FUNC: 'MODE_SET_CW-U'
+        'RTTY-U':
+          POS:  (285,365,354,410)
+          FUNC: 'MODE_SET_RTTY-U'
+        'DATA-U':
+          POS:  (362,365,431,410)
+          FUNC: 'MODE_SET_DATA-U'
+        'FM':
+          POS:  (439,365,508,410)
+          FUNC: 'MODE_SET_FM'
+  ELEMENTS:
+    PANEL:
+      PATH: res/VGA/panel/panel.png
+      POS: (116,290)
+      SIZE: (408,185)
+      STAT:
+        - 'BAND'
+        - 'MODE'
+        - 'MEM'
+        - 'VFO'
+        - 'SCOPE'
+    METER_1:
+      BAR: (46,16)
+      BAR_WIDTH: 11
+      COLOR: (63,72,204)
+      RATIO: 1.0
+      PATH: res/VGA/indicator/meter_s.png
+      POS: (5,4)
+      SIZE: (314,23)
+      STAT:
+        - 'S'
+    METER_2:
+      BAR: (46,41)
+      BAR_WIDTH: 10
+      COLOR: (34,177,76)
+      RATIO: 1.0
+      PATH: res/VGA/indicator/meter_other.png
+      POS: (5,30)
+      SIZE: (314,21)
+      STAT:
+        - 'SWR'
+        - 'PO'
+        - 'CMP'
+        - 'IDD'
+        - 'ALC'
+    METER_3:
+      BAR: (46,65)
+      BAR_WIDTH: 10
+      COLOR: (237,28,36)
+      RATIO: 1.0
+      PATH: res/VGA/indicator/meter_other.png
+      POS: (5,54)
+      SIZE: (314,21)
+      STAT:
+        - 'SWR'
+        - 'PO'
+        - 'CMP'
+        - 'IDD'
+        - 'ALC'
+    METER_4:
+      BAR: (46,89)
+      BAR_WIDTH: 10
+      COLOR: (163,73,164)
+      RATIO: 1.0
+      PATH: res/VGA/indicator/meter_other.png
+      POS: (5,78)
+      SIZE: (314,21)
+      STAT:
+        - 'SWR'
+        - 'PO'
+        - 'CMP'
+        - 'IDD'
+        - 'ALC'
+    # Icons
+    AGC:
+      PATH: res/VGA/indicator/agc.png
+      POS: (11,111)
+      SIZE: (72,21)
+      STAT:
+        - 'OFF'
+        - 'FAST'
+        - 'MID'
+        - 'SLOW'
+        - 'AUTO_FAST'
+        - 'AUTO_MID'
+        - 'AUTO_SLOW'
+    ATT:
+      PATH: res/VGA/indicator/att.png
+      POS: (425,111)
+      SIZE: (57,21)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    BK-IN:
+      PATH: res/VGA/indicator/bk-in.png
+      POS: (11,137)
+      SIZE: (72,21)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    CNT:
+      PATH: res/VGA/indicator/cnt.png
+      POS: (230,137)
+      SIZE: (57,21)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    DNF:
+      PATH: res/VGA/indicator/dnf.png
+      POS: (295,137)
+      SIZE: (57,21)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    IPO:
+      PATH: res/VGA/indicator/ipo.png
+      POS: (490,111)
+      SIZE: (57,21)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    MEQ:
+      PATH: res/VGA/indicator/meq.png
+      POS: (360,137)
+      SIZE: (57,21)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    MON:
+      PATH: res/VGA/indicator/mon.png
+      POS: (555,111)
+      SIZE: (76,21)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    NAR:
+      PATH: res/VGA/indicator/nar.png
+      POS: (360,111)
+      SIZE: (57,21)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    NB:
+      PATH: res/VGA/indicator/nb.png
+      POS: (91,111)
+      SIZE: (64,21)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    NCH:
+      PATH: res/VGA/indicator/nch.png
+      POS: (163,137)
+      SIZE: (59,21)
+      STAT:
+        - 'OFF'
+        - 'AUTO'
+        - 'MANUAL'
+        - 'BOTH'
+    NR:
+      PATH: res/VGA/indicator/nr.png
+      POS: (91,137)
+      SIZE: (64,21)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    PRC:
+      PATH: res/VGA/indicator/prc.png
+      POS: (295,111)
+      SIZE: (57,21)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    SFT:
+      PATH: res/VGA/indicator/sft.png
+      POS: (490,137)
+      SIZE: (57,21)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    SPL:
+      PATH: res/VGA/indicator/spl.png
+      POS: (163,111)
+      SIZE: (57,21)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    # SQL:
+    #   PATH: res/VGA/indicator/sql.png
+    #   POS: (72,21)
+    #   SIZE: (57,21)
+    #   STAT:
+    #     - 'OFF'
+    #     - 'ON'
+    TNR:
+      PATH: res/VGA/indicator/tnr.png
+      POS: (555,137)
+      SIZE: (57,21)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    VOX:
+      PATH: res/VGA/indicator/vox.png
+      POS: (230,111)
+      SIZE: (57,21)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    WDH:
+      PATH: res/VGA/indicator/wdh.png
+      POS: (425,137)
+      SIZE: (57,21)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    # Model Logo
+    MODEL:
+      PATH: res/VGA/indicator/model.png
+      POS: (563,76)
+      SIZE: (73,23)
+      STAT:
+        - 'FT-450'
+        - 'FT-891'
+        - 'FT-991'
+        - 'FT-2000'
+        - 'FT-DX1200'
+        - 'FT-DX3000'
+        - 'FT-DX5000'
+        - 'FT-DX9000'
+    # RX/TX
+    RX:
+      PATH: res/VGA/indicator/rx.png
+      POS: (14,272)
+      SIZE: (39,21)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    TX:
+      PATH: res/VGA/indicator/tx.png
+      POS: (14,245)
+      SIZE: (39,21)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    # DATETIME
+    DATE_1:
+      PATH: res/VGA/font/font_number_w.png
+      POS: (479,4)
+      SIZE: (9,15)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    DATE_2:
+      PATH: res/VGA/font/font_number_w.png
+      POS: (491,4)
+      SIZE: (9,15)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    DATE_3:
+      PATH: res/VGA/font/font_number_w.png
+      POS: (503,4)
+      SIZE: (9,15)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    DATE_4:
+      PATH: res/VGA/font/font_number_w.png
+      POS: (515,4)
+      SIZE: (9,15)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    DATE_5:
+      PATH: res/VGA/font/font_number_w.png
+      POS: (536,4)
+      SIZE: (9,15)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    DATE_6:
+      PATH: res/VGA/font/font_number_w.png
+      POS: (548,4)
+      SIZE: (9,15)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    DATE_7:
+      PATH: res/VGA/font/font_number_w.png
+      POS: (569,4)
+      SIZE: (9,15)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    DATE_8:
+      PATH: res/VGA/font/font_number_w.png
+      POS: (581,4)
+      SIZE: (9,15)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    TIME_1:
+      PATH: res/VGA/font/font_clock.png
+      POS: (479,27)
+      SIZE: (20,40)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+    TIME_2:
+      PATH: res/VGA/font/font_clock.png
+      POS: (503,27)
+      SIZE: (20,40)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+    TIME_3:
+      PATH: res/VGA/font/font_clock.png
+      POS: (535,27)
+      SIZE: (20,40)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+    TIME_4:
+      PATH: res/VGA/font/font_clock.png
+      POS: (559,27)
+      SIZE: (20,40)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+    TIME_5:
+      PATH: res/VGA/font/font_clock.png
+      POS: (591,27)
+      SIZE: (20,40)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+    TIME_6:
+      PATH: res/VGA/font/font_clock.png
+      POS: (615,27)
+      SIZE: (20,40)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+
+    # VFO_A
+    VFO_A_MODE:
+      PATH: res/VGA/indicator/mode.png
+      POS: (8,216)
+      SIZE: (51,18)
+      STAT:
+        - 'USB'
+        - 'LSB'
+        - 'CW-U'
+        - 'CW-L'
+        - 'RTTY-U'
+        - 'RTTY-L'
+        - 'DATA-U'
+        - 'DATA-L'
+        - 'AM'
+        - 'FM'
+    VFO_B_MODE:
+      PATH: res/VGA/indicator/mode.png
+      POS: (374,216)
+      SIZE: (51,18)
+      STAT:
+        - 'USB'
+        - 'LSB'
+        - 'CW-U'
+        - 'CW-L'
+        - 'RTTY-U'
+        - 'RTTY-L'
+        - 'DATA-U'
+        - 'DATA-L'
+        - 'AM'
+        - 'FM'
+    VFO_A_FREQ_1:
+      PATH: res/VGA/font/font_vfo_a_big.png
+      POS: (66,180)
+      SIZE: (27,54)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_A_FREQ_2:
+      PATH: res/VGA/font/font_vfo_a_big.png
+      POS: (96,180)
+      SIZE: (27,54)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_A_FREQ_3:
+      PATH: res/VGA/font/font_vfo_a_big.png
+      POS: (126,180)
+      SIZE: (27,54)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_A_FREQ_4:
+      PATH: res/VGA/font/font_vfo_a_big.png
+      POS: (168,180)
+      SIZE: (27,54)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_A_FREQ_5:
+      PATH: res/VGA/font/font_vfo_a_big.png
+      POS: (198,180)
+      SIZE: (27,54)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_A_FREQ_6:
+      PATH: res/VGA/font/font_vfo_a_big.png
+      POS: (228,180)
+      SIZE: (27,54)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_A_FREQ_7:
+      PATH: res/VGA/font/font_vfo_a_big.png
+      POS: (270,180)
+      SIZE: (27,54)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_A_FREQ_8:
+      PATH: res/VGA/font/font_vfo_a_big.png
+      POS: (300,180)
+      SIZE: (27,54)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_A_FREQ_9:
+      PATH: res/VGA/font/font_vfo_a_small.png
+      POS: (330,198)
+      SIZE: (24,36)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_B_FREQ_1:
+      PATH: res/VGA/font/font_vfo_b_big.png
+      POS: (431,198)
+      SIZE: (18,36)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_B_FREQ_2:
+      PATH: res/VGA/font/font_vfo_b_big.png
+      POS: (451,198)
+      SIZE: (18,36)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_B_FREQ_3:
+      PATH: res/VGA/font/font_vfo_b_big.png
+      POS: (471,198)
+      SIZE: (18,36)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_B_FREQ_4:
+      PATH: res/VGA/font/font_vfo_b_big.png
+      POS: (502,198)
+      SIZE: (18,36)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_B_FREQ_5:
+      PATH: res/VGA/font/font_vfo_b_big.png
+      POS: (522,198)
+      SIZE: (18,36)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_B_FREQ_6:
+      PATH: res/VGA/font/font_vfo_b_big.png
+      POS: (542,198)
+      SIZE: (18,36)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_B_FREQ_7:
+      PATH: res/VGA/font/font_vfo_b_big.png
+      POS: (572,198)
+      SIZE: (18,36)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_B_FREQ_8:
+      PATH: res/VGA/font/font_vfo_b_big.png
+      POS: (592,198)
+      SIZE: (18,36)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_B_FREQ_9:
+      PATH: res/VGA/font/font_vfo_b_small.png
+      POS: (612,210)
+      SIZE: (16,24)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_A_CLAR:
+      PATH: res/VGA/indicator/clar.png
+      POS: (190,245)
+      SIZE: (72,21)
+      STAT:
+        - 'OFF'
+        - 'ON'
+        - 'RX'
+        - 'TX'
+        - 'RXTX'
+    VFO_B_CLAR:
+      PATH: res/VGA/indicator/clar.png
+      POS: (464,245)
+      SIZE: (72,21)
+      STAT:
+        - 'OFF'
+        - 'ON'
+        - 'RX'
+        - 'TX'
+        - 'RXTX'
+    VFO_A_CLAR_DIRECTION:
+      PATH: res/VGA/indicator/clar_direction.png
+      POS: (266,251)
+      SIZE: (11,11)
+      STAT:
+        - '+'
+        - '-'
+    VFO_B_CLAR_DIRECTION:
+      PATH: res/VGA/indicator/clar_direction.png
+      POS: (540,251)
+      SIZE: (11,11)
+      STAT:
+        - '+'
+        - '-'
+    VFO_A_CLAR_OFFSET_1:
+      PATH: res/VGA/font/font_vfo_b_small.png
+      POS: (281,243)
+      SIZE: (16,24)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_A_CLAR_OFFSET_2:
+      PATH: res/VGA/font/font_vfo_b_small.png
+      POS: (300,243)
+      SIZE: (16,24)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_A_CLAR_OFFSET_3:
+      PATH: res/VGA/font/font_vfo_b_small.png
+      POS: (319,243)
+      SIZE: (16,24)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_A_CLAR_OFFSET_4:
+      PATH: res/VGA/font/font_vfo_b_small.png
+      POS: (338,243)
+      SIZE: (16,24)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_B_CLAR_OFFSET_1:
+      PATH: res/VGA/font/font_vfo_b_small.png
+      POS: (555,243)
+      SIZE: (16,24)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_B_CLAR_OFFSET_2:
+      PATH: res/VGA/font/font_vfo_b_small.png
+      POS: (574,243)
+      SIZE: (16,24)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_B_CLAR_OFFSET_3:
+      PATH: res/VGA/font/font_vfo_b_small.png
+      POS: (593,243)
+      SIZE: (16,24)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_B_CLAR_OFFSET_4:
+      PATH: res/VGA/font/font_vfo_b_small.png
+      POS: (612,243)
+      SIZE: (16,24)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    RF_POWER_1:
+      PATH: res/VGA/font/font_number_b.png
+      POS: (73,248)
+      SIZE: (9,15)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    RF_POWER_2:
+      PATH: res/VGA/font/font_number_b.png
+      POS: (84,248)
+      SIZE: (9,15)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    RF_POWER_3:
+      PATH: res/VGA/font/font_number_b.png
+      POS: (95,248)
+      SIZE: (9,15)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    RF_GAIN_1:
+      PATH: res/VGA/font/font_number_w.png
+      POS: (345,80)
+      SIZE: (9,15)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    RF_GAIN_2:
+      PATH: res/VGA/font/font_number_w.png
+      POS: (357,80)
+      SIZE: (9,15)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    RF_GAIN_3:
+      PATH: res/VGA/font/font_number_w.png
+      POS: (369,80)
+      SIZE: (9,15)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    AF_GAIN_1:
+      PATH: res/VGA/font/font_number_w.png
+      POS: (404,80)
+      SIZE: (9,15)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    AF_GAIN_2:
+      PATH: res/VGA/font/font_number_w.png
+      POS: (416,80)
+      SIZE: (9,15)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    AF_GAIN_3:
+      PATH: res/VGA/font/font_number_w.png
+      POS: (428,80)
+      SIZE: (9,15)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    MIC_GAIN_1:
+      PATH: res/VGA/font/font_number_w.png
+      POS: (463,80)
+      SIZE: (9,15)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    MIC_GAIN_2:
+      PATH: res/VGA/font/font_number_w.png
+      POS: (475,80)
+      SIZE: (9,15)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    MIC_GAIN_3:
+      PATH: res/VGA/font/font_number_w.png
+      POS: (487,80)
+      SIZE: (9,15)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VOX_GAIN_1:
+      PATH: res/VGA/font/font_number_w.png
+      POS: (522,80)
+      SIZE: (9,15)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VOX_GAIN_2:
+      PATH: res/VGA/font/font_number_w.png
+      POS: (534,80)
+      SIZE: (9,15)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VOX_GAIN_3:
+      PATH: res/VGA/font/font_number_w.png
+      POS: (546,80)
+      SIZE: (9,15)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    NB_VAL_1:
+      PATH: res/VGA/font/font_number_t.png
+      POS: (131,114)
+      SIZE: (9,15)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    NB_VAL_2:
+      PATH: res/VGA/font/font_number_t.png
+      POS: (143,114)
+      SIZE: (9,15)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    NR_VAL_1:
+      PATH: res/VGA/font/font_number_t.png
+      POS: (131,140)
+      SIZE: (9,15)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    NR_VAL_2:
+      PATH: res/VGA/font/font_number_t.png
+      POS: (143,140)
+      SIZE: (9,15)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    MON_VAL_1:
+      PATH: res/VGA/font/font_number_t.png
+      POS: (607,114)
+      SIZE: (9,15)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    MON_VAL_2:
+      PATH: res/VGA/font/font_number_t.png
+      POS: (619,114)
+      SIZE: (9,15)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+
+# For HVGA Screen
+HVGA:
+  RESOLUTION: (480,320)
+  BACKGROUND: res/HVGA/background.png
+  BUTTON:
+    FUNC:
+      BUTTON_FUNC_VFO:
+      BUTTON_FUNC_BAND:
+      BUTTON_FUNC_MODE:
+      BUTTON_FUNC_CW:
+      BUTTON_FUNC_MEM:
+      BUTTON_FUNC_SCOPE:
+    PANEL:
+      PANEL_BAND:
+        '1.8':
+          POS:  (131,312,200,357)
+          FUNC: 'BAND_SET_1.8'
+        '3.5':
+          POS:  (208,312,277,357)
+          FUNC: 'BAND_SET_3.5'
+        '5.3':
+          POS:  (285,312,354,357)
+          FUNC: 'BAND_SET_5.3'
+        '7.0':
+          POS:  (362,312,431,357)
+          FUNC: 'BAND_SET_7.0'
+        '10':
+          POS:  (439,312,508,357)
+          FUNC: 'BAND_SET_10'
+        '14':
+          POS:  (131,365,200,410)
+          FUNC: 'BAND_SET_14'
+        '18':
+          POS:  (208,365,277,410)
+          FUNC: 'BAND_SET_18'
+        '21':
+          POS:  (285,365,354,410)
+          FUNC: 'BAND_SET_21'
+        '24':
+          POS:  (362,365,431,410)
+          FUNC: 'BAND_SET_24'
+        '28':
+          POS:  (439,365,508,410)
+          FUNC: 'BAND_SET_28'
+        '50':
+          POS:  (131,418,200,463)
+          FUNC: 'BAND_SET_50'
+        'GEN':
+          POS:  (208,418,277,463)
+          FUNC: 'BAND_SET_GEN'
+        'UP':
+          POS:  (362,418,431,463)
+          FUNC: 'BAND_SET_UP'
+        'DOWN':
+          POS:  (439,418,508,463)
+          FUNC: 'BAND_SET_DOWN'
+      PANEL_MODE:
+        'LSB':
+          POS:  (131,312,200,357)
+          FUNC: 'MODE_SET_LSB'
+        'CW-L':
+          POS:  (208,312,277,357)
+          FUNC: 'MODE_SET_CW-L'
+        'RTTY-L':
+          POS:  (285,312,354,357)
+          FUNC: 'MODE_SET_RTTY-L'
+        'DATA-L':
+          POS:  (362,312,431,357)
+          FUNC: 'MODE_SET_DATA-L'
+        'AM':
+          POS:  (439,312,508,357)
+          FUNC: 'MODE_SET_AM'
+        'USB':
+          POS:  (131,365,200,410)
+          FUNC: 'MODE_SET_USB'
+        'CW-U':
+          POS:  (208,365,277,410)
+          FUNC: 'MODE_SET_CW-U'
+        'RTTY-U':
+          POS:  (285,365,354,410)
+          FUNC: 'MODE_SET_RTTY-U'
+        'DATA-U':
+          POS:  (362,365,431,410)
+          FUNC: 'MODE_SET_DATA-U'
+        'FM':
+          POS:  (439,365,508,410)
+          FUNC: 'MODE_SET_FM'
+  ELEMENTS:
+    PANEL:
+      PATH: res/HVGA/panel/panel.png
+      POS: (0,187)
+      SIZE: (480,133)
+      STAT:
+        - 'BAND'
+        - 'MODE'
+    METER_1:
+      BAR: (46,16)
+      BAR_WIDTH: 11
+      COLOR: (63,72,204)
+      RATIO: 1.0
+      PATH: res/HVGA/indicator/meter_s.png
+      POS: (5,4)
+      SIZE: (314,23)
+      STAT:
+        - 'S'
+    METER_2:
+      BAR: (46,41)
+      BAR_WIDTH: 10
+      COLOR: (34,177,76)
+      RATIO: 1.0
+      PATH: res/HVGA/indicator/meter_other.png
+      POS: (5,30)
+      SIZE: (314,21)
+      STAT:
+        - 'SWR'
+        - 'PO'
+        - 'CMP'
+        - 'IDD'
+        - 'ALC'
+    METER_3:
+      BAR: (46,65)
+      BAR_WIDTH: 10
+      COLOR: (237,28,36)
+      RATIO: 1.0
+      PATH: res/HVGA/indicator/meter_other.png
+      POS: (5,54)
+      SIZE: (314,21)
+      STAT:
+        - 'SWR'
+        - 'PO'
+        - 'CMP'
+        - 'IDD'
+        - 'ALC'
+    METER_4:
+      BAR: (46,89)
+      BAR_WIDTH: 10
+      COLOR: (163,73,164)
+      RATIO: 1.0
+      PATH: res/HVGA/indicator/meter_other.png
+      POS: (5,78)
+      SIZE: (314,21)
+      STAT:
+        - 'SWR'
+        - 'PO'
+        - 'CMP'
+        - 'IDD'
+        - 'ALC'
+    # Icons
+    AGC:
+      PATH: res/HVGA/indicator/agc.png
+      POS: (4,148)
+      SIZE: (47,14)
+      STAT:
+        - 'OFF'
+        - 'FAST'
+        - 'MID'
+        - 'SLOW'
+        - 'AUTO_FAST'
+        - 'AUTO_MID'
+        - 'AUTO_SLOW'
+    ATT:
+      PATH: res/HVGA/indicator/att.png
+      POS: (39,170)
+      SIZE: (33,14)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    BK-IN:
+      PATH: res/HVGA/indicator/bk-in.png
+      POS: (74,170)
+      SIZE: (44,14)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    CNT:
+      PATH: res/HVGA/indicator/cnt.png
+      POS: (120,170)
+      SIZE: (33,14)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    DNF:
+      PATH: res/HVGA/indicator/dnf.png
+      POS: (4,170)
+      SIZE: (33,14)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    IPO:
+      PATH: res/HVGA/indicator/ipo.png
+      POS: (155,170)
+      SIZE: (33,14)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    MEQ:
+      PATH: res/HVGA/indicator/meq.png
+      POS: (365,170)
+      SIZE: (33,14)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    MON:
+      PATH: res/HVGA/indicator/mon.png
+      POS: (428,69)
+      SIZE: (50,14)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    NAR:
+      PATH: res/HVGA/indicator/nar.png
+      POS: (260,170)
+      SIZE: (33,14)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    NB:
+      PATH: res/HVGA/indicator/nb.png
+      POS: (383,86)
+      SIZE: (42,14)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    NCH:
+      PATH: res/HVGA/indicator/nch.png
+      POS: (435,170)
+      SIZE: (39,14)
+      STAT:
+        - 'OFF'
+        - 'AUTO'
+        - 'MANUAL'
+        - 'BOTH'
+    NR:
+      PATH: res/HVGA/indicator/nr.png
+      POS: (383,69)
+      SIZE: (42,14)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    PRC:
+      PATH: res/HVGA/indicator/prc.png
+      POS: (190,170)
+      SIZE: (33,14)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    # not include
+    SFT:
+      PATH: res/HVGA/indicator/sft.png
+      POS: (330,170)
+      SIZE: (33,14)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    SPL:
+      PATH: res/HVGA/indicator/spl.png
+      POS: (400,170)
+      SIZE: (33,14)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    # SQL:
+    #   PATH: res/HVGA/indicator/sql.png
+    #   POS: (72,21)
+    #   SIZE: (57,21)
+    #   STAT:
+    #     - 'OFF'
+    #     - 'ON'
+    TNR:
+      PATH: res/HVGA/indicator/tnr.png
+      POS: (225,170)
+      SIZE: (33,14)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    VOX:
+      PATH: res/HVGA/indicator/vox.png
+      POS: (295,170)
+      SIZE: (33,14)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    WDH:
+      PATH: res/HVGA/indicator/null.png
+      POS: (0,0)
+      SIZE: (1,1)
+      STAT:
+        - 'OFF'
+        - 'ON'
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    # Model Logo
+    MODEL:
+      PATH: res/HVGA/indicator/model.png
+      POS: (385,42)
+      SIZE: (73,23)
+      STAT:
+        - 'FT-450'
+        - 'FT-891'
+        - 'FT-991'
+        - 'FT-2000'
+        - 'FT-DX1200'
+        - 'FT-DX3000'
+        - 'FT-DX5000'
+        - 'FT-DX9000'
+    # RX/TX
+    RX:
+      PATH: res/HVGA/indicator/rx.png
+      POS: (6,127)
+      SIZE: (27,14)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    TX:
+      PATH: res/HVGA/indicator/tx.png
+      POS: (6,111)
+      SIZE: (27,14)
+      STAT:
+        - 'OFF'
+        - 'ON'
+    # DATETIME
+    DATE_1:
+      PATH: res/HVGA/font/font_number_w.png
+      POS: (405,4)
+      SIZE: (6,10)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    DATE_2:
+      PATH: res/HVGA/font/font_number_w.png
+      POS: (413,4)
+      SIZE: (6,10)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    DATE_3:
+      PATH: res/HVGA/font/font_number_w.png
+      POS: (421,4)
+      SIZE: (6,10)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    DATE_4:
+      PATH: res/HVGA/font/font_number_w.png
+      POS: (429,4)
+      SIZE: (6,10)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    DATE_5:
+      PATH: res/HVGA/font/font_number_w.png
+      POS: (442,4)
+      SIZE: (6,10)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    DATE_6:
+      PATH: res/HVGA/font/font_number_w.png
+      POS: (450,4)
+      SIZE: (6,10)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    DATE_7:
+      PATH: res/HVGA/font/font_number_w.png
+      POS: (463,4)
+      SIZE: (6,10)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    DATE_8:
+      PATH: res/HVGA/font/font_number_w.png
+      POS: (471,4)
+      SIZE: (6,10)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    TIME_1:
+      PATH: res/HVGA/font/font_clock.png
+      POS: (386,17)
+      SIZE: (10,20)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+    TIME_2:
+      PATH: res/HVGA/font/font_clock.png
+      POS: (399,17)
+      SIZE: (10,20)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+    TIME_3:
+      PATH: res/HVGA/font/font_clock.png
+      POS: (418,17)
+      SIZE: (10,20)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+    TIME_4:
+      PATH: res/HVGA/font/font_clock.png
+      POS: (431,17)
+      SIZE: (10,20)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+    TIME_5:
+      PATH: res/HVGA/font/font_clock.png
+      POS: (450,17)
+      SIZE: (10,20)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+    TIME_6:
+      PATH: res/HVGA/font/font_clock.png
+      POS: (463,17)
+      SIZE: (10,20)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+
+    # VFO_A
+    VFO_A_MODE:
+      PATH: res/HVGA/indicator/mode.png
+      POS: (95,108)
+      SIZE: (34,12)
+      STAT:
+        - 'USB'
+        - 'LSB'
+        - 'CW-U'
+        - 'CW-L'
+        - 'RTTY-U'
+        - 'RTTY-L'
+        - 'DATA-U'
+        - 'DATA-L'
+        - 'AM'
+        - 'FM'
+        - 'C4FM'
+    VFO_B_MODE:
+      PATH: res/HVGA/indicator/mode.png
+      POS: (304,108)
+      SIZE: (34,12)
+      STAT:
+        - 'USB'
+        - 'LSB'
+        - 'CW-U'
+        - 'CW-L'
+        - 'RTTY-U'
+        - 'RTTY-L'
+        - 'DATA-U'
+        - 'DATA-L'
+        - 'AM'
+        - 'FM'
+        - 'C4FM'
+    # not include
+    VFO_A_FREQ_1:
+      PATH: res/HVGA/indicator/null.png
+      POS: (0,0)
+      SIZE: (1,1)
+      STAT:
+        - 'OFF'
+        - 'ON'
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_A_FREQ_2:
+      PATH: res/HVGA/font/font_vfo_big.png
+      POS: (57,126)
+      SIZE: (18,36)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_A_FREQ_3:
+      PATH: res/HVGA/font/font_vfo_big.png
+      POS: (76,126)
+      SIZE: (18,36)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_A_FREQ_4:
+      PATH: res/HVGA/font/font_vfo_big.png
+      POS: (110,126)
+      SIZE: (18,36)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_A_FREQ_5:
+      PATH: res/HVGA/font/font_vfo_big.png
+      POS: (130,126)
+      SIZE: (18,36)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_A_FREQ_6:
+      PATH: res/HVGA/font/font_vfo_big.png
+      POS: (150,126)
+      SIZE: (18,36)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_A_FREQ_7:
+      PATH: res/HVGA/font/font_vfo_big.png
+      POS: (184,126)
+      SIZE: (18,36)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_A_FREQ_8:
+      PATH: res/HVGA/font/font_vfo_big.png
+      POS: (204,126)
+      SIZE: (18,36)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_A_FREQ_9:
+      PATH: res/HVGA/font/font_vfo_small.png
+      POS: (224,138)
+      SIZE: (16,24)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    # not include
+    VFO_B_FREQ_1:
+      PATH: res/HVGA/indicator/null.png
+      POS: (0,0)
+      SIZE: (1,1)
+      STAT:
+        - 'OFF'
+        - 'ON'
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_B_FREQ_2:
+      PATH: res/HVGA/font/font_vfo_big.png
+      POS: (263,126)
+      SIZE: (18,36)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_B_FREQ_3:
+      PATH: res/HVGA/font/font_vfo_big.png
+      POS: (283,126)
+      SIZE: (18,36)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_B_FREQ_4:
+      PATH: res/HVGA/font/font_vfo_big.png
+      POS: (317,126)
+      SIZE: (18,36)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_B_FREQ_5:
+      PATH: res/HVGA/font/font_vfo_big.png
+      POS: (337,126)
+      SIZE: (18,36)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_B_FREQ_6:
+      PATH: res/HVGA/font/font_vfo_big.png
+      POS: (357,126)
+      SIZE: (18,36)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_B_FREQ_7:
+      PATH: res/HVGA/font/font_vfo_big.png
+      POS: (391,126)
+      SIZE: (18,36)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_B_FREQ_8:
+      PATH: res/HVGA/font/font_vfo_big.png
+      POS: (411,126)
+      SIZE: (18,36)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_B_FREQ_9:
+      PATH: res/HVGA/font/font_vfo_small.png
+      POS: (431,138)
+      SIZE: (16,24)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_A_CLAR:
+      PATH: res/HVGA/indicator/clar.png
+      POS: (141,108)
+      SIZE: (51,12)
+      STAT:
+        - 'OFF'
+        - 'ON'
+        - 'RX'
+        - 'TX'
+        - 'RXTX'
+    VFO_B_CLAR:
+      PATH: res/HVGA/indicator/clar.png
+      POS: (348,108)
+      SIZE: (51,12)
+      STAT:
+        - 'OFF'
+        - 'ON'
+        - 'RX'
+        - 'TX'
+        - 'RXTX'
+    VFO_A_CLAR_DIRECTION:
+      PATH: res/HVGA/indicator/clar_direction.png
+      POS: (194,112)
+      SIZE: (6,6)
+      STAT:
+        - '+'
+        - '-'
+    VFO_B_CLAR_DIRECTION:
+      PATH: res/HVGA/indicator/clar_direction.png
+      POS: (401,112)
+      SIZE: (6,6)
+      STAT:
+        - '+'
+        - '-'
+    VFO_A_CLAR_OFFSET_1:
+      PATH: res/HVGA/font/font_clar.png
+      POS: (202,108)
+      SIZE: (8,12)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_A_CLAR_OFFSET_2:
+      PATH: res/HVGA/font/font_clar.png
+      POS: (212,108)
+      SIZE: (8,12)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_A_CLAR_OFFSET_3:
+      PATH: res/HVGA/font/font_clar.png
+      POS: (222,108)
+      SIZE: (8,12)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_A_CLAR_OFFSET_4:
+      PATH: res/HVGA/font/font_clar.png
+      POS: (232,108)
+      SIZE: (8,12)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_B_CLAR_OFFSET_1:
+      PATH: res/HVGA/font/font_clar.png
+      POS: (409,108)
+      SIZE: (8,12)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_B_CLAR_OFFSET_2:
+      PATH: res/HVGA/font/font_clar.png
+      POS: (419,108)
+      SIZE: (8,12)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_B_CLAR_OFFSET_3:
+      PATH: res/HVGA/font/font_clar.png
+      POS: (429,108)
+      SIZE: (8,12)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VFO_B_CLAR_OFFSET_4:
+      PATH: res/HVGA/font/font_clar.png
+      POS: (439,108)
+      SIZE: (8,12)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    RF_POWER_1:
+      PATH: res/HVGA/font/font_number_w.png
+      POS: (348,86)
+      SIZE: (6,10)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    RF_POWER_2:
+      PATH: res/HVGA/font/font_number_w.png
+      POS: (356,86)
+      SIZE: (6,10)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    RF_POWER_3:
+      PATH: res/HVGA/font/font_number_w.png
+      POS: (364,86)
+      SIZE: (6,10)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    RF_GAIN_1:
+      PATH: res/HVGA/font/font_number_w.png
+      POS: (348,26)
+      SIZE: (6,10)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    RF_GAIN_2:
+      PATH: res/HVGA/font/font_number_w.png
+      POS: (356,26)
+      SIZE: (6,10)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    RF_GAIN_3:
+      PATH: res/HVGA/font/font_number_w.png
+      POS: (364,26)
+      SIZE: (6,10)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    AF_GAIN_1:
+      PATH: res/HVGA/font/font_number_w.png
+      POS: (348,6)
+      SIZE: (6,10)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    AF_GAIN_2:
+      PATH: res/HVGA/font/font_number_w.png
+      POS: (356,6)
+      SIZE: (6,10)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    AF_GAIN_3:
+      PATH: res/HVGA/font/font_number_w.png
+      POS: (364,6)
+      SIZE: (6,10)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    MIC_GAIN_1:
+      PATH: res/HVGA/font/font_number_w.png
+      POS: (348,46)
+      SIZE: (6,10)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    MIC_GAIN_2:
+      PATH: res/HVGA/font/font_number_w.png
+      POS: (356,46)
+      SIZE: (6,10)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    MIC_GAIN_3:
+      PATH: res/HVGA/font/font_number_w.png
+      POS: (364,46)
+      SIZE: (6,10)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VOX_GAIN_1:
+      PATH: res/HVGA/font/font_number_w.png
+      POS: (348,66)
+      SIZE: (6,10)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VOX_GAIN_2:
+      PATH: res/HVGA/font/font_number_w.png
+      POS: (356,66)
+      SIZE: (6,10)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    VOX_GAIN_3:
+      PATH: res/HVGA/font/font_number_w.png
+      POS: (364,66)
+      SIZE: (6,10)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    NB_VAL_1:
+      PATH: res/HVGA/font/font_number_t.png
+      POS: (409,88)
+      SIZE: (6,10)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    NB_VAL_2:
+      PATH: res/HVGA/font/font_number_t.png
+      POS: (417,88)
+      SIZE: (6,10)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    NR_VAL_1:
+      PATH: res/HVGA/font/font_number_t.png
+      POS: (409,71)
+      SIZE: (6,10)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    NR_VAL_2:
+      PATH: res/HVGA/font/font_number_t.png
+      POS: (417,71)
+      SIZE: (6,10)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    MON_VAL_1:
+      PATH: res/HVGA/font/font_number_t.png
+      POS: (462,71)
+      SIZE: (6,10)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '
+    MON_VAL_2:
+      PATH: res/HVGA/font/font_number_t.png
+      POS: (470,71)
+      SIZE: (6,10)
+      STAT:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+        - '7'
+        - '8'
+        - '9'
+        - ' '

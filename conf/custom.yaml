@@ -1,0 +1,10 @@
+RADIO:
+  MODEL: FT-891
+  PORT: /dev/ttyUSB0
+  BAUDRATE: 38400
+
+SYSTEM:
+  NTP: False
+  SOUND_CARD: False
+  SDR: False
+  

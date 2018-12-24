@@ -1,0 +1,1071 @@
+FT-891:
+  ################< GAIN SETTING >################
+  AF_GAIN_SET:
+    CMD: AG0{$VAL};
+    CONVERT: 
+      VAL: 
+        EXPS: x * 2.55
+        FORM: R|3|0
+    DIM:
+  AF_GAIN_GET:
+    CMD: AG0;
+    RET:
+      VAL: 3,6
+    CONVERT:
+      VAL: x / 2.55
+    DIM:
+  RF_GAIN_SET:
+    CMD: RG0{$VAL};
+    CONVERT:
+      VAL:
+        EXPS: x / 3.33
+        FORM: R|3|0
+    DIM:
+  RF_GAIN_GET:
+    CMD: RG0;
+    RET:
+      VAL: 3,6
+    CONVERT:
+      VAL: x * 3.33
+    DIM:
+  # MIC_GAIN_SET:
+  #   CMD: MG{$VAL};
+  #   CONVERT:
+  #     VAL:
+  #       EXPS: x
+  #       FORM: R|3|0
+  #   DIM:
+  # MIC_GAIN_GET:   # MG; instruction return 'ERROR'
+  #   CMD: MG;
+  #   RET:
+  #     VAL: 2,5
+  #   CONVERT:
+  #     VAL: x
+  #   DIM:
+  MIC_GAIN_SET:
+    CMD: EX1607{$VAL};
+    CONVERT:
+      VAL:
+        EXPS: x
+        FORM: R|3|0
+    DIM:
+  MIC_GAIN_GET:
+    CMD: EX1607;
+    RET:
+      VAL: 6,9
+    CONVERT:
+      VAL: x
+    DIM:
+  VOX_GAIN_SET:
+    CMD: VG{$VAL};
+    CONVERT:
+      VAL:
+        EXPS: x
+        FORM: R|3|0
+    DIM:
+  VOX_GAIN_GET:
+    CMD: VG;
+    RET:
+      VAL: 2,5
+    CONVERT:
+      VAL: x
+    DIM:
+  ################</ GAIN SETTING >################
+  AGC_SET:
+    CMD: GT0{$MODE};
+    CONVERT:
+    DIM:
+      MODE:
+        'OFF': '0'
+        'FAST': '1'
+        'MID': '2'
+        'SLOW': '3'
+        'AUTO': '4'
+  AGC_GET:
+    CMD: GT0;
+    RET:
+      MODE: 3,4
+    CONVERT:
+    DIM:
+      MODE:
+        '0': 'OFF'
+        '1': 'FAST'
+        '2': 'MID'
+        '3': 'SLOW'
+        '4': 'AUTO_FAST'
+        '5': 'AUTO_MID'
+        '6': 'AUTO_SLOW'
+  APF_SET:
+    CMD: CO02{$STATUS};
+    CONVERT:
+    DIM:
+      STATUS:
+        'OFF': '0001'
+        'ON': '0001'
+  APF_GET:
+    CMD: CO02;
+    RET:
+      STATUS: 4,8
+    CONVERT:
+    DIM:
+      STATUS:
+        '0000': 'OFF'
+        '0001': 'ON'
+  APF_FREQ_SET:
+    CMD: CO03{$FREQ};
+    CONVERT:
+      FREQ:
+        EXPS: x / 10 + 25
+        FORM: R|4|0
+    DIM:
+  APF_FREQ_GET:
+    CMD: CO03;
+    RET:
+      FREQ: 4,8
+    CONVERT:
+      FREQ: (x * 10) - 250
+    DIM:
+  ATT_SET:
+    CMD: RA0{$STATUS};
+    CONVERT:
+    DIM:
+      STATUS:
+        'OFF': '0'
+        'ON': '1'
+  ATT_GET:
+    CMD: RA0;
+    RET:
+      STATUS: 3,4
+    CONVERT:
+    DIM:
+      STATUS:
+        '0': 'OFF'
+        '1': 'ON'
+  ATU_SET:
+    CMD: AC00{$STATUS};
+    CONVERT:
+    DIM:
+      STATUS:
+        'OFF': '0'
+        'ON': '1'
+        'TUNING': '2'
+  ATU_GET:
+    CMD: AC;
+    RET:
+      STATUS: 4,5
+    CONVERT:
+    DIM:
+      STATUS:
+        '0': 'OFF'
+        '1': 'ON'
+        '2': 'TUNING'
+  BAND_SET:
+    CMD: BS{$BAND};
+    CONVERT:
+    DIM:
+      BAND:
+        '1.8M': '00'
+        '3.5M': '01'
+        '5.3M': '02'
+        '7M': '03'
+        '10M': '04'
+        '14M': '05'
+        '18M': '06'
+        '21M': '07'
+        '24.5M': '08'
+        '28M': '09'
+        '50M': '10'
+        'GEN': '11'
+        'MW': '12'
+  BAND_DOWN_SET:
+    CMD: BD0;
+  BAND_UP_SET:
+    CMD: BU0;
+  BREAK_IN_SET:
+    CMD: BI{$STATUS}
+    CONVERT:
+    DIM:
+      STATUS:
+        'OFF': '0'
+        'ON': '1'
+  BREAK_IN_GET:
+    CMD: BI;
+    RET: 
+      STATUS: 2,3
+    CONVERT:
+    DIM:
+      STATUS:
+        '0': 'OFF'
+        '1': 'ON'
+  CHANNEL_DOWN_SET:
+    CMD: CH1;
+  CHANNEL_UP_SET:
+    CMD: CH0;
+  ################< CLAR >################
+  CLAR_SET:
+    CMD: CF0{$STATUS}0;
+    CONVERT:
+    DIM:
+      STATUS:
+        'OFF': '0'
+        'ON': '1'
+  CLAR_GET:
+    CMD: CF0;
+    RET:
+      STATUS: 3,4
+    CONVERT:
+    DIM:
+      STATUS:
+        '0': 'OFF'
+        '1': 'ON'
+  CLAR_CLEAR_SET:
+    CMD: RC;
+  CLAR_DOWN_SET:
+    CMD: RD{$FREQ};
+    CONVERT:
+      FREQ:
+        EXPS: x
+        FROM: R|4|0
+    DIM:
+  CLAR_UP_SET:
+    CMD: RU{$FREQ};
+    CONVERT:
+      FREQ:
+        EXPS: x
+        FROM: R|4|0
+    DIM:
+  ################</ CLAR >################
+  CONTOUR_SET:
+    CMD: CO00{$STATUS};
+    CONVERT:
+    DIM:
+      STATUS:
+        'OFF': '0000'
+        'ON': '0001'
+  CONTOUR_GET:
+    CMD: CO00;
+    RET:
+      STATUS: 4,8
+    CONVERT:
+    DIM:
+      STATUS:
+        '0000': 'OFF'
+        '0001': 'ON'
+  CONTOUR_FREQ_SET:
+    CMD: CO01{$FREQ}
+    CONVERT:
+      FREQ:
+        EXPS: x
+        FORM: R|4|0
+    DIM:
+  CONTOUR_FREQ_GET:
+    CMD: CO01;
+    RET:
+      FREQ: 4,8
+    CONVERT:
+      FREQ: x
+    DIM:
+  CTCSS_SET:
+    CMD: CT0{$TYPE};
+    CONVERT:
+    DIM:
+      TYPE:
+        'CTCSS_OFF': '0'
+        'CTCSS_ENC_DEC_ON': '1'
+        'CTCSS_ENC_ON': '2'
+        'DCS_ON': '3'
+  CTCSS_GET:
+    CMD: CT0;
+    RET:
+      TYPE: 3,4
+    CONVERT:
+    DIM:
+      '0': 'CTCSS_OFF'
+      '1': 'CTCSS_ENC_DEC_ON'
+      '2': 'CTCSS_ENC_ON'
+      '3': 'DCS_ON'
+  CW_KEYER_SET:
+    CMD: KR{$STATUS};
+    CONVERT:
+    DIM:
+      STATUS:
+        'OFF': '0'
+        'ON': '1'
+  CW_KEYER_GET:
+    CMD: KR;
+    RET:
+      STATUS: 2,3
+    CONVERT:
+    DIM:
+      STATUS:
+        '0': 'OFF'
+        '1': 'ON'
+  CW_PITCH_SET:
+    CMD: KP{$FREQ};
+    CONVERT:
+      FREQ:
+        EXPS: x / 10 - 30
+        FORM: R|2|0
+    DIM:
+  CW_PITCH_GET:
+    CMD: KP;
+    RET:
+      FREQ: 2,4
+    CONVERT:
+      FREQ: (x + 30) * 10
+    DIM:
+  CW_SPEED_SET:
+    CMD: KS{$SPEED};
+    CONVERT:
+      SPEED:
+        EXPS: x
+        FORM: R|3|0
+    DIM:
+  CW_SPEED_GET:
+    CMD: KS;
+    RET: 
+      SPEED: 2,5
+    CONVERT:
+      SPEED: x
+    DIM:
+  CW_SPOT_SET:
+    CMD: CS{$STATUS};
+    CONVERT:
+    DIM:
+      STATUS:
+        'OFF': '0'
+        'ON': '1'
+  CW_SPOT_GET:
+    CMD: CS;
+    RET:
+      STATUS: 2,3
+    CONVERT:
+    DIM:
+      STATUS:
+        '0': 'OFF'
+        '1': 'ON'
+  ID_GET:
+    CMD: ID;
+    RET:
+      ID: 2,6
+    CONVERT:
+    DIM:
+  IF_SHIFT_SET:
+    CMD: IS0{$STATUS}{$DIRECT}{$FREQ};
+    CONVERT:
+      FREQ:
+        EXPS: x
+        FORM: R|4|0
+    DIM:
+      STATUS:
+        'OFF': '0'
+        'ON': '1'
+      DIRECT:
+        'PLUS': '+'
+        'MINUS': '-'
+  IF_SHIFT_GET:
+    CMD: IS0;
+    RET:
+      STATUS: 3,4
+      DIRECT: 4,5
+      FREQ: 5,9
+    CONVERT:
+      FREQ: x
+    DIM:
+      STATUS:
+        '0': 'OFF'
+        '1': 'ON'
+      DIRECT:
+        '+': 'PLUS'
+        '-': 'MINUS'
+  IPO_SET:
+    CMD: PA0{$STATUS};
+    CONVERT:
+    DIM:
+      STATUS:
+        'IPO': '0'
+        'AMP': '1'
+  IPO_GET:
+    CMD: PA0;
+    RET:
+      STATUS: 3,4
+    CONVERT:
+    DIM:
+      STATUS:
+        '0': 'IPO'
+        '1': 'AMP'
+  MEMORY_CHANNEL_READ:
+    CMD: MR{$CHANNEL};
+    CONVERT:
+    DIM:
+  
+  ################< METER >################
+  METER_S_READING_GET:
+    CMD: SM0;
+    RET:
+      VAL: 3,6
+    CONVERT:
+      VAL: x
+  METER_S_GET:
+    CMD: RM1;
+    RET:
+      VAL: 3,6
+    CONVERT:
+      VAL: x    # 0~255
+    DIM:
+  METER_CMP_GET:
+    CMD: RM3;
+    RET:
+      VAL: 3,6
+    CONVERT:
+      VAL: x    # 0~255
+    DIM:
+  METER_ALC_GET:
+    CMD: RM4;
+    RET:
+      VAL: 3,6
+    CONVERT:
+      VAL: x    # 0~255
+    DIM:
+  METER_PO_GET:
+    CMD: RM5;
+    RET:
+      VAL: 3,6
+    CONVERT:
+      VAL: x    # 0~255
+    DIM:
+  METER_SWR_GET:
+    CMD: RM6;
+    RET:
+      VAL: 3,6
+    CONVERT:
+      VAL: x    # 0~255
+    DIM:
+  METER_ID_GET:
+    CMD: RM7;
+    RET:
+      VAL: 3,6
+    CONVERT:
+      VAL: x    # 0~255
+    DIM:
+  METER_SELECT_SET:
+    CMD: MS{$METER};
+    CONVERT:
+    DIM:
+      'CMP': '0'
+      'ALC': '1'
+      'PO': '2'
+      'SWR': '3'
+      'ID': '4'
+  METER_SELECT_GET:
+    CMD: MS;
+    RET:
+      METER: 2,3
+    CONVERT:
+    DIM:
+      '0': 'CMP'
+      '1': 'ALC'
+      '2': 'PO'
+      '3': 'SWR'
+      '4': 'ID'
+  ################</ METER >################
+  MODE_SET:
+    CMD: MD0{$MODE};
+    CONVERT:
+    DIM:
+      MODE:
+        'LSB': '1'
+        'USB': '2'
+        'CW-U': '3'
+        'FM': '4'
+        'AM': '5'
+        'RTTY-LSB': '6'
+        'CW-L': '7'
+        'DATA-LSB': '8'
+        'RTTY-USB': '9'
+        'DATA-FM': 'A'
+        'FM-N': 'B'
+        'DATA-USB': 'C'
+        'AM-N': 'D'
+  MODE_GET:
+    CMD: MD0;
+    RET:
+      MODE: 3,4
+    CONVERT:
+    DIM:
+      MODE:
+        '1': 'LSB'
+        '2': 'USB'
+        '3': 'CW-U'
+        '4': 'FM'
+        '5': 'AM'
+        '6': 'RTTY-LSB'
+        '7': 'CW-L'
+        '8': 'DATA-LSB'
+        '9': 'RTTY-USB'
+        'A': 'DATA-FM'
+        'B': 'FM-N'
+        'C': 'DATA-USB'
+        'D': 'AM-N'
+  MONITOR_SET:
+    CMD: ML0{$STATUS};
+    CONVERT:
+    DIM:
+      STATUS:
+        'OFF': '000'
+        'ON': '001'
+  MONITOR_GET:
+    CMD: ML0;
+    RET:
+      STATUS: 3,6
+    CONVERT:
+    DIM:
+      STATUS:
+        '000': 'OFF'
+        '001': 'ON'
+  MONITOR_LEVEL_SET:
+    CMD: ML1{$VAL};
+    CONVERT:
+      VAL:
+        EXPS: x
+        FORM: R|3|0
+    DIM:
+  MONITOR_LEVEL_GET:
+    CMD: ML1;
+    RET:
+      VAL: 3,6
+    CONVERT:
+      VAL: x
+    DIM:
+  MOX_SET:
+    CMD: MX{$STATUS};
+    CONVERT:
+    DIM:
+      STATUS:
+        'OFF': '0'
+        'ON': '1'
+  MOX_GET:
+    CMD: MX;
+    RET:
+      STATUS: 2,3
+    CONVERT:
+    DIM:
+      STATUS:
+        '0': 'OFF'
+        '1': 'ON'
+  NARROW_SET:
+    CMD: NA0{$STATUS};
+    CONVERT:
+    DIM:
+      STATUS:
+        'OFF': '0'
+        'ON': '1'
+  NARROW_GET:
+    CMD: NA0;
+    RET:
+      STATUS: 3,4
+    CONVERT:
+    DIM:
+      STATUS:
+        '0': 'OFF'
+        '1': 'ON'
+  NB_SET:
+    CMD: NB0{$STATUS};
+    CONVERT:
+    DIM:
+      STATUS:
+        'OFF': '0'
+        'ON': '1'
+  NB_GET:
+    CMD: NB0;
+    RET:
+      STATUS: 3,4
+    CONVERT:
+    DIM:
+      STATUS:
+        '0': 'OFF'
+        '1': 'ON'
+  NB_LEVEL_SET:
+    CMD: NL0{$VAL};
+    CONVERT:
+      VAL:
+        EXPS: x
+        FORM: R|3|0
+    DIM:
+  NB_LEVEL_GET:
+    CMD: NL0;
+    RET:
+      VAL: 3,6
+    CONVERT:
+      VAL: x
+    DIM:
+  NR_SET:
+    CMD: NR0{$STATUS};
+    CONVERT:
+    DIM:
+      STATUS:
+        'OFF': '0'
+        'ON': '1'
+  NR_GET:
+    CMD: NR0;
+    RET:
+      STATUS: 3,4
+    CONVERT:
+    DIM:
+      STATUS:
+        '0': 'OFF'
+        '1': 'ON'
+  NR_LEVEL_SET:
+    CMD: RL0{$VAL};
+    CONVERT:
+      VAL:
+        EXPS: x
+        FORM: R|2|0
+    DIM:
+  NR_LEVEL_GET:
+    CMD: RL0;
+    RET:
+      VAL: 3,5
+    CONVERT:
+      VAL: x
+    DIM:
+  NOTCH_AUTO_SET:
+    CMD: BC0{$STATUS};
+    CONVERT:
+    DIM:
+      STATUS:
+        '0': 'OFF'
+        '1': 'ON'
+  NOTCH_AUTO_GET:
+    CMD: BC0;
+    RET:
+      STATUS: 3,4
+    CONVERT:
+    DIM:
+      STATUS:
+        '0': 'OFF'
+        '1': 'ON'
+  NOTCH_MANUAL_SET:
+    CMD: BP00{$STATUS};
+    CONVERT:
+    DIM:
+      STATUS:
+        'OFF': '000'
+        'ON': '001'
+  NOTCH_MANUAL_GET:
+    CMD: BP00;
+    RET:
+      STATUS: 4,7
+    CONVERT:
+    DIM:
+      STATUS:
+        '000': 'OFF'
+        '001': 'ON'
+  NOTCH_MANUAL_FREQ_SET:
+    CMD: BP01{$FREQ};
+    CONVERT:
+      FREQ:
+        EXPS: x / 10
+        FORM: R|3|0
+    DIM:
+  NOTCH_MANUAL_FREQ_GET:
+    CMD: BP01;
+    RET:
+      STATUS: 4,7
+    CONVERT:
+      STATUS: x * 10
+    DIM:
+  POWER_SET:
+    CMD: PS{$STATUS};
+    CONVERT:
+    DIM:
+      STATUS:
+        'OFF': '0'
+        'ON': '1'
+  POWER_GET:
+    CMD: PS;
+    RET:
+      STATUS: 2,3
+    CONVERT:
+    DIM:
+      '0': 'OFF'
+      '1': 'ON'
+  QMB_STORE_SET:
+    CMD: QI;
+  QMB_RECALL_SET:
+    CMD: QR;
+  QUICK_SPLIT_SET:
+    CMD: QS;
+  SCAN_SET:
+    CMD: SC{$STATUS};
+    CONVERT:
+    DIM:
+      STATUS:
+        'OFF': '0'
+        'UP': '1'
+        'DOWN': '2'
+  SCAN_GET:
+    CMD: SC;
+    RET: 
+      STATUS: 2,3
+    CONVERT:
+    DIM:
+      STATUS:
+        '0': 'OFF'
+        '1': 'UP'
+        '2': 'DOWN'
+  SPEECH_PROCESSOR_SET:
+    CMD: PR0{$STATUS};
+    CONVERT:
+    DIM:
+      STATUS:
+        'OFF': '0'
+        'ON': '1'
+  SPEECH_PROCESSOR_GET:
+    CMD: PR0;
+    RET:
+      STATUS: 3,4
+    CONVERT:
+    DIM:
+      STATUS:
+        '0': 'OFF'
+        '1': 'ON'
+  SPLIT_SET:
+    CMD: SQ{$STATUS};
+    CONVERT:
+    DIM:
+      STATUS:
+        'OFF': '0'
+        'ON': '1'
+        '5kHz': '2'
+  SPLIT_GET:
+    CMD: SQ;
+    RET:
+      STATUS: 2,3
+    CONVERT:
+    DIM:
+      STATUS:
+        '0': 'OFF'
+        '1': 'ON'
+        '2': '5kHz'
+  SQL_LEVEL_SET:
+    CMD: SQ0{$VAL};
+    CONVERT:
+      VAL:
+        EXPS: x
+        FORM: R|3|0
+    DIM:
+  SQL_LEVEL_GET:
+    CMD: SQ0;
+    RET:
+      VAL: 3,6
+    CONVERT:
+      VAL: x
+  PARAMETRIC_MICROPHONE_EQUALIZER_SET:
+    CMD: PR1{$STATUS};
+    CONVERT:
+    DIM:
+      STATUS:
+        '0': 'OFF'
+        '1': 'ON'
+  PARAMETRIC_MICROPHONE_EQUALIZER_GET:
+    CMD: PR1;
+    RET:
+      STATUS: 3,4
+    CONVERT:
+    DIM:
+      STATUS:
+        '0': 'OFF'
+        '1': 'ON'
+  ################< RADIO_INFO >################
+  HI_SWR_GET:
+    CMD: RI0;
+    RET:
+      STATUS: 3,4
+    CONVERT:
+    DIM:
+      STATUS:
+        '0': 'OFF'
+        '1': 'ON'
+  REC_GET:
+    CMD: RI2;
+    RET:
+      STATUS: 3,4
+    CONVERT:
+    DIM:
+      STATUS:
+        '0': 'OFF'
+        '1': 'ON'
+  PLAY_GET:
+    CMD: RI4;
+    RET:
+      STATUS: 3,4
+    CONVERT:
+    DIM:
+      STATUS:
+        '0': 'OFF'
+        '1': 'ON'
+  TX_GET:
+    CMD: RIA;
+    RET:
+      STATUS: 3,4
+    CONVERT:
+    DIM:
+      STATUS:
+        '0': 'OFF'
+        '1': 'ON'
+  RX_GET:
+    CMD: RIB;
+    RET:
+      STATUS: 3,4
+    CONVERT:
+    DIM:
+      STATUS:
+        '0': 'OFF'
+        '1': 'ON'
+  ################</ RADIO_INFO >################
+  RF_POWER_SET:
+    CMD: PC{$VAL};
+    CONVERT:
+      VAL:
+        EXPS: x
+        FORM: R|3|0
+    DIM:
+  RF_POWER_GET:
+    CMD: PC;
+    RET:
+      VAL: 2,5
+    CONVERT:
+      VAL: x
+    DIM:
+  RX_BUSY_GET:
+    CMD: BY;
+    RET:
+      STATUS: 3,4
+    CONVERT:
+    DIM:
+      STATUS:
+        '0': 'OFF'
+        '1': 'ON'
+  TXW_SET:
+    CMD: TS{$STATUS};
+    CONVERT:
+    DIM:
+      STATUS:
+        'OFF': '0'
+        'ON': '1'
+  TXW_GET:
+    CMD: TS;
+    RET:
+      STATUS: 2,3
+    CONVERT:
+    DIM:
+      STATUS:
+        '0': 'OFF'
+        '1': 'ON'
+  TX_SETTING_SET:
+    CMD: TX{$STATUS};
+    CONVERT:
+    DIM:
+      STATUS:
+        'RTX_OFF_CTX_OFF': '0'
+        'RTX_OFF_CTX_ON': '1'
+        'RTX_ON_CTX_OFF': '2'
+  TX_SETTING_GET:
+    CMD: TX;
+    RET:
+      STATUS: 2,3
+    CONVERT:
+    DIM:
+      STATUS:
+        '0': 'RTX_OFF_CTX_OFF'
+        '1': 'RTX_OFF_CTX_ON'
+        '2': 'RTX_ON_CTX_OFF'
+  ################< VFO OPERATION >################
+  VFO_A_GET:
+    CMD: IF;
+    RET:
+      CHANNEL: 2,5          # P1
+      FREQ: 5,14            # P2
+      CLAR_DIRECTION: 14,15 # P3
+      CLAR_OFFSET: 15,19    # P3
+      CLAR_STATUS: 19,20    # P4
+      MODE: 21,22           # P6
+      CH_TYPE: 22,23        # P7
+      CTCSS: 23,24          # P8
+      DIFF: 26,27           # P10
+    CONVERT:
+    DIM:
+      CLAR_STATUS:
+        '0': 'OFF'
+        '1': 'ON'
+      MODE:
+        '1': 'LSB'
+        '2': 'USB'
+        '3': 'CW-U'
+        '4': 'FM'
+        '5': 'AM'
+        '6': 'RTTY-LSB'
+        '7': 'CW-R'
+        '8': 'DATA-LSB'
+        '9': 'RTTY-USB'
+        'A': 'DATA-FM'
+        'B': 'FM-N'
+        'C': 'DATA-USB'
+        'D': 'AM-N'
+        'E': 'C4FM'
+      CH_TYPE:
+        '0': 'VFO'
+        '1': 'M'
+        '2': 'MT'
+        '5': 'PMS'
+      CTCSS:
+        '0': 'OFF'
+        '1': 'ENC/DEC'
+        '2': 'ENC'
+      DIFF:
+        '0': 'SIMPLEX'
+        '1': 'PLUS'
+        '2': 'MINUS'
+  VFO_B_GET:
+    CMD: OI;
+    RET:
+      CHANNEL: 2,5          # P1
+      FREQ: 5,14            # P2
+      CLAR_DIRECTION: 14,15 # P3
+      CLAR_OFFSET: 15,19    # P3
+      CLAR_STATUS: 19,20    # P4
+      MODE: 21,22           # P6
+      CH_TYPE: 22,23        # P7
+      CTCSS: 23,24          # P8
+      DIFF: 26,27           # P10
+    CONVERT:
+    DIM:
+      CLAR_STATUS:
+        '0': 'OFF'
+        '1': 'ON'
+      MODE:
+        '1': 'LSB'
+        '2': 'USB'
+        '3': 'CW-U'
+        '4': 'FM'
+        '5': 'AM'
+        '6': 'RTTY-LSB'
+        '7': 'CW-R'
+        '8': 'DATA-LSB'
+        '9': 'RTTY-USB'
+        'A': 'DATA-FM'
+        'B': 'FM-N'
+        'C': 'DATA-USB'
+        'D': 'AM-N'
+        'E': 'C4FM'
+      CH_TYPE:
+        '0': 'VFO'
+        '1': 'M'
+        '2': 'MT'
+        '5': 'PMS'
+      CTCSS:
+        '0': 'OFF'
+        '1': 'ENC/DEC'
+        '2': 'ENC'
+      DIFF:
+        '0': 'SIMPLEX'
+        '1': 'PLUS'
+        '2': 'MINUS'
+  VFO_A_FREQ_SET:
+    CMD: FA{$FREQ};
+    CONVERT:
+      FREQ:
+        EXPS: x
+        FORM: R|9|0
+    DIM:
+  VFO_A_FREQ_GET:
+    CMD: FA;
+    RET:
+      FREQ: 2,11
+    CONVERT:
+    DIM:
+  VFO_B_FREQ_SET:
+    CMD: FB{$FREQ};
+    CONVERT:
+      FREQ:
+        EXPS: x
+        FORM: R|9|0
+    DIM:
+  VFO_B_FREQ_GET:
+    CMD: FB;
+    RET:
+      FREQ: 2,11
+    CONVERT:
+    DIM:
+  VFO_A_B_SET:
+    CMD: AB;
+  VFO_A_M_SET:
+    CMD: AM;    # VM;
+  VFO_B_A_SET:
+    CMD: BA;
+  VFO_M_A_SET:
+    CMD: MA;
+  VFO_M_SET:
+    CMD: MC{$CHANNEL};
+    CONVERT:
+      CHANNEL:
+        EXPS: x
+        FORM: R|3|0
+    DIM:
+  VFO_M_GET:
+    CMD: MC;
+    RET:
+      CHANNEL: 2,5
+    CONVERT:
+    DIM:
+  VFO_SWAP_SET:
+    CMD: SV;
+  ################</ VFO OPERATION >################
+
+  ################< VOX >################
+  VOX_SET:
+    CMD: VX{$STATUS};
+    CONVERT:
+    DIM:
+      STATUS:
+        'OFF': '0'
+        'ON': '1'
+  VOX_GET:
+    CMD: VX;
+    RET:
+      STATUS: 2,3
+    CONVERT:
+    DIM:
+      STATUS:
+        '0': 'OFF'
+        '1': 'ON'
+  VOX_DELAY_TIME_SET:
+    CMD: VD{$VAL};
+    CONVERT:
+      VAL:
+        EXPS: x
+        FORM: R|4|0
+    DIM:
+  VOX_DELAY_TIME_GET:
+    CMD: VD;
+    RET:
+      VAL: 2,6
+    CONVERT:
+      VAL: x
+    DIM:
+  # VOX_GAIN_SET:
+  #   CMD: VG{$VAL};
+  #   CONVERT:
+  #     VAL:
+  #       EXPS: x
+  #       FORM: R|3|0
+  #   DIM:
+  # VOX_GAIN_GET:
+  #   CMD: VG;
+  #   RET:
+  #     VAL: 2,5
+  #   CONVERT:
+  #     VAL: x
+  #   DIM:
+  ################</ VOX >################

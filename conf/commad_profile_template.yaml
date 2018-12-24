@@ -1,0 +1,50 @@
+CMD_SET:            # 无参数SET命令
+  CMD: AB;
+# 调用: FUNC('CMD_SET')
+# 执行: AB;
+
+VALUE_SET:
+  CMD: CMD{$VAL};   # 发送命令, 使用{$var_name}设置变量
+  CONVERT:          # 数值类变换
+    VAL: 
+      EXPS: x * 10
+      FORM: R|3|0   # 等价 rjust(3,'0')
+  DIM:
+# 调用: FUNC('VALUE_SET', VAL=7)
+# 执行: CMD070;
+
+DIM_SET:
+  CMD: CMD{$VAL};   # 发送命令, 使用{$var_name}设置变量
+  CONVERT:
+  DIM:
+    VAL:
+      'OFF': '00'
+      'ON': '01'
+# 调用: FUNC('DIM_SET', VAL='OFF')
+# 执行: CMD00;
+
+COMBO_SET:
+  CMD: CMD{$VAL1}{$VAL2};   # 发送命令, 使用{$var_name}设置变量
+  DIM:
+    VAL1:
+      'OFF': '00'
+      'ON': '01'
+  CONVERT:
+    VAL2: 
+      EXPS: x * 10
+      FORM: R|3|0   # 等价 rjust(3,'0')
+# 数值和维度结合情况, 对于一个变量, 只能按照一种情况处理, 且维度优先(不再处理数值转换)
+# 调用: FUNC('COMBO_SET',VAL1='OFF',VAL2=4)
+# 执行: CMD00040;
+
+VALUE_GET:
+  CMD: CMD0;
+  RET:
+    VAL1: 1,2
+    VAL2: 3,5
+  CONVERT:
+    VAL2: x * 10
+  DIM:
+    VAL1:
+      '0': 'OFF'
+      '1': 'ON'

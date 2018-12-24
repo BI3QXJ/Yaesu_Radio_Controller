@@ -1,0 +1,393 @@
+FT-891:
+  AF_GAIN_SET:
+    CMD: AG0{$p1};
+    p1: 0|255
+  AF_GAIN_GET:
+    cmd: AG0;
+    ret: ^AG0(([0-1]\d\d)|(2[0-4]\d)|(25[0-5]));$
+    p1: 2|-1
+  agc_get:
+    cmd: 'GT0;'
+    p_num: 1
+    ret: ^GT0[0-6];$
+    p1: 3|-1
+    dim1:
+      '0': 'AGC_OFF'
+      '1': 'AGC_FAST'
+      '2': 'AGC_MID'
+      '3': 'AGC_SLOW'
+      '4': 'AGC_AUTO_FAST'
+      '5': 'AGC_AUTO_MID'
+      '6': 'AGC_AUTO_SLOW'
+  agc_set:
+    cmd: GT0{$p1};
+    p_num: 1
+    dim1: 
+      'AGC_OFF': '0'
+      'AGC_FAST': '1'
+      'AGC_MID': '2'
+      'AGC_SLOW': '3'
+      'AGC_AUTO': '4'
+  att_get:
+    cmd: RA0;
+    ret: ^RA0[01];$
+    p1: 3|-1
+    dim1:
+      '0': 'OFF'
+      '1': 'ON'
+  att_set:
+    cmd: RA0{$p1};
+    dim1:
+      'OFF': '0'
+      'ON': '1'
+  atu_get:
+    cmd: AC;
+    ret: ^AC00[0-2];$
+    p1: 4|-1
+    dim1:
+      '0': 'OFF'
+      '1': 'ON'
+      '2': 'ATU_TUNING'
+  atu_off_set:
+    cmd: AC000;
+  atu_on_set:
+    cmd: AC001;
+  atu_tuning_set:
+    cmd: AC002;
+  atu:
+    ANSWER:
+      'AC000;': 'OFF'
+      'AC001;': 'ON'
+      'AC002;': 'TUNING'
+    SELECT:
+      ANSWER:
+        'EX16150;': 'OFF'
+        'EX16151;': 'EXT'
+        'EX16152;': 'ATAS'
+        'EX16153;': 'LAMP'
+      SET:
+        'OFF': 'EX16150;'
+        'EXT': 'EX16151;'
+        'ATAS': 'EX16152;'
+        'LAMP': 'EX16153;'
+      READ: 'EX1615;'
+    SET:
+      'OFF': 'AC000;'
+      'ON': 'AC001;'
+      'TUNING': 'AC002;'
+    READ: 'AC;'
+  band:
+    160:  'BS00;'
+    '1.8M': 'BS00;'
+    80:   'BS01;'
+    '3.5M': 'BS01;'
+    40:   'BS03;'
+    '7M':   'BS03;'
+    30:   'BS04;'
+    '10M':  'BS04;'
+    20:   'BS05;'
+    '14M':  'BS05;'
+    17:   'BS06;'
+    '18M':  'BS06;'
+    15:   'BS07;'
+    '21M':  'BS07;'
+    12:   'BS08;'
+    '24.5M': 'BS08;'
+    10:   'BS09;' 
+    '28M':  'BS09;'
+    6:    'BS10;'
+    '50M':  'BS10;'
+    'GEN':  'BS11;'
+    'MW':   'BS12;'
+    'UP': 'BU0;'
+    'DOWN': 'BD0;'
+  clar:
+    SET:
+      'OFF': 'CF000;'
+      'ON': 'CF010;'
+    READ: 'CF0;'
+    'CLEAR': 'RC;'
+    'DOWN': 'RDnnnn;'
+    'UP': 'RUnnnn;'
+  contour:
+    'READ_CNT_STATUS': 'CO00;'
+    'READ_CNT_FREQ': 'CO01;'
+    'READ_APF_STATUS': 'CO02;'
+    'READ_APF_FREQ': 'CO03;'
+    'CNT_OFF': 'CO000000;'
+    'CNT_ON': 'CO000001;'
+    'CNT_FREQ': 'CO01nnnn;'
+    'APF_OFF': 'CO020000;'
+    'APF_ON': 'CO020001;'
+    'APF_FREQ': 'CO03nnnn;'
+  cw:
+    bfo:
+      'USB': 'EX07070;'
+      'LSB': 'EX07071;'
+      'AUTO': 'EX07072;'
+    break_in:
+      ANSWER:
+        'BI0;': 'OFF'
+        'BI1;': 'ON'
+      SET:
+        'OFF': 'BI0;'
+        'ON': 'BI1;'
+      READ: 'BI;'
+    break_in_type:
+      'TYPE': 'EX0708;'
+      'SEMI': 'EX07080;'
+      'FULL': 'EX07081;'
+      'DELAY': 'EX0709nnnn;'
+    pitch:
+      'READ': 'KP;'
+      'SET': 'KPnn;'
+    keyer:
+      'READ': 'KR;'
+      'OFF': 'KR0;'
+      'ON': 'KR1;'
+      'BUG': 'EX04011;'
+      'ELEKEY-A': 'EX04012;'
+      'ELEKEY-B': 'EX04013;'
+      'ELEKEY-Y': 'EX04014;'
+      'ACS': 'EX04015;'
+    speed:
+      'READ': 'KS;'
+      'SET': 'KSnnn;'
+  fast:
+    ANSWER:
+      'FS0;': 'OFF'
+      'FS1;': 'ON'
+    SET:
+      'OFF': 'FS0;'
+      'ON': 'FS1;'
+    READ: 'FS;'
+  freq:
+    'READ_VFO_A': 'FA;'
+    'READ_VFO_B': 'FB;'
+    'SET_VFO_A': 'FAnnnnnnnnn;'
+    'SET_VFO_B': 'FBnnnnnnnnn;'
+  info:
+    ANSWER:
+      'RIA0;': 'TX_LED_OFF'
+      'RIA1;': 'TX_LED_ON'
+      'RIB0;': 'RX_LED_OFF'
+      'RIB1;': 'RX_LED_ON'
+      'RI00;': 'HI_SWR_OFF'
+      'RI01;': 'HI_SWR_ON'
+      'RI30;': 'REC_OFF'
+      'RI31;': 'REC_ON'
+      'RI40;': 'PLAY_OFF'
+      'RI41;': 'PLAY_ON'
+      'BY00;': 'RX_BUSY_OFF'
+      'BY10;': 'RX_BUSY_ON'
+    READ:
+      'TX_LED': 'RIA;'
+      'RX_LED': 'RIB;'
+      'HI_SWR': 'RI0;'
+      'REC': 'RI3;'
+      'PLAY': 'RI4;'
+      'RX_BUSY': 'BY;'
+  ipo:
+    ANSWER:
+      'PA00;': 'ON'
+      'PA01;': 'OFF'
+    SET:
+      'ON': 'PA00;'
+      'OFF': 'PA01;'
+    READ: 'PA0;'
+  key:
+    'DIAL_UP': 'EU0nn;'
+    'DIAL_DOWN': 'ED0nn;'
+    'MULTI_UP': 'ED8nn;'
+    'MULTI_DOWN': 'EU8nn;'
+    'ENTER': 'EK;'
+    'UP': 'UP;'
+    'DOWN': 'DN;'
+    'BAND_UP': 'BD;'
+    'BAND_DOWN': 'BU;'
+  lock:
+    ANSWER:
+      'LK0;': 'OFF'
+      'LK1;': 'ON'
+    SET:
+      'OFF': 'LK0;'
+      'ON': 'LK1;'
+    READ: 'LK;'
+  meter:
+    SELECT:
+      ANSWER:
+        'MS0;': 'COMP'
+        'MS1;': 'ALC'
+        'MS2;': 'PO'
+        'MS3;': 'SWR'
+        'MS4;': 'ID'
+      SET:
+        'COMP': 'MS0;'
+        'ALC': 'MS1;'
+        'PO': 'MS2;'
+        'SWR': 'MS3;'
+        'ID': 'MS4;'
+      READ: 'MS;'
+    READ:
+      'PANEL': 'RM0;'
+      'S': 'RM1;'
+      'COMP': 'RM3;'
+      'ALC': 'RM4;'
+      'PO': 'RM5;'
+      'ID': 'RM7;'
+      'SWR': 'RM6;'
+  mic_gain:
+    'READ': 'MG;'
+    'SET': 'MGnnn;'
+    'SSB': 'EX1607nnn;'
+    'AM': 'EX1608nnn;'
+    'FM': 'EX1609nnn;'
+    'DATA': 'EX1610nnn;'
+  mode:
+    ANSWER:
+      'MD01;': 'LSB'
+      'MD02;': 'USB'
+      'MD03;': 'CW-U'
+      'MD04;': 'FM'
+      'MD05;': 'AM'
+      'MD06;': 'RTTY-LSB'
+      'MD07;': 'CW-L'
+      'MD08;': 'DATA-LSB'
+      'MD09;': 'RTTY-USB'
+      'MD0A;': 'DATA-FM'
+      'MD0B;': 'FM-N'
+      'MD0C;': 'DATA-USB'
+      'MD0D;': 'AM-N'
+    SET:
+      'LSB': 'MD01;'
+      'USB': 'MD02;'
+      'CW-U': 'MD03;'
+      'FM': 'MD04;'
+      'AM': 'MD05;'
+      'RTTY-LSB': 'MD06;'
+      'CW-L': 'MD07;'
+      'DATA-LSB': 'MD08;'
+      'RTTY-USB': 'MD09;'
+      'DATA-FM': 'MD0A;'
+      'FM-N': 'MD0B;'
+      'DATA-USB': 'MD0C;'
+      'AM-N': 'MD0D;'
+    READ: 'MD0;' 
+  monitor:
+    ANSWER:
+      'ML0000;': 'OFF'
+      'ML0001;': 'ON'
+      'ML1nnn;': 'LEVEL'
+    LEVEL:
+      ANSWER: 'ML1nnn;'
+      SET: 'ML1nnn;'
+      READ: 'ML1;'
+    SET:
+      'OFF': 'ML0000;'
+      'ON': 'ML0001;'
+    READ: 'ML0;'
+  mox:
+    ANSWER:
+      'MX0;': 'OFF'
+      'MX1;': 'ON'
+    SET: 
+      'OFF': 'MX0;'
+      'ON': 'MX1;'
+    READ: 'MX;'
+  narrow:
+    ANSWER:
+      'NA00;': 'OFF'
+      'NA01;': 'ON'
+    SET: 
+      'OFF': 'NA00;'
+      'ON': 'NA01;'
+    READ: 'NA0;'
+  nb:
+    'READ_STATUS': 'NB0;'
+    'READ_LEVEL': 'NL0;'
+    'OFF': 'NB00;'
+    'ON': 'NB01;'
+    'LEVEL': 'NL0nnn;'
+  nr:
+    'READ_STATUS': 'NR0;'
+    'READ_LEVEL': 'RL0;'
+    'OFF': 'NR00;'
+    'ON': 'NR01;'
+    'LEVEL': 'RL0nn;'
+  notch:
+    'AUTO_OFF': 'BC00;'
+    'AUTO_ON': 'BC01;'
+    'MANUAL_OFF': 'BP00000;'
+    'MANUAL_ON': 'BP00001;'
+    'MANUAL_LEVEL': 'BP01nnn;'
+  power:
+    'READ': 'PS;'
+    'OFF': 'PS0;'
+    'ON': 'PS1;'
+  qmb:
+    'STORE': 'QI;'
+    'RECALL': 'QR;'
+  rf_power:
+    READ: 'PC;'
+    SET: 'PCnnn;'
+    OTHER:
+      'READ': 'PC;'
+      'SET_RIG': 'PCnnn;'
+      'SSB': 'EX1601nnn;'
+      'AM': 'EX1602nnn;'
+      'HF': 'EX1603nnn;'
+      '50M_SSB': 'EX1604nnn;'
+      '50M_AM': 'EX1605nnn;'
+      '50M': 'EX1606nnn;'
+  rf_gain:
+    READ: 'RG0;'
+    SET: 'RG0nnn;'
+  reset:
+    'ALL': 'EX17010;'
+    'DATA': 'EX17011;'
+    'FUNC': 'EX17012;'
+  version:
+    'MAIN': 'EX1801;'
+    'DSP': 'EX1802;'
+    'LCD': 'EX1803;'
+  vfo:
+    'SWAP': 'SV;'
+    'AB': 'AB;'
+    'BA': 'BA;'
+    'AM': 'AM;'
+    'MA': 'MA;'
+    'READ_A': 'FA;'
+    'READ_B': 'FB;'
+    'SET_A': 'FAnnnnnnnnn;'
+    'SET_B': 'FBnnnnnnnnn;'
+  vfo_info:
+    ANSWER:
+      CLAR:
+        '0': 'OFF'
+        '1': 'ON'
+      MODE:
+        '1': 'LSB'
+        '2': 'USB'
+        '3': 'CW-U'
+        '4': 'FM'
+        '5': 'AM'
+        '6': 'RTTY-LSB'
+        '7': 'CW-R'
+        '8': 'DATA-LSB'
+        '9': 'RTTY-USB'
+        'A': 'DATA-FM'
+        'B': 'FM-N'
+        'C': 'DATA-USB'
+        'D': 'AM-N'
+        'E': 'C4FM'
+      CHANNEL:
+        '0': 'VFO'
+        '1': 'M'
+        '2': 'MT'
+        '3': 'QMB'
+        '4': 'QMB-MT'
+        '5': 'PMS'
+        '6': 'HOME'
+    READ:
+      'A': 'IF;'
+      'B': 'OI;'

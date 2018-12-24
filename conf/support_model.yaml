@@ -1,0 +1,43 @@
+PORT:
+  CP2102:
+    VENDOR_ID: 10c4
+    MODEL_ID: CP2105_Dual_USB_to_UART_Bridge_Controller
+
+RADIO_ID:
+  YAESU:
+    '0650': 'FT-891'
+    '0241': 'FT-450'
+    '0244': 'FT-450D'
+    '0570': 'FT-991'
+    '0670': 'FT-991A'
+    '0251': 'FT-2000'
+    '0252': 'FT-2000D'
+    '0582': 'FT-DX1200(FFT-1)'
+    '0583': 'FT-DX1200'
+    # 'XXXX': 'FT-DX3000'
+    '0362': 'FT-DX5000'
+    '0101': 'FT-DX9000D'
+    '0102': 'FT-DX9000Contest'
+    '0103': 'FT-DX9000MP'
+  ICOM:
+  KENWOOD:
+
+RADIO:
+  'FT-891'
+  'FT-450'
+  'FT-450D'
+  'FT-991'
+  'FT-991A'
+  'FT-2000'
+  'FT-2000D'
+  'FT-DX1200(FFT-1)'
+  'FT-DX1200'
+  'FT-DX3000'
+  'FT-DX5000'
+  'FT-DX9000D'
+  'FT-DX9000Contest'
+  'FT-DX9000MP'
+    
+  
+
+  
