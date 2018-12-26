@@ -45,6 +45,7 @@ class YAESU_CAT3(serial.Serial, object):
         line = ''
         while True:
             c = self.read(1)
+            # print c
             if c == ';':
                 if line == '?':
                     return 'ERROR'
@@ -67,6 +68,7 @@ class YAESU_CAT3(serial.Serial, object):
             if func_name.endswith('_GET'):
                 cmd_ret = {}
                 ret = self.cmd_r(self.__func[func_name]['CMD'])
+                # print func_name, ret
                 for k,v in self.__func[func_name]['RET'].iteritems():
                     ret_seg = ret[eval(v)[0]:eval(v)[1]]
                     if self.__func[func_name]['DIM'] is not None and self.__func[func_name]['DIM'].has_key(k):
@@ -184,6 +186,8 @@ class YAESU_CAT3(serial.Serial, object):
             return self.func('METER_SWR_GET')
         elif meter_select == 'PO':
             return self.func('METER_PO_GET')
+    def rf_power_get(self):
+        return self.func('RF_POWER_GET')
 
 class FT891(YAESU_CAT3, object):
     def __init__(self):
@@ -202,12 +206,3 @@ class RIG(object):
             ,'FT-891': FT891
         }
         return model_list[model]()
-
-# f = RIG()
-# a = f.create('FT891')
-# b = f.create('FT450')
-
-# a.af_gain_set(1)
-# a.af_gain_get()
-# b.af_gain_set(1)
-# b.af_gain_get()

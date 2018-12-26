@@ -173,6 +173,7 @@ class Rig_Polling(threading.Thread):
             if count % poll_freq_gain == 8:
                 mic_gain = self.rig.mic_gain_get()['VAL']
                 vox_gain = self.rig.vox_gain_get()['VAL']
+                rf_power = self.rig.rf_power_get()['VAL']
             
             if count % poll_freq_tag == 0:
                 agc_status  = self.rig.agc_get()['MODE']
@@ -185,11 +186,11 @@ class Rig_Polling(threading.Thread):
                 mon_status  = self.rig.monitor_get()['STATUS']
                 nar_status  = self.rig.narrow_get()['STATUS']
                 # nch_status  = self.rig.nch_get()['STATUS']
-                nb_status   = self.rig.nb_get()['STATUS']
-                nr_status   = self.rig.nr_get()['STATUS']
+                # nb_status   = self.rig.nb_get()['STATUS']
+                # nr_status   = self.rig.nr_get()['STATUS']
                 prc_status  = self.rig.prc_get()['STATUS']
-                sft_status  = self.rig.shift_get()['STATUS']
-                spl_status  = self.rig.split_get()['STATUS']
+                # sft_status  = self.rig.shift_get()['STATUS']
+                # spl_status  = self.rig.split_get()['STATUS']
                 tnr_status  = self.rig.atu_get()['STATUS']
                 vox_status  = self.rig.vox_get()['STATUS']
 
@@ -411,10 +412,12 @@ class Remote_Controller(object):
 
     def draw_icons(self):
         for k, v in self.icons.iteritems():
+            # print k,v
             self.screen.blit(self.elements[k]['RES'][v], self.elements[k]['POS'])
     
     def draw_values(self):
         for k, v in self.values.iteritems():
+            # print k,v
             self.screen.blit(self.elements[k]['RES'][v], self.elements[k]['POS'])
     
     def draw_meters(self):
@@ -459,6 +462,11 @@ class Remote_Controller(object):
 
         self.meter_select['METER_4'] = meter_custom
         self.meter_values['METER_4'] = meter_custom_val
+
+        # set rf_power
+        rf_power_display = str(rf_power).rjust(3,' ')
+        for i in range(1,4):
+            self.values['RF_POWER_'+str(i)] = rf_power_display[i-1]
 
         # set vfo
         self.icons['VFO_A_MODE'] = vfo_a_mode
@@ -539,7 +547,7 @@ def main():
 
     # for debug
     # screen_resolution = 'HVGA'
-    dp_mode = 0
+    dp_mode = FULLSCREEN
 
     with open('conf/custom.yaml','r') as f:
         custome_config = yaml.load(f)

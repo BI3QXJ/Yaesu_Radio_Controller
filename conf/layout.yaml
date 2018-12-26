@@ -1451,7 +1451,7 @@ HVGA:
         - 'BAND'
         - 'MODE'
     METER_1:
-      BAR: (46,16)
+      BAR: (47,16)
       BAR_WIDTH: 11
       COLOR: (63,72,204)
       RATIO: 1.0
@@ -1461,7 +1461,7 @@ HVGA:
       STAT:
         - 'S'
     METER_2:
-      BAR: (46,41)
+      BAR: (47,41)
       BAR_WIDTH: 10
       COLOR: (34,177,76)
       RATIO: 1.0
@@ -1475,7 +1475,7 @@ HVGA:
         - 'IDD'
         - 'ALC'
     METER_3:
-      BAR: (46,65)
+      BAR: (47,65)
       BAR_WIDTH: 10
       COLOR: (237,28,36)
       RATIO: 1.0
@@ -1489,7 +1489,7 @@ HVGA:
         - 'IDD'
         - 'ALC'
     METER_4:
-      BAR: (46,89)
+      BAR: (47,89)
       BAR_WIDTH: 10
       COLOR: (163,73,164)
       RATIO: 1.0

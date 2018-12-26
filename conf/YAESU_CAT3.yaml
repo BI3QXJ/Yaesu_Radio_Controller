@@ -383,8 +383,8 @@ FT-891:
     CONVERT:
     DIM:
       STATUS:
-        'IPO': '0'
-        'AMP': '1'
+        'OFF': '1'
+        'ON': '0'
   IPO_GET:
     CMD: PA0;
     RET:
@@ -392,8 +392,8 @@ FT-891:
     CONVERT:
     DIM:
       STATUS:
-        '0': 'OFF'
-        '1': 'ON'
+        '1': 'OFF'
+        '0': 'ON'
   MEMORY_CHANNEL_READ:
     CMD: MR{$CHANNEL};
     CONVERT:
