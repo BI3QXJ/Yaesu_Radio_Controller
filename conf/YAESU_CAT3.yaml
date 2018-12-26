@@ -887,7 +887,7 @@ FT-891:
     RET:
       CHANNEL: 2,5          # P1
       FREQ: 5,14            # P2
-      CLAR_DIRECTION: 14,15 # P3
+      CLAR_DIRECT: 14,15    # P3
       CLAR_OFFSET: 15,19    # P3
       CLAR_STATUS: 19,20    # P4
       MODE: 21,22           # P6
@@ -932,7 +932,7 @@ FT-891:
     RET:
       CHANNEL: 2,5          # P1
       FREQ: 5,14            # P2
-      CLAR_DIRECTION: 14,15 # P3
+      CLAR_DIRECT: 14,15    # P3
       CLAR_OFFSET: 15,19    # P3
       CLAR_STATUS: 19,20    # P4
       MODE: 21,22           # P6
