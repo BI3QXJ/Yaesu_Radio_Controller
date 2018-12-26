@@ -32,39 +32,59 @@ from pygame.locals import *
 from sys import exit
 import threading
 import Queue
-# import dev.yaesu
 import rig
 
-VGA_SCREEN = (640,480)
+# global vars
+VGA_SCREEN  = (640,480)
 HVGA_SCREEN = (480,320)
 
 IS_UTC = False
-vfo_a = '014270000'
-vfo_b = '007055000'
-af_gain = 0
-rf_gain = 0
+
+af_gain  = 0
+rf_gain  = 0
 mic_gain = 0
 vox_gain = 0
-agc_status = 'OFF'
-
-vfo_a_clar = ''
-vfo_b_clar = ''
-vfo_a_mode = ''
-vfo_b_mode = ''
-
-ipo_status = 'OFF'
-att_status = 'OFF'
-vox_status = 'OFF'
-nb_status = 'OFF'
-nr_status = 'OFF'
-cnt_status = 'OFF'
-mon_status = 'OFF'
-prc_status = 'OFF'
-nar_status = 'OFF'
-meq_status = 'OFF'
-sft_status = 'OFF'
-
 rf_power = 0
+nb_val   = 0
+nr_val   = 0
+mon_val  = 0
+
+channel_no = 0
+
+vfo_a_freq = '014270000'
+vfo_b_freq = '007055000'
+vfo_a_mode = 'USB'
+vfo_b_mode = 'USB'
+vfo_a_clar_status = 'OFF'
+vfo_b_clar_status = 'OFF'
+vfo_a_clar_offset = '0000'
+vfo_b_clar_offset = '0000'
+vfo_a_clar_direct = '+'
+vfo_b_clar_direct = '+'
+
+agc_status  = 'OFF'
+att_status  = 'OFF'
+bkin_status = 'OFF'
+cnt_status  = 'OFF'
+dnf_status  = 'OFF'
+ipo_status  = 'OFF'
+meq_status  = 'OFF'
+mon_status  = 'OFF'
+nar_status  = 'OFF'
+nch_status  = 'OFF'
+nb_status   = 'OFF'
+nr_status   = 'OFF'
+prc_status  = 'OFF'
+sft_status  = 'OFF'
+spl_status  = 'OFF'
+tnr_status  = 'OFF'
+vox_status  = 'OFF'
+
+rx_led      = 'OFF'
+tx_led      = 'OFF'
+hi_swr_led  = 'OFF'
+play_led    = 'OFF'
+rec_led     = 'OFF'
 
 job_queue = Queue.Queue()
 
@@ -73,71 +93,102 @@ class Rig_Polling(threading.Thread):
         super(Rig_Polling, self).__init__()
         creator = rig.RIG()
         self.rig = creator.connect(radio_moel)
-        # self.rf_power = 0       
-        # self.channel_no = 0
-        # self.a_type = 0
-        # self.a_freq = ''
-        # self.a_mode = 0
-        # self.a_clar_stat = 0
-        # self.a_clar_offset = 0
-        # self.b_freq = ''
-        # self.b_mode = 0
-        # self.b_clar_stat = 0
-        # self.b_clar_offset = 0
         
     def run(self):
-        global vfo_a, vfo_b
-        global af_gain, rf_gain, mic_gain, vox_gain
-        global agc_status
-        # while True:
-        #     time.sleep(0.1)
-        #     try:
-        #         recv_job = job_queue.get_nowait()
-        #     except Queue.Empty:
-        #         pass
-        #     else:
-        #         pass
-        QUERY_VFO_HI = 1
+        global vfo_a_freq, vfo_b_freq, vfo_a_mode, vfo_b_mode
+        global vfo_a_clar_status, vfo_b_clar_status, vfo_a_clar_offset, vfo_b_clar_offset, vfo_a_clar_direct, vfo_b_clar_direct
+        global agc_status, att_status, bkin_status, cnt_status, dnf_status, ipo_status, meq_status, mon_status, nar_status, nch_status, nb_status, nr_status, prc_status, sft_status, spl_status, tnr_status, vox_status
+        global af_gain, rf_gain, mic_gain, vox_gain, rf_power, nb_val, nr_val, mon_val
+        global rx_led, tx_led, hi_swr_led, play_led, rec_led
+
+        # VFO/TAG/GAIN poll frequency (query every n times)
+        QUERY_VFO_HI = 2
         QUERY_VFO_LO = 10
         QUERY_TAG_HI= 10
         QUERY_TAG_LO = 50
         QUERY_GAIN_HI = 10
         QUERY_GAIN_LO = 30
+
         count = 0
-        freq_vfo = QUERY_VFO_HI
-        freq_tag = QUERY_TAG_HI
-        freq_gain = QUERY_GAIN_HI
+        poll_freq_vfo = QUERY_VFO_HI
+        poll_freq_tag = QUERY_TAG_HI
+        poll_freq_gain = QUERY_GAIN_HI
+
         timer = time.time()
-        while True:
-            # vfo_a_detail = self.radio.vfo_info('A')
-            # vfo_b_detail = self.radio.vfo_info('B')
-            if count % freq_vfo == 0:
-                vfo_a = self.rig.vfo_freq('A')['FREQ']
-                vfo_last = vfo_a
-                vfo_b = self.rig.vfo_freq('B')['FREQ']
-                if vfo_last <> vfo_a:
-                    freq_vfo = QUERY_VFO_HI
-                else:
-                    freq_vfo = QUERY_VFO_LO
+        timer_vfo_hi = time.time()
+        vfo_a_last = '000000000'
+
+        while True:      
+            # thread job operation
+            try:
+                recv_job = job_queue.get_nowait()
+            except Queue.Empty:
+                pass
+            else:
+                pass
+
+            # vfo get
+            if count % poll_freq_vfo == 0:
+                vfo_a_info = self.rig.vfo_info('A')
+                vfo_b_info = self.rig.vfo_info('B')
+
+                vfo_a_freq = vfo_a_info['FREQ']
+                vfo_a_mode = vfo_a_info['MODE']
+                vfo_a_clar_status = vfo_a_info['CLAR_STATUS']   # OFF/ON
+                vfo_a_clar_direct = vfo_a_info['CLAR_DIRECT']   # +/-
+                vfo_a_clar_offset = vfo_a_info['CLAR_OFFSET']   # 0000
+                vfo_b_freq = vfo_b_info['FREQ']
+                vfo_b_mode = vfo_b_info['MODE']
+                vfo_b_clar_status = vfo_b_info['CLAR_STATUS']
+                vfo_b_clar_direct = vfo_b_info['CLAR_DIRECT']
+                vfo_b_clar_offset = vfo_b_info['CLAR_OFFSET']
+
+                if poll_freq_vfo == QUERY_VFO_LO:
+                    if vfo_a_freq <> vfo_a_last:
+                        poll_freq_vfo = QUERY_VFO_HI
+                        timer_vfo_hi = time.time()
+                        vfo_a_last = vfo_a_freq
+                elif poll_freq_vfo == QUERY_VFO_HI:
+                    if vfo_a_freq <> vfo_a_last:
+                        timer_vfo_hi = time.time()
+                        vfo_a_last = vfo_a_freq
+                    elif time.time() - timer_vfo_hi > 5.0:
+                        poll_freq_vfo = QUERY_VFO_LO
 
             # balance gain val query by two parts
-            if count % freq_tag == 0:
+            if count % poll_freq_gain == 2:
                 af_gain = self.rig.af_gain_get()['VAL']
                 rf_gain = self.rig.rf_gain_get()['VAL']
 
-            if count % freq_tag == 5:
+            if count % poll_freq_gain == 8:
                 mic_gain = self.rig.mic_gain_get()['VAL']
                 vox_gain = self.rig.vox_gain_get()['VAL']
             
-            if count % freq_gain == 0:
-                agc_status = self.rig.agc_get()['MODE']
+            if count % poll_freq_tag == 0:
+                agc_status  = self.rig.agc_get()['MODE']
+                att_status  = self.rig.att_get()['STATUS']
+                bkin_status = self.rig.bkin_get()['STATUS']
+                cnt_status  = self.rig.contour_get()['STATUS']
+                # dnf_status  = self.rig.agc_get()['STATUS']
+                ipo_status  = self.rig.ipo_get()['STATUS']
+                # meq_status  = self.rig.agc_get()['STATUS']
+                mon_status  = self.rig.monitor_get()['STATUS']
+                nar_status  = self.rig.narrow_get()['STATUS']
+                # nch_status  = self.rig.nch_get()['STATUS']
+                nb_status   = self.rig.nb_get()['STATUS']
+                nr_status   = self.rig.nr_get()['STATUS']
+                prc_status  = self.rig.prc_get()['STATUS']
+                sft_status  = self.rig.shift_get()['STATUS']
+                spl_status  = self.rig.split_get()['STATUS']
+                tnr_status  = self.rig.atu_get()['STATUS']
+                vox_status  = self.rig.vox_get()['STATUS']
 
             # time.sleep(0.01)
             count = count + 1
 
             if count > 2000:
                 count = 0
-                print '2000s CAT Oper cost: %d' % int(time.time() - timer)
+                # print '2000s CAT Oper cost: %d' % int(time.time() - timer)
                 timer = time.time()
 
     def get_rxtx(self):
@@ -383,8 +434,8 @@ class Remote_Controller(object):
         global af_gain, rf_gain, mic_gain, vox_gain
         global agc_status
         # print vfo_a,vfo_b
-        vfo_a_freq = vfo_a      # global test
-        vfo_b_freq = vfo_b
+        vfo_a_freq = vfo_a_freq
+        vfo_b_freq = vfo_b_freq
         vfo_a_clar = '+0000'
         vfo_b_clar = '+0000'
         rf_gain_local = rf_gain

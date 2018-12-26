@@ -102,6 +102,7 @@ class YAESU_CAT3(serial.Serial, object):
     def button_func(self, button_command, **kwargs):
         pass
 
+    ############################ GAIN ############################
     def af_gain_set(self, val):
         return self.func('AF_GAIN_SET', VAL=val)
 
@@ -116,10 +117,51 @@ class YAESU_CAT3(serial.Serial, object):
     
     def vox_gain_get(self):
         return self.func('VOX_GAIN_GET')
+    ############################/ GAIN ############################
 
     def agc_get(self):
         return self.func('AGC_GET')
 
+    def att_get(self):
+        return self.func('ATT_GET')
+    
+    def bkin_get(self):
+        return self.func('BREAK_IN_GET')
+    
+    def contour_get(self):
+        return self.func('CONTOUR_GET')
+    
+    def ipo_get(self):
+        return self.func('IPO_GET')
+    
+    def monitor_get(self):
+        return self.func('MONITOR_GET')
+    
+    def narrow_get(self):
+        return self.func('NARROW_GET')
+    
+    def nb_get(self):
+        return self.func('NB_GET')
+
+    def nr_get(self):
+        return self.func('NR_GET')
+
+    def prc_get(self):
+        return self.func('SPEECH_PROCESSOR_GET')
+
+    def shift_get(self):
+        return self.func('IF_SHIFT_GET')
+    
+    def split_get(self):
+        return self.func('SPLIT_GET')
+    
+    def atu_get(self):
+        return self.func('ATU_GET')
+    
+    def vox_get(self):
+        return self.func('VOX_GET')
+
+    ############################ VFO ############################
     def vfo_a_b(self):
         return self.func('VFO_A_B_SET')
 
@@ -134,6 +176,7 @@ class YAESU_CAT3(serial.Serial, object):
             return self.func('VFO_A_GET')
         elif vfo == 'B':
             return self.func('VFO_B_GET')
+    ############################/ VFO ############################
 
 class FT891(YAESU_CAT3, object):
     def __init__(self):
