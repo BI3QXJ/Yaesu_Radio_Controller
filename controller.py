@@ -86,6 +86,12 @@ hi_swr_led  = 'OFF'
 play_led    = 'OFF'
 rec_led     = 'OFF'
 
+meter_s_val = 70
+meter_swr_val = 0
+meter_po_val = 0
+meter_custom = 'CMP'
+meter_custom_val = 0
+
 job_queue = Queue.Queue()
 
 class Rig_Polling(threading.Thread):
@@ -100,6 +106,7 @@ class Rig_Polling(threading.Thread):
         global agc_status, att_status, bkin_status, cnt_status, dnf_status, ipo_status, meq_status, mon_status, nar_status, nch_status, nb_status, nr_status, prc_status, sft_status, spl_status, tnr_status, vox_status
         global af_gain, rf_gain, mic_gain, vox_gain, rf_power, nb_val, nr_val, mon_val
         global rx_led, tx_led, hi_swr_led, play_led, rec_led
+        global meter_s_val, meter_swr_val, meter_po_val, meter_custom, meter_custom_val
 
         # VFO/TAG/GAIN poll frequency (query every n times)
         QUERY_VFO_HI = 2
@@ -108,11 +115,14 @@ class Rig_Polling(threading.Thread):
         QUERY_TAG_LO = 50
         QUERY_GAIN_HI = 10
         QUERY_GAIN_LO = 30
+        QUERY_METER_HI = 3
+        QUERY_METER_LO = 10
 
         count = 0
         poll_freq_vfo = QUERY_VFO_HI
         poll_freq_tag = QUERY_TAG_HI
         poll_freq_gain = QUERY_GAIN_HI
+        poll_freq_meter = QUERY_METER_HI
 
         timer = time.time()
         timer_vfo_hi = time.time()
@@ -182,6 +192,11 @@ class Rig_Polling(threading.Thread):
                 spl_status  = self.rig.split_get()['STATUS']
                 tnr_status  = self.rig.atu_get()['STATUS']
                 vox_status  = self.rig.vox_get()['STATUS']
+
+            if count % poll_freq_meter == 0:
+                meter_s_val = self.rig.meter('S')['VAL']
+                meter_swr_val = self.rig.meter('SWR')['VAL']
+                meter_po_val = self.rig.meter('PO')['VAL']
 
             # time.sleep(0.01)
             count = count + 1
@@ -430,33 +445,24 @@ class Remote_Controller(object):
         '''
         synchronize rig's status from rig_polling
         '''
-        global vfo_a, vfo_b
-        global af_gain, rf_gain, mic_gain, vox_gain
-        global agc_status
-        # print vfo_a,vfo_b
-        vfo_a_freq = vfo_a_freq
-        vfo_b_freq = vfo_b_freq
-        vfo_a_clar = '+0000'
-        vfo_b_clar = '+0000'
-        rf_gain_local = rf_gain
-        af_gain_local = af_gain
-        mic_gain_local = mic_gain
-        vox_gain_local = vox_gain
-        rf_power = 50
-        meter_s_val = 70
-        meter_swr_val = 0
-        meter_po_val = 0
-        meter_custom = 'CMP'
-        meter_custom_val = 0
+        global vfo_a_freq, vfo_b_freq, vfo_a_mode, vfo_b_mode
+        global vfo_a_clar_status, vfo_b_clar_status, vfo_a_clar_offset, vfo_b_clar_offset, vfo_a_clar_direct, vfo_b_clar_direct
+        global agc_status, att_status, bkin_status, cnt_status, dnf_status, ipo_status, meq_status, mon_status, nar_status, nch_status, nb_status, nr_status, prc_status, sft_status, spl_status, tnr_status, vox_status
+        global af_gain, rf_gain, mic_gain, vox_gain, rf_power, nb_val, nr_val, mon_val
+        global rx_led, tx_led, hi_swr_led, play_led, rec_led
+        global meter_s_val, meter_swr_val, meter_po_val, meter_custom, meter_custom_val
 
         # set meter val
-        self.meter_select['METER_4'] = meter_custom
         self.meter_values['METER_1'] = meter_s_val
         self.meter_values['METER_2'] = meter_swr_val
         self.meter_values['METER_3'] = meter_po_val
+
+        self.meter_select['METER_4'] = meter_custom
         self.meter_values['METER_4'] = meter_custom_val
 
         # set vfo
+        self.icons['VFO_A_MODE'] = vfo_a_mode
+        self.icons['VFO_B_MODE'] = vfo_b_mode
         vfo_a_freq_display = vfo_a_freq.lstrip('0').rjust(9,' ')
         vfo_b_freq_display = vfo_b_freq.lstrip('0').rjust(9,' ')
         for i in range(1,10):
@@ -464,17 +470,20 @@ class Remote_Controller(object):
             self.values['VFO_B_FREQ_' + str(i)] = vfo_b_freq_display[i-1]
 
         # set CLAR
-        self.values['VFO_A_CLAR_DIRECTION'] = vfo_a_clar[0]
-        self.values['VFO_B_CLAR_DIRECTION'] = vfo_b_clar[0]
+        self.icons['VFO_A_CLAR'] = vfo_a_clar_status
+        self.icons['VFO_B_CLAR'] = vfo_b_clar_status
+        self.values['VFO_A_CLAR_DIRECTION'] = vfo_a_clar_direct
+        self.values['VFO_B_CLAR_DIRECTION'] = vfo_b_clar_direct
         for i in range(1,5):
-            self.values['VFO_A_CLAR_OFFSET_' + str(i)] = vfo_a_clar[i]
-            self.values['VFO_B_CLAR_OFFSET_' + str(i)] = vfo_b_clar[i]
+            self.values['VFO_A_CLAR_OFFSET_' + str(i)] = vfo_a_clar_offset[i-1]
+            self.values['VFO_B_CLAR_OFFSET_' + str(i)] = vfo_b_clar_offset[i-1]
+
 
         # set GAIN and RF_POWER
-        rf_gain_display = str(rf_gain_local).rjust(3,' ')
-        af_gain_display = str(af_gain_local).rjust(3,' ')
-        mic_gain_display = str(mic_gain_local).rjust(3,' ')
-        vox_gain_display = str(vox_gain_local).rjust(3,' ')
+        rf_gain_display = str(rf_gain).rjust(3,' ')
+        af_gain_display = str(af_gain).rjust(3,' ')
+        mic_gain_display = str(mic_gain).rjust(3,' ')
+        vox_gain_display = str(vox_gain).rjust(3,' ')
         rf_power_display = str(rf_power).rjust(3,' ')
         for i in range(1,4):
             self.values['RF_GAIN_' + str(i)] = rf_gain_display[i-1]
@@ -484,7 +493,23 @@ class Remote_Controller(object):
             self.values['RF_POWER_' + str(i)] = rf_power_display[i-1]
         
         # set function indicators
-        self.icons['AGC'] = agc_status
+        self.icons['AGC']   = agc_status
+        self.icons['ATT']   = att_status
+        self.icons['BK-IN'] = bkin_status
+        self.icons['CNT']   = cnt_status
+        self.icons['DNF']   = dnf_status
+        self.icons['IPO']   = ipo_status
+        self.icons['MEQ']   = meq_status
+        self.icons['MON']   = mon_status
+        self.icons['NAR']   = nar_status
+        self.icons['NCH']   = nch_status
+        self.icons['NB']    = nb_status
+        self.icons['NR']    = nr_status
+        self.icons['PRC']   = prc_status
+        self.icons['SFT']   = sft_status
+        self.icons['SPL']   = spl_status
+        self.icons['TNR']   = tnr_status
+        self.icons['VOX']   = vox_status
 
     def render(self):
         self.sync()

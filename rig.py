@@ -177,6 +177,13 @@ class YAESU_CAT3(serial.Serial, object):
         elif vfo == 'B':
             return self.func('VFO_B_GET')
     ############################/ VFO ############################
+    def meter(self, meter_select):
+        if meter_select == 'S':
+            return self.func('METER_S_GET')
+        elif meter_select == 'SWR':
+            return self.func('METER_SWR_GET')
+        elif meter_select == 'PO':
+            return self.func('METER_PO_GET')
 
 class FT891(YAESU_CAT3, object):
     def __init__(self):
