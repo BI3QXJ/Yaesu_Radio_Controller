@@ -392,8 +392,8 @@ FT-891:
     CONVERT:
     DIM:
       STATUS:
-        '0': 'IPO'
-        '1': 'AMP'
+        '0': 'OFF'
+        '1': 'ON'
   MEMORY_CHANNEL_READ:
     CMD: MR{$CHANNEL};
     CONVERT:
