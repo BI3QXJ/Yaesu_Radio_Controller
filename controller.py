@@ -1,26 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-'''
-线程[Remote_Controller]: 负责依据当前各状态, 进行绘制显示
-    - 设备状态
-    - 界面PANEL选择状态
-        - 打开PANEL时刷新全部开关状态
-    - 接受用户输入, 完成交互
-线程[Rig_Polling]: 负责与设备通信, 持续获取设备状态
-    - 获取频率值
-        - VFO-A 以最多时间片获取, 保证刷新及时, VFO-B以第三优先级获取
-        - 经过一段实践频率不发生变更时, 降低优先级, 减少获取次数, 发生变更时提高频率
-    - 系统状态以第二优先级获取, 保证每秒2次以上获取
-    - 接收时只获取S表, 发射时只获取PO/SWR/+CUSTOM
-    - 不显示的功能参数不自动刷新, 仅当设置时刷新显示
-    - 各状态标签轮转扫描, 分散压力
-线程1\2通信:
-    - 1从2获取状态, 分为手动刷新和自动刷新
-    - 1向2发送命令, 进入2的执行队列
-        - 手动刷新指令, 要求获取部分未显示的参数, 刷新完成后在公共变量中获取
-        - SET命令 
-
-'''
 
 import pytz
 import random
@@ -95,6 +74,7 @@ meter_custom_val = 0
 job_queue = Queue.Queue()
 
 class Rig_Polling(threading.Thread):
+    """ Class for Rig Polling Thread """
     def __init__(self, radio_moel):
         super(Rig_Polling, self).__init__()
         creator = rig.RIG()
@@ -109,61 +89,90 @@ class Rig_Polling(threading.Thread):
         global meter_s_val, meter_swr_val, meter_po_val, meter_custom, meter_custom_val
 
         # VFO/TAG/GAIN poll frequency (query every n times)
-        QUERY_VFO_HI = 2
+        QUERY_VFO_HI = 10
         QUERY_VFO_LO = 10
-        QUERY_TAG_HI= 10
+        QUERY_TAG_HI= 50
         QUERY_TAG_LO = 50
         QUERY_GAIN_HI = 10
-        QUERY_GAIN_LO = 30
-        QUERY_METER_HI = 3
-        QUERY_METER_LO = 10
+        QUERY_GAIN_LO = 50
+        QUERY_METER_HI = 10
+        QUERY_METER_LO = 30
 
         count = 0
+        poll_freq_vfo = 10
+        poll_freq_meter = 10
         poll_freq_vfo = QUERY_VFO_HI
         poll_freq_tag = QUERY_TAG_HI
         poll_freq_gain = QUERY_GAIN_HI
         poll_freq_meter = QUERY_METER_HI
 
-        timer = time.time()
-        timer_vfo_hi = time.time()
-        vfo_a_last = '000000000'
+        # timer = time.time()
+        # timer_vfo_hi = time.time()
+        # vfo_a_last = '000000000'
 
         while True:      
             # thread job operation
-            try:
-                recv_job = job_queue.get_nowait()
-            except Queue.Empty:
-                pass
-            else:
-                pass
+            # try:
+            #     recv_job = job_queue.get_nowait()
+            # except Queue.Empty:
+            #     pass
+            # else:
+            #     pass
 
             # vfo get
-            if count % poll_freq_vfo == 0:
+            # A,A,A,A,B,A+,A,A,A,B+
+            vfo_query_switch = count % poll_freq_vfo
+            if vfo_query_switch in (1,2,3,4,7,8,9):
+                vfo_a_freq = self.rig.vfo_freq('A')['FREQ']
+            elif vfo_query_switch in (6,):
                 vfo_a_info = self.rig.vfo_info('A')
-                vfo_b_info = self.rig.vfo_info('B')
-
                 vfo_a_freq = vfo_a_info['FREQ']
                 vfo_a_mode = vfo_a_info['MODE']
                 vfo_a_clar_status = vfo_a_info['CLAR_STATUS']   # OFF/ON
                 vfo_a_clar_direct = vfo_a_info['CLAR_DIRECT']   # +/-
                 vfo_a_clar_offset = vfo_a_info['CLAR_OFFSET']   # 0000
+            elif vfo_query_switch in (5,):
+                vfo_b_freq = self.rig.vfo_freq('B')['FREQ'] 
+            elif vfo_query_switch in (0,):
+                vfo_b_info = self.rig.vfo_info('B')
                 vfo_b_freq = vfo_b_info['FREQ']
                 vfo_b_mode = vfo_b_info['MODE']
                 vfo_b_clar_status = vfo_b_info['CLAR_STATUS']
                 vfo_b_clar_direct = vfo_b_info['CLAR_DIRECT']
                 vfo_b_clar_offset = vfo_b_info['CLAR_OFFSET']
+            
+            # print poll_freq_vfo
+            # if count % poll_freq_vfo in (1,2,3,4):
+            #     vfo_a_freq = self.rig.vfo_freq('A')['FREQ']
 
-                if poll_freq_vfo == QUERY_VFO_LO:
-                    if vfo_a_freq <> vfo_a_last:
-                        poll_freq_vfo = QUERY_VFO_HI
-                        timer_vfo_hi = time.time()
-                        vfo_a_last = vfo_a_freq
-                elif poll_freq_vfo == QUERY_VFO_HI:
-                    if vfo_a_freq <> vfo_a_last:
-                        timer_vfo_hi = time.time()
-                        vfo_a_last = vfo_a_freq
-                    elif time.time() - timer_vfo_hi > 5.0:
-                        poll_freq_vfo = QUERY_VFO_LO
+            #     # vfo_a_info = self.rig.vfo_info('A')
+            #     # vfo_a_freq = vfo_a_info['FREQ']
+            #     # vfo_a_mode = vfo_a_info['MODE']
+            #     # vfo_a_clar_status = vfo_a_info['CLAR_STATUS']   # OFF/ON
+            #     # vfo_a_clar_direct = vfo_a_info['CLAR_DIRECT']   # +/-
+            #     # vfo_a_clar_offset = vfo_a_info['CLAR_OFFSET']   # 0000
+                
+            #     # if poll_freq_vfo == QUERY_VFO_LO:
+            #     #     if vfo_a_freq <> vfo_a_last:
+            #     #         poll_freq_vfo = QUERY_VFO_HI
+            #     #         timer_vfo_hi = time.time()
+            #     #         vfo_a_last = vfo_a_freq
+            #     # elif poll_freq_vfo == QUERY_VFO_HI:
+            #     #     if vfo_a_freq <> vfo_a_last:
+            #     #         timer_vfo_hi = time.time()
+            #     #         vfo_a_last = vfo_a_freq
+            #     #     elif time.time() - timer_vfo_hi > 5.0:
+            #     #         poll_freq_vfo = QUERY_VFO_LO
+            
+            # elif count % poll_freq_vfo == 0:
+            #     vfo_b_freq = self.rig.vfo_freq('B')['FREQ']
+
+                # vfo_b_info = self.rig.vfo_info('B')
+                # vfo_b_freq = vfo_b_info['FREQ']
+                # vfo_b_mode = vfo_b_info['MODE']
+                # vfo_b_clar_status = vfo_b_info['CLAR_STATUS']
+                # vfo_b_clar_direct = vfo_b_info['CLAR_DIRECT']
+                # vfo_b_clar_offset = vfo_b_info['CLAR_OFFSET']
 
             # balance gain val query by two parts
             if count % poll_freq_gain == 2:
@@ -196,16 +205,18 @@ class Rig_Polling(threading.Thread):
 
             if count % poll_freq_meter == 0:
                 meter_s_val = self.rig.meter('S')['VAL']
+            elif count % poll_freq_meter == 3:
                 meter_swr_val = self.rig.meter('SWR')['VAL']
+            elif count % poll_freq_meter == 6:
                 meter_po_val = self.rig.meter('PO')['VAL']
 
             # time.sleep(0.01)
             count = count + 1
 
-            if count > 2000:
+            if count > 100:
                 count = 0
                 # print '2000s CAT Oper cost: %d' % int(time.time() - timer)
-                timer = time.time()
+                # timer = time.time()
 
     def get_rxtx(self):
         # RI or GET Po Meter
@@ -303,8 +314,7 @@ class Remote_Controller(object):
             'RF_POWER_1': '0'
             ,'RF_POWER_2': '0'
             ,'RF_POWER_3': '0'
-            # GAIN
-            ,'RF_GAIN_1': '0'
+            ,'RF_GAIN_1': '0'       # GAIN
             ,'RF_GAIN_2': '0'
             ,'RF_GAIN_3': '0'
             ,'AF_GAIN_1': '0'
@@ -316,9 +326,7 @@ class Remote_Controller(object):
             ,'VOX_GAIN_1': '0'
             ,'VOX_GAIN_2': '0'
             ,'VOX_GAIN_3': '0'
-
-            # DATETIME
-            ,'DATE_1': '2'
+            ,'DATE_1': '2'          # DATETIME
             ,'DATE_2': '0'
             ,'DATE_3': '1'
             ,'DATE_4': '8'
@@ -332,9 +340,7 @@ class Remote_Controller(object):
             ,'TIME_4': '9'
             ,'TIME_5': '0'
             ,'TIME_6': '1'
-
-            # VFO_A/B
-            ,'VFO_A_FREQ_1': '0'
+            ,'VFO_A_FREQ_1': '0'    # VFO_A/B
             ,'VFO_A_FREQ_2': '0'
             ,'VFO_A_FREQ_3': '0'
             ,'VFO_A_FREQ_4': '0'
@@ -360,8 +366,8 @@ class Remote_Controller(object):
             ,'VFO_B_CLAR_OFFSET_2': '0'
             ,'VFO_B_CLAR_OFFSET_3': '0'
             ,'VFO_B_CLAR_OFFSET_4': '0'
-            ,'NB_VAL_1': '0'
-            ,'NB_VAL_2': '1'
+            ,'NB_VAL_1': ' '
+            ,'NB_VAL_2': ' '
             ,'NR_VAL_1': ' '
             ,'NR_VAL_2': ' '
             ,'MON_VAL_1': ' '
@@ -370,9 +376,9 @@ class Remote_Controller(object):
 
         self.meter_values = {
             'METER_1': 100
-            ,'METER_2': 250
-            ,'METER_3': 30
-            ,'METER_4': 200
+            ,'METER_2': 150
+            ,'METER_3': 200
+            ,'METER_4': 250
         }
         self.meter_select = {
             'METER_1': 'S'
@@ -426,14 +432,15 @@ class Remote_Controller(object):
             self.screen.blit(self.elements[k]['RES'][v], self.elements[k]['POS'])
         # draw meter bar
         for k, v in self.meter_values.iteritems():
-            pygame.draw.rect(
-                self.screen
-                ,eval(self.__layout['ELEMENTS'][k]['COLOR'])
-                ,(
-                    eval(self.__layout['ELEMENTS'][k]['BAR'])
-                    ,(int(v * self.__layout['ELEMENTS'][k]['RATIO']), self.__layout['ELEMENTS'][k]['BAR_WIDTH'])
+            if v > 0:
+                pygame.draw.rect(
+                    self.screen
+                    ,eval(self.__layout['ELEMENTS'][k]['COLOR'])
+                    ,(
+                        eval(self.__layout['ELEMENTS'][k]['BAR'])
+                        ,(int(v * self.__layout['ELEMENTS'][k]['RATIO']), self.__layout['ELEMENTS'][k]['BAR_WIDTH'])
+                    )
                 )
-            )
 
     def clock(self,timezone='Asia/Shanghai'):
         global IS_UTC
@@ -555,7 +562,7 @@ def main():
     port = custome_config['RADIO']['PORT']
     baudrate = custome_config['RADIO']['BAUDRATE']
 
-    FPS = 30
+    FPS = 20
     fpsClock = pygame.time.Clock()
     rc = Remote_Controller(model=model, resolution=screen_resolution, display_mode=dp_mode)
     rc.init_resouce()

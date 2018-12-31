@@ -33,7 +33,7 @@ class YAESU_CAT3(serial.Serial, object):
             bytesize=serial.EIGHTBITS,
             parity=serial.PARITY_NONE,
             stopbits=serial.STOPBITS_ONE,
-            write_timeout=1,
+            #write_timeout=1,
             timeout=0.1
         )
         with open('conf/YAESU_CAT3.yaml','r') as f:
@@ -178,6 +178,47 @@ class YAESU_CAT3(serial.Serial, object):
             return self.func('VFO_A_GET')
         elif vfo == 'B':
             return self.func('VFO_B_GET')
+
+    def vfo_info_new(self, vfo):
+        if vfo == 'A':
+            cmd = 'IF;'
+        elif vfo == 'B':
+            cmd = 'OI;'
+        
+        ret = self.cmd_r(cmd)
+        # CHANNEL: 2,5          # P1
+        # FREQ: 5,14            # P2
+        # CLAR_DIRECT: 14,15    # P3
+        # CLAR_OFFSET: 15,19    # P3
+        # CLAR_STATUS: 19,20    # P4
+        # MODE: 21,22           # P6
+        # CH_TYPE: 22,23        # P7
+        # CTCSS: 23,24          # P8
+        # DIFF: 26,27           # P10
+        mode_list = {
+            '1': 'LSB'
+            ,'2': 'USB'
+            ,'3': 'CW-U'
+            ,'4': 'FM'
+            ,'5': 'AM'
+            ,'6': 'RTTY-LSB'
+            ,'7': 'CW-R'
+            ,'8': 'DATA-LSB'
+            ,'9': 'RTTY-USB'
+            ,'A': 'DATA-FM'
+            ,'B': 'FM-N'
+            ,'C': 'DATA-USB'
+            ,'D': 'AM-N'
+            ,'E': 'C4FM'
+        }
+        return {
+            'FREQ': ret[5:14],
+            'CLAR_DIRECT': ret[14:15],
+            'CLAR_OFFSET': ret[15:19],
+            'CLAR_STATUS': 'OFF' if ret[19:20] == '0' else 'ON',
+            'MODE': mode_list[ret[21:22]]
+            }
+
     ############################/ VFO ############################
     def meter(self, meter_select):
         if meter_select == 'S':
