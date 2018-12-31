@@ -14,9 +14,6 @@ import Queue
 import rig
 
 # global vars
-VGA_SCREEN  = (640,480)
-HVGA_SCREEN = (480,320)
-
 IS_UTC = False
 
 af_gain  = 0
@@ -24,40 +21,39 @@ rf_gain  = 0
 mic_gain = 0
 vox_gain = 0
 rf_power = 0
-nb_val   = 0
-nr_val   = 0
-mon_val  = 0
+nb_val   = 10
+nr_val   = 11
+mon_val  = 20
 
 channel_no = 0
-
 vfo_a_freq = '014270000'
 vfo_b_freq = '007055000'
 vfo_a_mode = 'USB'
 vfo_b_mode = 'USB'
-vfo_a_clar_status = 'OFF'
+vfo_a_clar_status = 'ON'
 vfo_b_clar_status = 'OFF'
-vfo_a_clar_offset = '0000'
+vfo_a_clar_offset = '0300'
 vfo_b_clar_offset = '0000'
 vfo_a_clar_direct = '+'
 vfo_b_clar_direct = '+'
 
 agc_status  = 'OFF'
-att_status  = 'OFF'
-bkin_status = 'OFF'
-cnt_status  = 'OFF'
-dnf_status  = 'OFF'
-ipo_status  = 'OFF'
-meq_status  = 'OFF'
-mon_status  = 'OFF'
-nar_status  = 'OFF'
-nch_status  = 'OFF'
-nb_status   = 'OFF'
-nr_status   = 'OFF'
-prc_status  = 'OFF'
-sft_status  = 'OFF'
-spl_status  = 'OFF'
-tnr_status  = 'OFF'
-vox_status  = 'OFF'
+att_status  = 'ON'
+bkin_status = 'ON'
+cnt_status  = 'ON'
+dnf_status  = 'ON'
+ipo_status  = 'ON'
+meq_status  = 'ON'
+mon_status  = 'ON'
+nar_status  = 'ON'
+nch_status  = 'AUTO'
+nb_status   = 'ON'
+nr_status   = 'ON'
+prc_status  = 'ON'
+sft_status  = 'ON'
+spl_status  = 'ON'
+tnr_status  = 'ON'
+vox_status  = 'ON'
 
 rx_led      = 'OFF'
 tx_led      = 'OFF'
@@ -65,13 +61,13 @@ hi_swr_led  = 'OFF'
 play_led    = 'OFF'
 rec_led     = 'OFF'
 
-meter_s_val = 70
-meter_swr_val = 0
-meter_po_val = 0
+meter_s_val = 100
+meter_swr_val = 100
+meter_po_val = 100
 meter_custom = 'CMP'
 meter_custom_val = 0
 
-job_queue = Queue.Queue()
+rig_job_queue = Queue.Queue()
 
 class Rig_Polling(threading.Thread):
     """ Class for Rig Polling Thread """
@@ -113,7 +109,7 @@ class Rig_Polling(threading.Thread):
         while True:      
             # thread job operation
             # try:
-            #     recv_job = job_queue.get_nowait()
+            #     recv_job = rig_job_queue.get_nowait()
             # except Queue.Empty:
             #     pass
             # else:
@@ -141,38 +137,18 @@ class Rig_Polling(threading.Thread):
                 vfo_b_clar_direct = vfo_b_info['CLAR_DIRECT']
                 vfo_b_clar_offset = vfo_b_info['CLAR_OFFSET']
             
-            # print poll_freq_vfo
-            # if count % poll_freq_vfo in (1,2,3,4):
-            #     vfo_a_freq = self.rig.vfo_freq('A')['FREQ']
-
-            #     # vfo_a_info = self.rig.vfo_info('A')
-            #     # vfo_a_freq = vfo_a_info['FREQ']
-            #     # vfo_a_mode = vfo_a_info['MODE']
-            #     # vfo_a_clar_status = vfo_a_info['CLAR_STATUS']   # OFF/ON
-            #     # vfo_a_clar_direct = vfo_a_info['CLAR_DIRECT']   # +/-
-            #     # vfo_a_clar_offset = vfo_a_info['CLAR_OFFSET']   # 0000
-                
-            #     # if poll_freq_vfo == QUERY_VFO_LO:
-            #     #     if vfo_a_freq <> vfo_a_last:
-            #     #         poll_freq_vfo = QUERY_VFO_HI
-            #     #         timer_vfo_hi = time.time()
-            #     #         vfo_a_last = vfo_a_freq
-            #     # elif poll_freq_vfo == QUERY_VFO_HI:
-            #     #     if vfo_a_freq <> vfo_a_last:
-            #     #         timer_vfo_hi = time.time()
-            #     #         vfo_a_last = vfo_a_freq
-            #     #     elif time.time() - timer_vfo_hi > 5.0:
-            #     #         poll_freq_vfo = QUERY_VFO_LO
-
-            # elif count % poll_freq_vfo == 0:
-            #     vfo_b_freq = self.rig.vfo_freq('B')['FREQ']
-
-                # vfo_b_info = self.rig.vfo_info('B')
-                # vfo_b_freq = vfo_b_info['FREQ']
-                # vfo_b_mode = vfo_b_info['MODE']
-                # vfo_b_clar_status = vfo_b_info['CLAR_STATUS']
-                # vfo_b_clar_direct = vfo_b_info['CLAR_DIRECT']
-                # vfo_b_clar_offset = vfo_b_info['CLAR_OFFSET']
+            # # vfo_a freq change
+            #     if poll_freq_vfo == QUERY_VFO_LO:
+            #         if vfo_a_freq <> vfo_a_last:
+            #             poll_freq_vfo = QUERY_VFO_HI
+            #             timer_vfo_hi = time.time()
+            #             vfo_a_last = vfo_a_freq
+            #     elif poll_freq_vfo == QUERY_VFO_HI:
+            #         if vfo_a_freq <> vfo_a_last:
+            #             timer_vfo_hi = time.time()
+            #             vfo_a_last = vfo_a_freq
+            #         elif time.time() - timer_vfo_hi > 5.0:
+            #             poll_freq_vfo = QUERY_VFO_LO
 
             # balance gain val query by two parts
             if count % poll_freq_gain == 2:
@@ -226,29 +202,32 @@ class Rig_Polling(threading.Thread):
         pass
 
 class Button(object):
-    def __init__(self, surface, up_image, down_image, button_Rect):
+    def __init__(self, surface, up_image, down_image, btnRect, btnFunc, funcDict):
         self.button_up_image = pygame.image.load(up_image).convert_alpha()
         self.button_down_image = pygame.image.load(down_image).convert_alpha()
-        self.button_rect = button_Rect
+        self.button_rect = btnRect
+        self.surface = surface
         self.pressed = False
-        self.screen = surface
+        self.func = btnFunc
+        self.funcs = funcDict
     
-    def test_pressed(self, mouse_x, mouse_y, press=True):
-        if self.button_rect.collidepoint(mouse_x, mouse_y) and press:
-            print 'Clicked.'
+    def test_pressed(self, mouse_x, mouse_y, event):
+        if self.button_rect.collidepoint(mouse_x, mouse_y) and event == MOUSEBUTTONDOWN:
             self.pressed = True
-        else:
-            print 'Not Clicked.'
+        elif self.button_rect.collidepoint(mouse_x, mouse_y) and event == MOUSEBUTTONUP and self.pressed:
+            self.funcs[self.func]()
             self.pressed = False
-
+        else:
+            self.pressed = False
+                
     def render(self):
         if self.pressed:
-            self.screen.blit(self.button_down_image,(100,100))
+            self.surface.blit(self.button_down_image,(self.button_rect[0],self.button_rect[1]))
         else:
-            self.screen.blit(self.button_up_image,(100,100))
+            self.surface.blit(self.button_up_image,(self.button_rect[0],self.button_rect[1]))
 
 class Remote_Controller(object):
-    def __init__(self, model, resolution='VGA', display_mode=0):  # FULLSCREEN
+    def __init__(self, model, resolution, display_mode=0):  # FULLSCREEN
         '''
         model: radio model
         resolution: HVGA/VGA/HD
@@ -300,7 +279,7 @@ class Remote_Controller(object):
             
             # LED
             ,'RX': 'OFF'
-            ,'TX': 'OFF'
+            ,'TX': 'ON'
             # ,'HI-SWR': 'OFF'  # NOT READY
             # ,'REC': 'OFF'     # NOT READY
             # ,'PLAY': 'OFF'    # NOT READY
@@ -380,11 +359,21 @@ class Remote_Controller(object):
             ,'METER_3': 200
             ,'METER_4': 250
         }
+
         self.meter_select = {
             'METER_1': 'S'
             ,'METER_2': 'SWR'
             ,'METER_3': 'PO'
             ,'METER_4': 'CMP'
+        }
+
+        self.warn_box = {
+            'HI-SWR': 'ON'
+        }
+
+        self.btn_func = {
+            'set_band_7': '1'
+            ,'set_band_14': '2'
         }
 
         # 当前生效按钮
@@ -396,14 +385,16 @@ class Remote_Controller(object):
                 self.buttons['BUTTON_VFO_'+ v +'_' + str(i)] = (pos, size)
 
     def init_resouce(self):
+        """ init resouce of screen element """
         for k, v in self.__layout['ELEMENTS'].iteritems():
-            # print k
+            # print k, v
             self.elements[k] = {
                 'POS': eval(v['POS'])
                 ,'RES': self.load_resouce(v['PATH'], eval(v['SIZE']), v['STAT'])
                 }
 
     def load_resouce(self, path, size, stat_list, vertical=True):
+        """ load one picture, save into specific status in one dict """
         pic = pygame.image.load(path).convert_alpha()
         stat_with_res = {}
         start_pos = [0, 0]
@@ -417,16 +408,19 @@ class Remote_Controller(object):
         return stat_with_res
 
     def draw_icons(self):
+        """ draw all icons res """
         for k, v in self.icons.iteritems():
-            # print k,v
+            # print k, v
             self.screen.blit(self.elements[k]['RES'][v], self.elements[k]['POS'])
     
     def draw_values(self):
+        """ draw all values res """
         for k, v in self.values.iteritems():
-            # print k,v
+            # print k, v
             self.screen.blit(self.elements[k]['RES'][v], self.elements[k]['POS'])
-    
+
     def draw_meters(self):
+        """ draw meters in config """
         # draw meter background
         for k, v in self.meter_select.iteritems():
             self.screen.blit(self.elements[k]['RES'][v], self.elements[k]['POS'])
@@ -441,8 +435,13 @@ class Remote_Controller(object):
                         ,(int(v * self.__layout['ELEMENTS'][k]['RATIO']), self.__layout['ELEMENTS'][k]['BAR_WIDTH'])
                     )
                 )
+    def draw_warning(self):
+        """ draw warning box """
+        for k, v in self.warn_box.iteritems():
+            self.screen.blit(self.elements[k]['RES'][v], self.elements[k]['POS'])
 
-    def clock(self,timezone='Asia/Shanghai'):
+    def clock(self, timezone='Asia/Shanghai'):
+        """ draw clock """
         global IS_UTC
         tz = pytz.timezone('UTC') if IS_UTC else pytz.timezone(timezone)
         dt = datetime.datetime.now(tz).strftime('%Y%m%d-%H%M%S').split('-')
@@ -452,15 +451,57 @@ class Remote_Controller(object):
             self.values['TIME_' + str(i)] = dt[1][i-1]
 
     def sync(self):
-        '''
-        synchronize rig's status from rig_polling
-        '''
+        """ synchronize rig's status from rig_polling """
+
         global vfo_a_freq, vfo_b_freq, vfo_a_mode, vfo_b_mode
         global vfo_a_clar_status, vfo_b_clar_status, vfo_a_clar_offset, vfo_b_clar_offset, vfo_a_clar_direct, vfo_b_clar_direct
         global agc_status, att_status, bkin_status, cnt_status, dnf_status, ipo_status, meq_status, mon_status, nar_status, nch_status, nb_status, nr_status, prc_status, sft_status, spl_status, tnr_status, vox_status
         global af_gain, rf_gain, mic_gain, vox_gain, rf_power, nb_val, nr_val, mon_val
         global rx_led, tx_led, hi_swr_led, play_led, rec_led
         global meter_s_val, meter_swr_val, meter_po_val, meter_custom, meter_custom_val
+
+        # set function indicators
+        self.icons['AGC']   = agc_status
+        self.icons['ATT']   = att_status
+        self.icons['BK-IN'] = bkin_status
+        self.icons['CNT']   = cnt_status
+        self.icons['DNF']   = dnf_status
+        self.icons['IPO']   = ipo_status
+        self.icons['MEQ']   = meq_status
+        self.icons['MON']   = mon_status
+        self.icons['NAR']   = nar_status
+        self.icons['NCH']   = nch_status
+        self.icons['NB']    = nb_status
+        self.icons['NR']    = nr_status
+        self.icons['PRC']   = prc_status
+        self.icons['SFT']   = sft_status
+        self.icons['SPL']   = spl_status
+        self.icons['TNR']   = tnr_status
+        self.icons['VOX']   = vox_status
+
+        if nb_status == 'ON':
+            nb_val_display = str(nb_val).rjust(2,' ')
+            self.values['NB_VAL_1'] = nb_val_display[0]
+            self.values['NB_VAL_2'] = nb_val_display[1]
+        else:
+            self.values['NB_VAL_1'] = ' '
+            self.values['NB_VAL_2'] = ' '
+
+        if nr_status == 'ON':
+            nr_val_display = str(nr_val).rjust(2,' ')
+            self.values['NR_VAL_1'] = nr_val_display[0]
+            self.values['NR_VAL_2'] = nr_val_display[1]
+        else:
+            self.values['NR_VAL_1'] = ' '
+            self.values['NR_VAL_2'] = ' '
+
+        if mon_status == 'ON':
+            mon_val_display = str(mon_val).rjust(2,' ')
+            self.values['MON_VAL_1'] = mon_val_display[0]
+            self.values['MON_VAL_2'] = mon_val_display[1]
+        else:
+            self.values['MON_VAL_1'] = ' '
+            self.values['MON_VAL_2'] = ' '
 
         # set meter val
         self.meter_values['METER_1'] = meter_s_val
@@ -487,12 +528,23 @@ class Remote_Controller(object):
         # set CLAR
         self.icons['VFO_A_CLAR'] = vfo_a_clar_status
         self.icons['VFO_B_CLAR'] = vfo_b_clar_status
-        self.values['VFO_A_CLAR_DIRECTION'] = vfo_a_clar_direct
-        self.values['VFO_B_CLAR_DIRECTION'] = vfo_b_clar_direct
-        for i in range(1,5):
-            self.values['VFO_A_CLAR_OFFSET_' + str(i)] = vfo_a_clar_offset[i-1]
-            self.values['VFO_B_CLAR_OFFSET_' + str(i)] = vfo_b_clar_offset[i-1]
+        if vfo_a_clar_status == 'ON':
+            self.values['VFO_A_CLAR_DIRECTION'] = vfo_a_clar_direct
+            for i in range(1,5):
+                self.values['VFO_A_CLAR_OFFSET_' + str(i)] = vfo_a_clar_offset[i-1]
+        else:
+            self.values['VFO_A_CLAR_DIRECTION'] = ' '
+            for i in range(1,5):
+                self.values['VFO_A_CLAR_OFFSET_' + str(i)] = ' '
 
+        if vfo_b_clar_status == 'ON':
+            self.values['VFO_B_CLAR_DIRECTION'] = vfo_b_clar_direct
+            for i in range(1,5):
+                self.values['VFO_B_CLAR_OFFSET_' + str(i)] = vfo_b_clar_offset[i-1]
+        else:
+            self.values['VFO_B_CLAR_DIRECTION'] = ' '
+            for i in range(1,5):
+                self.values['VFO_B_CLAR_OFFSET_' + str(i)] = ' '
 
         # set GAIN and RF_POWER
         rf_gain_display = str(rf_gain).rjust(3,' ')
@@ -506,33 +558,15 @@ class Remote_Controller(object):
             self.values['MIC_GAIN_' + str(i)] = mic_gain_display[i-1]
             self.values['VOX_GAIN_' + str(i)] = vox_gain_display[i-1]
             self.values['RF_POWER_' + str(i)] = rf_power_display[i-1]
-        
-        # set function indicators
-        self.icons['AGC']   = agc_status
-        self.icons['ATT']   = att_status
-        self.icons['BK-IN'] = bkin_status
-        self.icons['CNT']   = cnt_status
-        self.icons['DNF']   = dnf_status
-        self.icons['IPO']   = ipo_status
-        self.icons['MEQ']   = meq_status
-        self.icons['MON']   = mon_status
-        self.icons['NAR']   = nar_status
-        self.icons['NCH']   = nch_status
-        self.icons['NB']    = nb_status
-        self.icons['NR']    = nr_status
-        self.icons['PRC']   = prc_status
-        self.icons['SFT']   = sft_status
-        self.icons['SPL']   = spl_status
-        self.icons['TNR']   = tnr_status
-        self.icons['VOX']   = vox_status
 
     def render(self):
-        self.sync()
-        self.clock()
         self.screen.blit(self.background, (0,0))
+        self.sync()
+        self.draw_meters()
+        self.clock()
         self.draw_icons()
         self.draw_values()
-        self.draw_meters()
+        self.draw_warning()
         pygame.display.update()
 
     def get_button(self, x, y):
@@ -544,40 +578,44 @@ def main():
 
     # match maximum resolution
     all_support_display_modes = pygame.display.list_modes()
-    if VGA_SCREEN in all_support_display_modes:
+    if (640,480) in all_support_display_modes:
         screen_resolution = 'VGA'
-    elif HVGA_SCREEN in all_support_display_modes:
+    elif (480,320) in all_support_display_modes:
         screen_resolution = 'HVGA'
     else:
-        print 'NOT SUPPORT SCREEN RESOLUTION.(Only VGA or HVGA supported)'
+        print 'UNSUPPORTED RESOLUTION. (Only VGA or HVGA)'
         exit()
 
     # for debug
-    # screen_resolution = 'HVGA'
-    dp_mode = 0
+    screen_resolution = 'HVGA'
+    # dp_mode = 0
 
     with open('conf/custom.yaml','r') as f:
         custome_config = yaml.load(f)
-    model = custome_config['RADIO']['MODEL']
-    port = custome_config['RADIO']['PORT']
-    baudrate = custome_config['RADIO']['BAUDRATE']
+        model = custome_config['RADIO']['MODEL']
+        port = custome_config['RADIO']['PORT']
+        baudrate = custome_config['RADIO']['BAUDRATE']
+        dp_mode = FULLSCREEN if custome_config['RADIO']['FULLSCREEN'] else 0
 
+    # set fps clock, limit fps
     FPS = 20
     fpsClock = pygame.time.Clock()
+
     rc = Remote_Controller(model=model, resolution=screen_resolution, display_mode=dp_mode)
     rc.init_resouce()
-    poll = Rig_Polling(model)
-    poll.setDaemon(True)
-    poll.start()
+
+    # poll = Rig_Polling(model)
+    # poll.setDaemon(True)
+    # poll.start()
 
     while True:
         for event in pygame.event.get():
             if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
                 pygame.quit()
                 exit()
+
         rc.render()
         fpsClock.tick(FPS)
-        
 
 if __name__ == '__main__':
     main()

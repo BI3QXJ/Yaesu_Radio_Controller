@@ -9,24 +9,24 @@ BUTTONS:
   BUTTON_1:
     UP: button_up.png
     DOWN: button_down.png
-    RECT:  (131,312,200,357)   # RECT
+    RECT: (131,312,200,357)   # RECT
     FUNC: 'FUNC1:VAL=30'
     TYPE: CLICK
   BUTTON_2:
     UP: button_up.png
     DOWN: button_down.png
-    RECT:  (131,312,200,357)   # RECT
+    RECT: (131,312,200,357)   # RECT
     FUNC: 'FUNC2:VAL=40'
     TYPE: SWITCH
   BUTTON_3:
     UP: button_up.png
     DOWN: button_down.png
-    RECT:  (131,312,200,357)   # RECT
+    RECT: (131,312,200,357)   # RECT
     FUNC: 'FUNC3:VAL=10'
     TYPE: CLICK
   BUTTON_4:
     UP: button_up.png
     DOWN: button_down.png
-    RECT:  (131,312,200,357)   # RECT
+    RECT: (131,312,200,357)   # RECT
     FUNC: 'FUNC4:VAL=20'
     TYPE: SWITCH

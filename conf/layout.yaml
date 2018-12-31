@@ -885,6 +885,7 @@ VGA:
       STAT:
         - '+'
         - '-'
+        - ' '
     VFO_B_CLAR_DIRECTION:
       PATH: res/VGA/indicator/clar_direction.png
       POS: (540,251)
@@ -892,6 +893,7 @@ VGA:
       STAT:
         - '+'
         - '-'
+        - ' '
     VFO_A_CLAR_OFFSET_1:
       PATH: res/VGA/font/font_vfo_b_small.png
       POS: (281,243)
@@ -1356,6 +1358,13 @@ VGA:
         - '8'
         - '9'
         - ' '
+    HI-SWR:
+      PATH: res/VGA/indicator/hi_swr.png
+      POS: (13,194)
+      SIZE: (480,82)
+      STAT:
+        - 'ON'
+        - 'OFF'
 
 # For HVGA Screen
 HVGA:
@@ -2260,6 +2269,7 @@ HVGA:
       STAT:
         - '+'
         - '-'
+        - ' '
     VFO_B_CLAR_DIRECTION:
       PATH: res/HVGA/indicator/clar_direction.png
       POS: (401,112)
@@ -2267,6 +2277,7 @@ HVGA:
       STAT:
         - '+'
         - '-'
+        - ' '
     VFO_A_CLAR_OFFSET_1:
       PATH: res/HVGA/font/font_clar.png
       POS: (202,108)
@@ -2731,3 +2742,10 @@ HVGA:
         - '8'
         - '9'
         - ' '
+    HI-SWR:
+      PATH: res/HVGA/indicator/hi_swr.png
+      POS: (0,104)
+      SIZE: (480,82)
+      STAT:
+        - 'ON'
+        - 'OFF'
