@@ -163,7 +163,7 @@ class Rig_Polling(threading.Thread):
             #     #         vfo_a_last = vfo_a_freq
             #     #     elif time.time() - timer_vfo_hi > 5.0:
             #     #         poll_freq_vfo = QUERY_VFO_LO
-            
+
             # elif count % poll_freq_vfo == 0:
             #     vfo_b_freq = self.rig.vfo_freq('B')['FREQ']
 
@@ -554,7 +554,7 @@ def main():
 
     # for debug
     # screen_resolution = 'HVGA'
-    dp_mode = FULLSCREEN
+    dp_mode = 0
 
     with open('conf/custom.yaml','r') as f:
         custome_config = yaml.load(f)
