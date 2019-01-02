@@ -6,11 +6,11 @@ import random
 import datetime
 import time
 import yaml
+import Queue
+import threading
 import pygame
 from pygame.locals import *
 from sys import exit
-import threading
-import Queue
 import rig
 
 # global vars
@@ -223,6 +223,7 @@ class Rig_Polling(threading.Thread):
         pass
 
 class Button(object):
+    """ Class for button, click to invoke function, trigger by MOUSEBUTTONUP """
     def __init__(self, surface, up_image, down_image, btnRect, btnFunc):
         self.button_up_image = pygame.image.load(up_image).convert_alpha()
         self.button_down_image = pygame.image.load(down_image).convert_alpha()
@@ -249,12 +250,23 @@ class Button(object):
         else:
             self.surface.blit(self.button_up_image,(self.button_rect[0],self.button_rect[1]))
 
+class Switch(object):
+    """ Class for Switch, click to switch status, trigger by MOUSEBUTTONUP """
+    def __init__(self, surface, stat_images, stat_list, btnRect):
+        self.stats = stat_list
+        self.current_stat = ''
+
+    def test_pressed(self, mouse_x, mouse_y, event):
+        pass
+    def render(self):
+        pass
+
 class Remote_Controller(object):
-    def __init__(self, model, resolution, display_mode=0):  # FULLSCREEN
+    def __init__(self, model, resolution, display_mode=0):
         '''
         model: radio model
         resolution: HVGA/VGA/HD
-        display_mode:0=windows,FULLSCREEN
+        display_mode:0=windows, FULLSCREEN
         '''
         self.model = model
 
@@ -392,16 +404,9 @@ class Remote_Controller(object):
 
         self.warn_box = {
             'HI-SWR': 'OFF'
-            # ,'HI-SWR': 'OFF'  # NOT READY
             # ,'REC': 'OFF'     # NOT READY
             # ,'PLAY': 'OFF'    # NOT READY
         }
-
-        # for i in range(1,10):
-        #     for v in ('A','B'):
-        #         pos = eval(self.__layout['ELEMENTS']['VFO_'+ v +'_FREQ_' + str(i)]['POS'])
-        #         size = eval(self.__layout['ELEMENTS']['VFO_'+ v +'_FREQ_' + str(i)]['SIZE'])
-        #         self.buttons['BUTTON_VFO_'+ v +'_' + str(i)] = (pos, size)
 
     def init_resouce(self):
         """ init resouce of screen element """
@@ -499,7 +504,6 @@ class Remote_Controller(object):
 
     def sync(self):
         """ synchronize rig's status from rig_polling """
-
         global vfo_a_freq, vfo_b_freq, vfo_a_mode, vfo_b_mode
         global vfo_a_clar_status, vfo_b_clar_status, vfo_a_clar_offset, vfo_b_clar_offset, vfo_a_clar_direct, vfo_b_clar_direct
         global agc_status, att_status, bkin_status, cnt_status, dnf_status, ipo_status, meq_status, mon_status, nar_status, nch_status, nb_status, nr_status, prc_status, sft_status, spl_status, tnr_status, vox_status
@@ -607,6 +611,7 @@ class Remote_Controller(object):
             self.values['RF_POWER_' + str(i)] = rf_power_display[i-1]
 
     def render(self):
+        """ draw every display part: background, meter, icons, values, buttons, warning """
         self.screen.blit(self.background, (0,0))
         self.sync()
         self.draw_meters()
@@ -650,6 +655,7 @@ def main():
     rc.init_resouce()
     rc.init_button()
 
+    # start daemon threading for rig status polling
     poll = Rig_Polling(model)
     poll.setDaemon(True)
     poll.start()
