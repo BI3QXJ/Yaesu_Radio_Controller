@@ -207,6 +207,11 @@ class Rig_Polling(threading.Thread):
             elif count % poll_freq_meter == 6:
                 meter_po_val = self.rig.meter('PO')['VAL']
 
+            if count % 10 == 0:
+                rx_led      = self.rig.rx_get()['STATUS']
+                tx_led      = self.rig.tx_get()['STATUS']
+                hi_swr_led  = self.rig.hi_swr_get()['STATUS']
+
             # time.sleep(0.01)
             count = count + 1
 
@@ -429,13 +434,6 @@ class Remote_Controller(object):
                     ,pygame.Rect(eval(self.__layout['BUTTON']['BUTTONS'][btn]['RECT']))
                     ,btn
                 )
-                # self.buttons[k][btn] = {
-                #     'UP': pygame.image.load(self.__layout['BUTTON']['BUTTONS'][btn]['UP']).convert_alpha()
-                #     ,'DOWN': pygame.image.load(self.__layout['BUTTON']['BUTTONS'][btn]['DOWN']).convert_alpha()
-                #     ,'RECT': pygame.Rect(eval(self.__layout['BUTTON']['BUTTONS'][btn]['RECT']))
-                #     ,'FUNC': self.__layout['BUTTON']['BUTTONS'][btn]['FUNC']
-                #     ,'TYPE': self.__layout['BUTTON']['BUTTONS'][btn]['TYPE']
-                # }
 
     def load_resouce(self, path, size, stat_list, vertical=True):
         """ load one picture, save into specific status in one dict """
@@ -529,6 +527,10 @@ class Remote_Controller(object):
         self.icons['SPL']   = spl_status
         self.icons['TNR']   = tnr_status
         self.icons['VOX']   = vox_status
+
+        self.icons['RX'] = rx_led
+        self.icons['TX'] = tx_led
+        self.warn_box['HI-SWR'] = hi_swr_led
 
         if nb_status == 'ON':
             nb_val_display = str(nb_val).rjust(2,' ')

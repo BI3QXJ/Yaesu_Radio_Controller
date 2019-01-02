@@ -163,6 +163,16 @@ class YAESU_CAT3(serial.Serial, object):
     def vox_get(self):
         return self.func('VOX_GET')
 
+    def rx_get(self):
+        return self.func('RX_GET')
+
+    def tx_get(self):
+        return self.func('TX_GET')
+
+    def hi_swr_get(self):
+        return self.func('HI_SWR_GET')
+
+
     ############################ VFO ############################
     def vfo_a_b(self):
         return self.func('VFO_A_B_SET')
@@ -238,7 +248,6 @@ class FT891(YAESU_CAT3, object):
             ,port='/dev/ttyUSB0'
             ,baudrate=38400
         )
-    
 
 class RIG(object):
     def connect(self, model):

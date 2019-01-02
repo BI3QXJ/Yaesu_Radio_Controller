@@ -2,6 +2,19 @@ VGA:
   RESOLUTION: (640,480)
   BACKGROUND: res/VGA/background.png
   BUTTON:
+    PANEL:
+      BUTTON_PANEL_MODE:
+        UP: res/VGA/button/band_up.png
+        DOWN: res/VGA/button/band_1.8_down.png
+        RECT: (131,312,70,46)
+        SELECT: btn_func_band_1_8
+        TYPE: CLICK
+      BUTTON_PANEL_BAND:
+        UP: res/VGA/button/band_up.png
+        DOWN: res/VGA/button/band_1.8_down.png
+        RECT: (131,312,70,46)
+        SELECT: btn_func_band_1_8
+        TYPE: CLICK
     GROUP:
       BAND:
         - BUTTON_BAND_1_8
