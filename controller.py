@@ -71,10 +71,28 @@ rig_job_queue = Queue.Queue()
 
 class Rig_Polling(threading.Thread):
     """ Class for Rig Polling Thread """
-    def __init__(self, radio_moel):
+    def __init__(self, radio_model):
         super(Rig_Polling, self).__init__()
         creator = rig.RIG()
-        self.rig = creator.connect(radio_moel)
+        self.rig = creator.connect(radio_model)
+        self.button_funcs = {
+            'BUTTON_BAND_1_8': 'BS00;'
+            ,'BUTTON_BAND_3_5': 'BS01;'
+            ,'BUTTON_BAND_5_3': 'BS02;'
+            ,'BUTTON_BAND_7': 'BS03;'
+            ,'BUTTON_BAND_10': 'BS04;'
+            ,'BUTTON_BAND_14': 'BS05;'
+            ,'BUTTON_BAND_18': 'BS06;'
+            ,'BUTTON_BAND_21': 'BS07;'
+            ,'BUTTON_BAND_24': 'BS08;'
+            ,'BUTTON_BAND_28': 'BS09;'
+            ,'BUTTON_BAND_50': 'BS10;'
+            ,'BUTTON_BAND_GEN': 'BS11;'
+            ,'BUTTON_BAND_MW': 'BS12;'
+            ,'BUTTON_BAND_AIR': 'BS14;'
+            ,'BUTTON_BAND_144': 'BS15;'
+            ,'BUTTON_BAND_430': 'BS16;'
+        }
         
     def run(self):
         global vfo_a_freq, vfo_b_freq, vfo_a_mode, vfo_b_mode
@@ -108,12 +126,15 @@ class Rig_Polling(threading.Thread):
 
         while True:      
             # thread job operation
-            # try:
-            #     recv_job = rig_job_queue.get_nowait()
-            # except Queue.Empty:
-            #     pass
-            # else:
-            #     pass
+            try:
+                recv_job = rig_job_queue.get_nowait()
+            except Queue.Empty:
+                pass
+            else:
+                print recv_job
+                self.rig.cmd_w(self.button_funcs[recv_job])
+            
+            # continue
 
             # vfo get
             # A,A,A,A,B,A+,A,A,A,B+
@@ -202,20 +223,22 @@ class Rig_Polling(threading.Thread):
         pass
 
 class Button(object):
-    def __init__(self, surface, up_image, down_image, btnRect, btnFunc, funcDict):
+    def __init__(self, surface, up_image, down_image, btnRect, btnFunc):
         self.button_up_image = pygame.image.load(up_image).convert_alpha()
         self.button_down_image = pygame.image.load(down_image).convert_alpha()
         self.button_rect = btnRect
         self.surface = surface
         self.pressed = False
         self.func = btnFunc
-        self.funcs = funcDict
     
     def test_pressed(self, mouse_x, mouse_y, event):
         if self.button_rect.collidepoint(mouse_x, mouse_y) and event == MOUSEBUTTONDOWN:
             self.pressed = True
         elif self.button_rect.collidepoint(mouse_x, mouse_y) and event == MOUSEBUTTONUP and self.pressed:
-            self.funcs[self.func]()
+            # self.funcs[self.func]()
+            # print self.func
+            global rig_job_queue
+            rig_job_queue.put(self.func)
             self.pressed = False
         else:
             self.pressed = False
@@ -237,7 +260,7 @@ class Remote_Controller(object):
 
         with open('conf/layout.yaml','r') as f:
              ui_conf = yaml.load(f)[resolution]
-        print ui_conf['RESOLUTION']
+        print resolution, ui_conf['RESOLUTION']
         self.__layout = ui_conf
         
         self.screen = pygame.display.set_mode(eval(ui_conf['RESOLUTION']), display_mode, 32)
@@ -246,6 +269,9 @@ class Remote_Controller(object):
         self.background = pygame.image.load(ui_conf['BACKGROUND']).convert()
         # 全部元素图像+位置
         self.elements = {}
+        # 当前生效按钮
+        self.buttons = {}
+        # self.active_panel = 'BAND'
         # 图标类显示元素
         self.icons = {
             'MODEL': 'FT-891'
@@ -280,9 +306,6 @@ class Remote_Controller(object):
             # LED
             ,'RX': 'OFF'
             ,'TX': 'ON'
-            # ,'HI-SWR': 'OFF'  # NOT READY
-            # ,'REC': 'OFF'     # NOT READY
-            # ,'PLAY': 'OFF'    # NOT READY
 
             ,'PANEL': 'BAND'
         }
@@ -368,21 +391,17 @@ class Remote_Controller(object):
         }
 
         self.warn_box = {
-            'HI-SWR': 'ON'
+            'HI-SWR': 'OFF'
+            # ,'HI-SWR': 'OFF'  # NOT READY
+            # ,'REC': 'OFF'     # NOT READY
+            # ,'PLAY': 'OFF'    # NOT READY
         }
 
-        self.btn_func = {
-            'set_band_7': '1'
-            ,'set_band_14': '2'
-        }
-
-        # 当前生效按钮
-        self.buttons = {}
-        for i in range(1,10):
-            for v in ('A','B'):
-                pos = eval(self.__layout['ELEMENTS']['VFO_'+ v +'_FREQ_' + str(i)]['POS'])
-                size = eval(self.__layout['ELEMENTS']['VFO_'+ v +'_FREQ_' + str(i)]['SIZE'])
-                self.buttons['BUTTON_VFO_'+ v +'_' + str(i)] = (pos, size)
+        # for i in range(1,10):
+        #     for v in ('A','B'):
+        #         pos = eval(self.__layout['ELEMENTS']['VFO_'+ v +'_FREQ_' + str(i)]['POS'])
+        #         size = eval(self.__layout['ELEMENTS']['VFO_'+ v +'_FREQ_' + str(i)]['SIZE'])
+        #         self.buttons['BUTTON_VFO_'+ v +'_' + str(i)] = (pos, size)
 
     def init_resouce(self):
         """ init resouce of screen element """
@@ -393,8 +412,29 @@ class Remote_Controller(object):
                 ,'RES': self.load_resouce(v['PATH'], eval(v['SIZE']), v['STAT'])
                 }
 
+    def init_button(self):
+        for k,v in self.__layout['BUTTON']['GROUP'].iteritems():
+            self.buttons[k] = {}
+            print k,v
+            for btn in v:
+                self.buttons[k][btn] = Button(
+                    self.screen
+                    ,self.__layout['BUTTON']['BUTTONS'][btn]['UP']
+                    ,self.__layout['BUTTON']['BUTTONS'][btn]['DOWN']
+                    ,pygame.Rect(eval(self.__layout['BUTTON']['BUTTONS'][btn]['RECT']))
+                    ,btn
+                )
+                # self.buttons[k][btn] = {
+                #     'UP': pygame.image.load(self.__layout['BUTTON']['BUTTONS'][btn]['UP']).convert_alpha()
+                #     ,'DOWN': pygame.image.load(self.__layout['BUTTON']['BUTTONS'][btn]['DOWN']).convert_alpha()
+                #     ,'RECT': pygame.Rect(eval(self.__layout['BUTTON']['BUTTONS'][btn]['RECT']))
+                #     ,'FUNC': self.__layout['BUTTON']['BUTTONS'][btn]['FUNC']
+                #     ,'TYPE': self.__layout['BUTTON']['BUTTONS'][btn]['TYPE']
+                # }
+
     def load_resouce(self, path, size, stat_list, vertical=True):
         """ load one picture, save into specific status in one dict """
+        # print path, stat_list
         pic = pygame.image.load(path).convert_alpha()
         stat_with_res = {}
         start_pos = [0, 0]
@@ -410,13 +450,11 @@ class Remote_Controller(object):
     def draw_icons(self):
         """ draw all icons res """
         for k, v in self.icons.iteritems():
-            # print k, v
             self.screen.blit(self.elements[k]['RES'][v], self.elements[k]['POS'])
     
     def draw_values(self):
         """ draw all values res """
         for k, v in self.values.iteritems():
-            # print k, v
             self.screen.blit(self.elements[k]['RES'][v], self.elements[k]['POS'])
 
     def draw_meters(self):
@@ -435,6 +473,15 @@ class Remote_Controller(object):
                         ,(int(v * self.__layout['ELEMENTS'][k]['RATIO']), self.__layout['ELEMENTS'][k]['BAR_WIDTH'])
                     )
                 )
+    
+    def draw_buttons(self):
+        for btn in self.buttons[self.icons['PANEL']].values():
+            btn.render()
+
+    def test_buttons(self, x, y, event):
+        for btn in self.buttons[self.icons['PANEL']].values():
+            btn.test_pressed(x, y, event)
+
     def draw_warning(self):
         """ draw warning box """
         for k, v in self.warn_box.iteritems():
@@ -566,15 +613,13 @@ class Remote_Controller(object):
         self.clock()
         self.draw_icons()
         self.draw_values()
+        self.draw_buttons()
         self.draw_warning()
         pygame.display.update()
 
-    def get_button(self, x, y):
-        pass
-
 def main():
     pygame.init()
-    pygame.mouse.set_visible(False)
+    # pygame.mouse.set_visible(False)
 
     # match maximum resolution
     all_support_display_modes = pygame.display.list_modes()
@@ -586,10 +631,6 @@ def main():
         print 'UNSUPPORTED RESOLUTION. (Only VGA or HVGA)'
         exit()
 
-    # for debug
-    screen_resolution = 'HVGA'
-    # dp_mode = 0
-
     with open('conf/custom.yaml','r') as f:
         custome_config = yaml.load(f)
         model = custome_config['RADIO']['MODEL']
@@ -597,22 +638,30 @@ def main():
         baudrate = custome_config['RADIO']['BAUDRATE']
         dp_mode = FULLSCREEN if custome_config['RADIO']['FULLSCREEN'] else 0
 
+    # for debug
+    # screen_resolution = 'HVGA'
+    dp_mode = FULLSCREEN
+
     # set fps clock, limit fps
     FPS = 20
     fpsClock = pygame.time.Clock()
 
     rc = Remote_Controller(model=model, resolution=screen_resolution, display_mode=dp_mode)
     rc.init_resouce()
+    rc.init_button()
 
-    # poll = Rig_Polling(model)
-    # poll.setDaemon(True)
-    # poll.start()
+    poll = Rig_Polling(model)
+    poll.setDaemon(True)
+    poll.start()
 
     while True:
         for event in pygame.event.get():
             if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
                 pygame.quit()
                 exit()
+            elif MOUSEBUTTONDOWN or event.type == MOUSEBUTTONUP:
+                x, y = pygame.mouse.get_pos()
+                rc.test_buttons(x, y, event.type)
 
         rc.render()
         fpsClock.tick(FPS)

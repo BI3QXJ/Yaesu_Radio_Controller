@@ -2,88 +2,120 @@ VGA:
   RESOLUTION: (640,480)
   BACKGROUND: res/VGA/background.png
   BUTTON:
-    FUNC:
-      BUTTON_FUNC_VFO:
-      BUTTON_FUNC_BAND:
-      BUTTON_FUNC_MODE:
-      BUTTON_FUNC_CW:
-      BUTTON_FUNC_MEM:
-      BUTTON_FUNC_SCOPE:
-    PANEL:
-      PANEL_BAND:
-        '1.8':
-          POS:  (131,312,200,357)
-          FUNC: 'BAND_SET_1.8'
-        '3.5':
-          POS:  (208,312,277,357)
-          FUNC: 'BAND_SET_3.5'
-        '5.3':
-          POS:  (285,312,354,357)
-          FUNC: 'BAND_SET_5.3'
-        '7.0':
-          POS:  (362,312,431,357)
-          FUNC: 'BAND_SET_7.0'
-        '10':
-          POS:  (439,312,508,357)
-          FUNC: 'BAND_SET_10'
-        '14':
-          POS:  (131,365,200,410)
-          FUNC: 'BAND_SET_14'
-        '18':
-          POS:  (208,365,277,410)
-          FUNC: 'BAND_SET_18'
-        '21':
-          POS:  (285,365,354,410)
-          FUNC: 'BAND_SET_21'
-        '24':
-          POS:  (362,365,431,410)
-          FUNC: 'BAND_SET_24'
-        '28':
-          POS:  (439,365,508,410)
-          FUNC: 'BAND_SET_28'
-        '50':
-          POS:  (131,418,200,463)
-          FUNC: 'BAND_SET_50'
-        'GEN':
-          POS:  (208,418,277,463)
-          FUNC: 'BAND_SET_GEN'
-        'UP':
-          POS:  (362,418,431,463)
-          FUNC: 'BAND_SET_UP'
-        'DOWN':
-          POS:  (439,418,508,463)
-          FUNC: 'BAND_SET_DOWN'
-      PANEL_MODE:
-        'LSB':
-          POS:  (131,312,200,357)
-          FUNC: 'MODE_SET_LSB'
-        'CW-L':
-          POS:  (208,312,277,357)
-          FUNC: 'MODE_SET_CW-L'
-        'RTTY-L':
-          POS:  (285,312,354,357)
-          FUNC: 'MODE_SET_RTTY-L'
-        'DATA-L':
-          POS:  (362,312,431,357)
-          FUNC: 'MODE_SET_DATA-L'
-        'AM':
-          POS:  (439,312,508,357)
-          FUNC: 'MODE_SET_AM'
-        'USB':
-          POS:  (131,365,200,410)
-          FUNC: 'MODE_SET_USB'
-        'CW-U':
-          POS:  (208,365,277,410)
-          FUNC: 'MODE_SET_CW-U'
-        'RTTY-U':
-          POS:  (285,365,354,410)
-          FUNC: 'MODE_SET_RTTY-U'
-        'DATA-U':
-          POS:  (362,365,431,410)
-          FUNC: 'MODE_SET_DATA-U'
-        'FM':
-          POS:  (439,365,508,410)
-          FUNC: 'MODE_SET_FM'
+    GROUP:
+      BAND:
+        - BUTTON_BAND_1_8
+        - BUTTON_BAND_3_5
+        - BUTTON_BAND_5_3
+        - BUTTON_BAND_7
+        - BUTTON_BAND_10
+        - BUTTON_BAND_14
+        - BUTTON_BAND_18
+        - BUTTON_BAND_21
+        - BUTTON_BAND_24
+        - BUTTON_BAND_28
+        - BUTTON_BAND_50
+        - BUTTON_BAND_GEN
+      # CW:
+      # MODE:
+        # - BUTTON_MODE_LSB
+        # - BUTTON_MODE_USB
+        # - BUTTON_MODE_CWL
+        # - BUTTON_MODE_CWU
+        # - BUTTON_MODE_RL
+        # - BUTTON_MODE_RU
+        # - BUTTON_MODE_DL
+        # - BUTTON_MODE_DU
+        # - BUTTON_MODE_AM
+        # - BUTTON_MODE_FM
+      # SCOPE:
+      # VFO:
+        # - BUTTON_VFO_0
+        # - BUTTON_VFO_1
+        # - BUTTON_VFO_2
+        # - BUTTON_VFO_3
+        # - BUTTON_VFO_4
+        # - BUTTON_VFO_5
+        # - BUTTON_VFO_6
+        # - BUTTON_VFO_7
+        # - BUTTON_VFO_8
+        # - BUTTON_VFO_9
+        # - BUTTON_VFO_AB
+        # - BUTTON_VFO_BA
+        # - BUTTON_VFO_SWAP
+    BUTTONS:
+      BUTTON_BAND_1_8:
+        UP: res/VGA/button/band_up.png
+        DOWN: res/VGA/button/band_1.8_down.png
+        RECT: (131,312,70,46)
+        FUNC: btn_func_band_1_8
+        TYPE: CLICK
+      BUTTON_BAND_3_5:
+        UP: res/VGA/button/band_up.png
+        DOWN: res/VGA/button/band_3.5_down.png
+        RECT: (208,312,70,46)
+        FUNC: btn_func_band_3_5
+        TYPE: CLICK
+      BUTTON_BAND_5_3:
+        UP: res/VGA/button/band_up.png
+        DOWN: res/VGA/button/band_5.3_down.png
+        RECT: (285,312,70,46)
+        FUNC: btn_func_band_5_3
+        TYPE: CLICK
+      BUTTON_BAND_7:
+        UP: res/VGA/button/band_up.png
+        DOWN: res/VGA/button/band_7_down.png
+        RECT: (362,312,70,46)
+        FUNC: btn_func_band_7
+        TYPE: CLICK
+      BUTTON_BAND_10:
+        UP: res/VGA/button/band_up.png
+        DOWN: res/VGA/button/band_10_down.png
+        RECT: (439,312,70,46)
+        FUNC: btn_func_band_10
+        TYPE: CLICK
+      BUTTON_BAND_14:
+        UP: res/VGA/button/band_up.png
+        DOWN: res/VGA/button/band_14_down.png
+        RECT: (131,365,70,46)
+        FUNC: btn_func_band_14
+        TYPE: CLICK
+      BUTTON_BAND_18:
+        UP: res/VGA/button/band_up.png
+        DOWN: res/VGA/button/band_18_down.png
+        RECT: (208,365,70,46)
+        FUNC: btn_func_band_18
+        TYPE: CLICK
+      BUTTON_BAND_21:
+        UP: res/VGA/button/band_up.png
+        DOWN: res/VGA/button/band_21_down.png
+        RECT: (285,365,70,46)
+        FUNC: btn_func_band_21
+        TYPE: CLICK
+      BUTTON_BAND_24:
+        UP: res/VGA/button/band_up.png
+        DOWN: res/VGA/button/band_24_down.png
+        RECT: (362,365,70,46)
+        FUNC: btn_func_band_24
+        TYPE: CLICK
+      BUTTON_BAND_28:
+        UP: res/VGA/button/band_up.png
+        DOWN: res/VGA/button/band_28_down.png
+        RECT: (439,365,70,46)
+        FUNC: btn_func_band_28
+        TYPE: CLICK
+      BUTTON_BAND_50:
+        UP: res/VGA/button/band_up.png
+        DOWN: res/VGA/button/band_50_down.png
+        RECT: (131,418,70,46)
+        FUNC: btn_func_band_50
+        TYPE: CLICK
+      BUTTON_BAND_GEN:
+        UP: res/VGA/button/band_up.png
+        DOWN: res/VGA/button/band_GEN_down.png
+        RECT: (208,418,70,46)
+        FUNC: btn_func_band_gen
+        TYPE: CLICK
   ELEMENTS:
     PANEL:
       PATH: res/VGA/panel/panel.png
@@ -92,7 +124,7 @@ VGA:
       STAT:
         - 'BAND'
         - 'MODE'
-        - 'MEM'
+        - 'CW'
         - 'VFO'
         - 'SCOPE'
     METER_1:
@@ -1371,88 +1403,120 @@ HVGA:
   RESOLUTION: (480,320)
   BACKGROUND: res/HVGA/background.png
   BUTTON:
-    FUNC:
-      BUTTON_FUNC_VFO:
-      BUTTON_FUNC_BAND:
-      BUTTON_FUNC_MODE:
-      BUTTON_FUNC_CW:
-      BUTTON_FUNC_MEM:
-      BUTTON_FUNC_SCOPE:
-    PANEL:
-      PANEL_BAND:
-        '1.8':
-          POS:  (131,312,200,357)
-          FUNC: 'BAND_SET_1.8'
-        '3.5':
-          POS:  (208,312,277,357)
-          FUNC: 'BAND_SET_3.5'
-        '5.3':
-          POS:  (285,312,354,357)
-          FUNC: 'BAND_SET_5.3'
-        '7.0':
-          POS:  (362,312,431,357)
-          FUNC: 'BAND_SET_7.0'
-        '10':
-          POS:  (439,312,508,357)
-          FUNC: 'BAND_SET_10'
-        '14':
-          POS:  (131,365,200,410)
-          FUNC: 'BAND_SET_14'
-        '18':
-          POS:  (208,365,277,410)
-          FUNC: 'BAND_SET_18'
-        '21':
-          POS:  (285,365,354,410)
-          FUNC: 'BAND_SET_21'
-        '24':
-          POS:  (362,365,431,410)
-          FUNC: 'BAND_SET_24'
-        '28':
-          POS:  (439,365,508,410)
-          FUNC: 'BAND_SET_28'
-        '50':
-          POS:  (131,418,200,463)
-          FUNC: 'BAND_SET_50'
-        'GEN':
-          POS:  (208,418,277,463)
-          FUNC: 'BAND_SET_GEN'
-        'UP':
-          POS:  (362,418,431,463)
-          FUNC: 'BAND_SET_UP'
-        'DOWN':
-          POS:  (439,418,508,463)
-          FUNC: 'BAND_SET_DOWN'
-      PANEL_MODE:
-        'LSB':
-          POS:  (131,312,200,357)
-          FUNC: 'MODE_SET_LSB'
-        'CW-L':
-          POS:  (208,312,277,357)
-          FUNC: 'MODE_SET_CW-L'
-        'RTTY-L':
-          POS:  (285,312,354,357)
-          FUNC: 'MODE_SET_RTTY-L'
-        'DATA-L':
-          POS:  (362,312,431,357)
-          FUNC: 'MODE_SET_DATA-L'
-        'AM':
-          POS:  (439,312,508,357)
-          FUNC: 'MODE_SET_AM'
-        'USB':
-          POS:  (131,365,200,410)
-          FUNC: 'MODE_SET_USB'
-        'CW-U':
-          POS:  (208,365,277,410)
-          FUNC: 'MODE_SET_CW-U'
-        'RTTY-U':
-          POS:  (285,365,354,410)
-          FUNC: 'MODE_SET_RTTY-U'
-        'DATA-U':
-          POS:  (362,365,431,410)
-          FUNC: 'MODE_SET_DATA-U'
-        'FM':
-          POS:  (439,365,508,410)
-          FUNC: 'MODE_SET_FM'
+    GROUP:
+      BAND:
+        - BUTTON_BAND_1_8
+        - BUTTON_BAND_3_5
+        - BUTTON_BAND_5_3
+        - BUTTON_BAND_7
+        - BUTTON_BAND_10
+        - BUTTON_BAND_14
+        - BUTTON_BAND_18
+        - BUTTON_BAND_21
+        - BUTTON_BAND_24
+        - BUTTON_BAND_28
+        - BUTTON_BAND_50
+        - BUTTON_BAND_GEN
+      # CW:
+      # MODE:
+        # - BUTTON_MODE_LSB
+        # - BUTTON_MODE_USB
+        # - BUTTON_MODE_CWL
+        # - BUTTON_MODE_CWU
+        # - BUTTON_MODE_RL
+        # - BUTTON_MODE_RU
+        # - BUTTON_MODE_DL
+        # - BUTTON_MODE_DU
+        # - BUTTON_MODE_AM
+        # - BUTTON_MODE_FM
+      # SCOPE:
+      # VFO:
+        # - BUTTON_VFO_0
+        # - BUTTON_VFO_1
+        # - BUTTON_VFO_2
+        # - BUTTON_VFO_3
+        # - BUTTON_VFO_4
+        # - BUTTON_VFO_5
+        # - BUTTON_VFO_6
+        # - BUTTON_VFO_7
+        # - BUTTON_VFO_8
+        # - BUTTON_VFO_9
+        # - BUTTON_VFO_AB
+        # - BUTTON_VFO_BA
+        # - BUTTON_VFO_SWAP
+    BUTTONS:
+      BUTTON_BAND_1_8:
+        UP: res/HVGA/button/band_up.png
+        DOWN: res/HVGA/button/band_1.8_down.png
+        RECT: (13,194,70,42)
+        FUNC: btn_func_band_1_8
+        TYPE: CLICK
+      BUTTON_BAND_3_5:
+        UP: res/HVGA/button/band_up.png
+        DOWN: res/HVGA/button/band_3.5_down.png
+        RECT: (90,194,70,42)
+        FUNC: btn_func_band_3_5
+        TYPE: CLICK
+      BUTTON_BAND_5_3:
+        UP: res/HVGA/button/band_up.png
+        DOWN: res/HVGA/button/band_5.3_down.png
+        RECT: (167,194,70,42)
+        FUNC: btn_func_band_5_3
+        TYPE: CLICK
+      BUTTON_BAND_7:
+        UP: res/HVGA/button/band_up.png
+        DOWN: res/HVGA/button/band_7_down.png
+        RECT: (244,194,70,42)
+        FUNC: btn_func_band_7
+        TYPE: CLICK
+      BUTTON_BAND_10:
+        UP: res/HVGA/button/band_up.png
+        DOWN: res/HVGA/button/band_10_down.png
+        RECT: (321,194,70,42)
+        FUNC: btn_func_band_10
+        TYPE: CLICK
+      BUTTON_BAND_14:
+        UP: res/HVGA/button/band_up.png
+        DOWN: res/HVGA/button/band_14_down.png
+        RECT: (398,194,70,42)
+        FUNC: btn_func_band_14
+        TYPE: CLICK
+      BUTTON_BAND_18:
+        UP: res/HVGA/button/band_up.png
+        DOWN: res/HVGA/button/band_18_down.png
+        RECT: (13,242,70,42)
+        FUNC: btn_func_band_18
+        TYPE: CLICK
+      BUTTON_BAND_21:
+        UP: res/HVGA/button/band_up.png
+        DOWN: res/HVGA/button/band_21_down.png
+        RECT: (90,242,70,42)
+        FUNC: btn_func_band_21
+        TYPE: CLICK
+      BUTTON_BAND_24:
+        UP: res/HVGA/button/band_up.png
+        DOWN: res/HVGA/button/band_24_down.png
+        RECT: (167,242,70,42)
+        FUNC: btn_func_band_24
+        TYPE: CLICK
+      BUTTON_BAND_28:
+        UP: res/HVGA/button/band_up.png
+        DOWN: res/HVGA/button/band_28_down.png
+        RECT: (244,242,70,42)
+        FUNC: btn_func_band_28
+        TYPE: CLICK
+      BUTTON_BAND_50:
+        UP: res/HVGA/button/band_up.png
+        DOWN: res/HVGA/button/band_50_down.png
+        RECT: (321,242,70,42)
+        FUNC: btn_func_band_50
+        TYPE: CLICK
+      BUTTON_BAND_GEN:
+        UP: res/HVGA/button/band_up.png
+        DOWN: res/HVGA/button/band_GEN_down.png
+        RECT: (398,242,70,42)
+        FUNC: btn_func_band_gen
+        TYPE: CLICK
   ELEMENTS:
     PANEL:
       PATH: res/HVGA/panel/panel.png
@@ -1461,6 +1525,9 @@ HVGA:
       STAT:
         - 'BAND'
         - 'MODE'
+        # - 'CW'
+        # - 'SCOPE'
+        # - 'VFO'
     METER_1:
       BAR: (46,16)
       BAR_WIDTH: 11

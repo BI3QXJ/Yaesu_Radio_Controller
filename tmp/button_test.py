@@ -1,5 +1,10 @@
  #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
+# 1. 根据当前生效的按键组, 绘制当前活跃的按键
+# 2. 根据当前生效的按键组, 测试当前鼠标事件
+# 3. 根据鼠标事件, 测试按键是否被按下, 触发指定事件
+
 import yaml
 import pygame
 from pygame.locals import *
@@ -50,6 +55,13 @@ def main():
         btn_config = yaml.load(f)
     # global screen
 
+    buttons = {}
+    for gp_name, gp_member in btn_config['GROUP'].iteritems():
+        buttons[gp_name] = {}
+        for btn in gp_member:
+            buttons[gp_name][btn] = btn_config['BUTTONS'][btn]
+
+    print buttons
     FPS = 30
     fpsClock = pygame.time.Clock()
     btn_1 = Button(screen, 'button_up.png', 'button_down.png', Rect(100,100,70,46), 'func1', func_dict)
