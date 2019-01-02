@@ -21,9 +21,9 @@ rf_gain  = 0
 mic_gain = 0
 vox_gain = 0
 rf_power = 0
-nb_val   = 10
-nr_val   = 11
-mon_val  = 20
+nb_val   = 99
+nr_val   = 99
+mon_val  = 99
 
 channel_no = 0
 vfo_a_freq = '014270000'
@@ -67,6 +67,8 @@ meter_po_val = 100
 meter_custom = 'CMP'
 meter_custom_val = 0
 
+current_panel = 'MODE'
+
 rig_job_queue = Queue.Queue()
 
 class Rig_Polling(threading.Thread):
@@ -92,6 +94,17 @@ class Rig_Polling(threading.Thread):
             ,'BUTTON_BAND_AIR': 'BS14;'
             ,'BUTTON_BAND_144': 'BS15;'
             ,'BUTTON_BAND_430': 'BS16;'
+            ,'BUTTON_MODE_LSB': 'MD01;'
+            ,'BUTTON_MODE_USB': 'MD02;'
+            ,'BUTTON_MODE_CWL': 'MD07;'
+            ,'BUTTON_MODE_CWU': 'MD03;'
+            ,'BUTTON_MODE_RL': 'MD06;'
+            ,'BUTTON_MODE_RU': 'MD09;'
+            ,'BUTTON_MODE_DL': 'MD08;'
+            ,'BUTTON_MODE_DU': 'MD0C;'
+            ,'BUTTON_MODE_AM': 'MD05;'
+            ,'BUTTON_MODE_FM': 'MD04;'
+            ,'BUTTON_MODE_C4FM': 'MD0E;'
         }
         
     def run(self):
@@ -229,13 +242,14 @@ class Rig_Polling(threading.Thread):
 
 class Button(object):
     """ Class for button, click to invoke function, trigger by MOUSEBUTTONUP """
-    def __init__(self, surface, up_image, down_image, btnRect, btnFunc):
+    def __init__(self, surface, up_image, down_image, btnRect, btnFunc, btnType):
         self.button_up_image = pygame.image.load(up_image).convert_alpha()
         self.button_down_image = pygame.image.load(down_image).convert_alpha()
         self.button_rect = btnRect
         self.surface = surface
         self.pressed = False
         self.func = btnFunc
+        self.type = btnType
     
     def test_pressed(self, mouse_x, mouse_y, event):
         if self.button_rect.collidepoint(mouse_x, mouse_y) and event == MOUSEBUTTONDOWN:
@@ -243,8 +257,14 @@ class Button(object):
         elif self.button_rect.collidepoint(mouse_x, mouse_y) and event == MOUSEBUTTONUP and self.pressed:
             # self.funcs[self.func]()
             # print self.func
-            global rig_job_queue
-            rig_job_queue.put(self.func)
+            if self.type == 'CAT':
+                print self.func
+                global rig_job_queue
+                rig_job_queue.put(self.func)
+            elif self.type == 'PANEL':
+                print self.func
+                global current_panel
+                current_panel = self.func
             self.pressed = False
         else:
             self.pressed = False
@@ -288,6 +308,7 @@ class Remote_Controller(object):
         self.elements = {}
         # 当前生效按钮
         self.buttons = {}
+        self.panel_buttons = {}
         # self.active_panel = 'BAND'
         # 图标类显示元素
         self.icons = {
@@ -422,10 +443,10 @@ class Remote_Controller(object):
                 ,'RES': self.load_resouce(v['PATH'], eval(v['SIZE']), v['STAT'])
                 }
 
-    def init_button(self):
+    def init_func_button(self):
         for k,v in self.__layout['BUTTON']['GROUP'].iteritems():
             self.buttons[k] = {}
-            print k,v
+            # print k,v
             for btn in v:
                 self.buttons[k][btn] = Button(
                     self.screen
@@ -433,7 +454,19 @@ class Remote_Controller(object):
                     ,self.__layout['BUTTON']['BUTTONS'][btn]['DOWN']
                     ,pygame.Rect(eval(self.__layout['BUTTON']['BUTTONS'][btn]['RECT']))
                     ,btn
+                    ,'CAT'
                 )
+    
+    def init_panel_button(self):
+        for btn, attr in self.__layout['BUTTON']['PANEL'].iteritems():
+            self.panel_buttons[btn] = Button(
+                self.screen
+                ,attr['UP']
+                ,attr['DOWN']
+                ,pygame.Rect(eval(attr['RECT']))
+                ,attr['SELECT']
+                ,'PANEL'
+            )
 
     def load_resouce(self, path, size, stat_list, vertical=True):
         """ load one picture, save into specific status in one dict """
@@ -480,9 +513,13 @@ class Remote_Controller(object):
     def draw_buttons(self):
         for btn in self.buttons[self.icons['PANEL']].values():
             btn.render()
+        for btn in self.panel_buttons.values():
+            btn.render()
 
     def test_buttons(self, x, y, event):
         for btn in self.buttons[self.icons['PANEL']].values():
+            btn.test_pressed(x, y, event)
+        for btn in self.panel_buttons.values():
             btn.test_pressed(x, y, event)
 
     def draw_warning(self):
@@ -508,6 +545,9 @@ class Remote_Controller(object):
         global af_gain, rf_gain, mic_gain, vox_gain, rf_power, nb_val, nr_val, mon_val
         global rx_led, tx_led, hi_swr_led, play_led, rec_led
         global meter_s_val, meter_swr_val, meter_po_val, meter_custom, meter_custom_val
+        global current_panel
+
+        self.icons['PANEL'] = current_panel
 
         # set function indicators
         self.icons['AGC']   = agc_status
@@ -655,7 +695,8 @@ def main():
 
     rc = Remote_Controller(model=model, resolution=screen_resolution, display_mode=dp_mode)
     rc.init_resouce()
-    rc.init_button()
+    rc.init_func_button()
+    rc.init_panel_button()
 
     # start daemon threading for rig status polling
     poll = Rig_Polling(model)

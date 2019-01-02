@@ -4,17 +4,15 @@ VGA:
   BUTTON:
     PANEL:
       BUTTON_PANEL_MODE:
-        UP: res/VGA/button/band_up.png
-        DOWN: res/VGA/button/band_1.8_down.png
-        RECT: (131,312,70,46)
-        SELECT: btn_func_band_1_8
-        TYPE: CLICK
+        UP: res/VGA/button/button_panel_up.png
+        DOWN: res/VGA/button/panel_mode_down.png
+        RECT: (0,396,108,37)
+        SELECT: MODE
       BUTTON_PANEL_BAND:
-        UP: res/VGA/button/band_up.png
-        DOWN: res/VGA/button/band_1.8_down.png
-        RECT: (131,312,70,46)
-        SELECT: btn_func_band_1_8
-        TYPE: CLICK
+        UP: res/VGA/button/button_panel_up.png
+        DOWN: res/VGA/button/panel_band_down.png
+        RECT: (0,354,108,37)
+        SELECT: BAND
     GROUP:
       BAND:
         - BUTTON_BAND_1_8
@@ -30,17 +28,18 @@ VGA:
         - BUTTON_BAND_50
         - BUTTON_BAND_GEN
       # CW:
-      # MODE:
-        # - BUTTON_MODE_LSB
-        # - BUTTON_MODE_USB
-        # - BUTTON_MODE_CWL
-        # - BUTTON_MODE_CWU
-        # - BUTTON_MODE_RL
-        # - BUTTON_MODE_RU
-        # - BUTTON_MODE_DL
-        # - BUTTON_MODE_DU
-        # - BUTTON_MODE_AM
-        # - BUTTON_MODE_FM
+      MODE:
+        - BUTTON_MODE_LSB
+        - BUTTON_MODE_USB
+        - BUTTON_MODE_CWL
+        - BUTTON_MODE_CWU
+        - BUTTON_MODE_RL
+        - BUTTON_MODE_RU
+        - BUTTON_MODE_DL
+        - BUTTON_MODE_DU
+        - BUTTON_MODE_AM
+        - BUTTON_MODE_FM
+        - BUTTON_MODE_C4FM
       # SCOPE:
       # VFO:
         # - BUTTON_VFO_0
@@ -58,76 +57,142 @@ VGA:
         # - BUTTON_VFO_SWAP
     BUTTONS:
       BUTTON_BAND_1_8:
-        UP: res/VGA/button/band_up.png
+        UP: res/VGA/button/button_func_up.png
         DOWN: res/VGA/button/band_1.8_down.png
         RECT: (131,312,70,46)
         FUNC: btn_func_band_1_8
         TYPE: CLICK
       BUTTON_BAND_3_5:
-        UP: res/VGA/button/band_up.png
+        UP: res/VGA/button/button_func_up.png
         DOWN: res/VGA/button/band_3.5_down.png
         RECT: (208,312,70,46)
         FUNC: btn_func_band_3_5
         TYPE: CLICK
       BUTTON_BAND_5_3:
-        UP: res/VGA/button/band_up.png
+        UP: res/VGA/button/button_func_up.png
         DOWN: res/VGA/button/band_5.3_down.png
         RECT: (285,312,70,46)
         FUNC: btn_func_band_5_3
         TYPE: CLICK
       BUTTON_BAND_7:
-        UP: res/VGA/button/band_up.png
+        UP: res/VGA/button/button_func_up.png
         DOWN: res/VGA/button/band_7_down.png
         RECT: (362,312,70,46)
         FUNC: btn_func_band_7
         TYPE: CLICK
       BUTTON_BAND_10:
-        UP: res/VGA/button/band_up.png
+        UP: res/VGA/button/button_func_up.png
         DOWN: res/VGA/button/band_10_down.png
         RECT: (439,312,70,46)
         FUNC: btn_func_band_10
         TYPE: CLICK
       BUTTON_BAND_14:
-        UP: res/VGA/button/band_up.png
+        UP: res/VGA/button/button_func_up.png
         DOWN: res/VGA/button/band_14_down.png
         RECT: (131,365,70,46)
         FUNC: btn_func_band_14
         TYPE: CLICK
       BUTTON_BAND_18:
-        UP: res/VGA/button/band_up.png
+        UP: res/VGA/button/button_func_up.png
         DOWN: res/VGA/button/band_18_down.png
         RECT: (208,365,70,46)
         FUNC: btn_func_band_18
         TYPE: CLICK
       BUTTON_BAND_21:
-        UP: res/VGA/button/band_up.png
+        UP: res/VGA/button/button_func_up.png
         DOWN: res/VGA/button/band_21_down.png
         RECT: (285,365,70,46)
         FUNC: btn_func_band_21
         TYPE: CLICK
       BUTTON_BAND_24:
-        UP: res/VGA/button/band_up.png
+        UP: res/VGA/button/button_func_up.png
         DOWN: res/VGA/button/band_24_down.png
         RECT: (362,365,70,46)
         FUNC: btn_func_band_24
         TYPE: CLICK
       BUTTON_BAND_28:
-        UP: res/VGA/button/band_up.png
+        UP: res/VGA/button/button_func_up.png
         DOWN: res/VGA/button/band_28_down.png
         RECT: (439,365,70,46)
         FUNC: btn_func_band_28
         TYPE: CLICK
       BUTTON_BAND_50:
-        UP: res/VGA/button/band_up.png
+        UP: res/VGA/button/button_func_up.png
         DOWN: res/VGA/button/band_50_down.png
         RECT: (131,418,70,46)
         FUNC: btn_func_band_50
         TYPE: CLICK
       BUTTON_BAND_GEN:
-        UP: res/VGA/button/band_up.png
+        UP: res/VGA/button/button_func_up.png
         DOWN: res/VGA/button/band_GEN_down.png
         RECT: (208,418,70,46)
         FUNC: btn_func_band_gen
+        TYPE: CLICK
+      BUTTON_MODE_LSB:
+        UP: res/VGA/button/button_func_up.png
+        DOWN: res/VGA/button/mode_lsb_down.png
+        RECT: (131,312,70,46)
+        FUNC: btn_func_mode_lsb
+        TYPE: CLICK
+      BUTTON_MODE_USB:
+        UP: res/VGA/button/button_func_up.png
+        DOWN: res/VGA/button/mode_usb_down.png
+        RECT: (131,365,70,46)
+        FUNC: btn_func_mode_usb
+        TYPE: CLICK
+      BUTTON_MODE_CWL:
+        UP: res/VGA/button/button_func_up.png
+        DOWN: res/VGA/button/mode_cwl_down.png
+        RECT: (208,312,70,46)
+        FUNC: btn_func_mode_cwl
+        TYPE: CLICK
+      BUTTON_MODE_CWU:
+        UP: res/VGA/button/button_func_up.png
+        DOWN: res/VGA/button/mode_cwu_down.png
+        RECT: (208,365,70,46)
+        FUNC: btn_func_mode_cwu
+        TYPE: CLICK
+      BUTTON_MODE_RL:
+        UP: res/VGA/button/button_func_up.png
+        DOWN: res/VGA/button/mode_rl_down.png
+        RECT: (285,312,70,46)
+        FUNC: btn_func_mode_rl
+        TYPE: CLICK
+      BUTTON_MODE_RU:
+        UP: res/VGA/button/button_func_up.png
+        DOWN: res/VGA/button/mode_ru_down.png
+        RECT: (285,365,70,46)
+        FUNC: btn_func_mode_ru
+        TYPE: CLICK
+      BUTTON_MODE_DL:
+        UP: res/VGA/button/button_func_up.png
+        DOWN: res/VGA/button/mode_dl_down.png
+        RECT: (362,312,70,46)
+        FUNC: btn_func_mode_dl
+        TYPE: CLICK
+      BUTTON_MODE_DU:
+        UP: res/VGA/button/button_func_up.png
+        DOWN: res/VGA/button/mode_du_down.png
+        RECT: (362,365,70,46)
+        FUNC: btn_func_mode_du
+        TYPE: CLICK
+      BUTTON_MODE_AM:
+        UP: res/VGA/button/button_func_up.png
+        DOWN: res/VGA/button/mode_am_down.png
+        RECT: (439,312,70,46)
+        FUNC: btn_func_mode_am
+        TYPE: CLICK
+      BUTTON_MODE_FM:
+        UP: res/VGA/button/button_func_up.png
+        DOWN: res/VGA/button/mode_fm_down.png
+        RECT: (439,365,70,46)
+        FUNC: btn_func_mode_fm
+        TYPE: CLICK
+      BUTTON_MODE_C4FM:
+        UP: res/VGA/button/button_func_up.png
+        DOWN: res/VGA/button/mode_c4fm_down.png
+        RECT: (439,418,70,46)
+        FUNC: btn_func_mode_c4fm
         TYPE: CLICK
   ELEMENTS:
     PANEL:
@@ -1416,6 +1481,17 @@ HVGA:
   RESOLUTION: (480,320)
   BACKGROUND: res/HVGA/background.png
   BUTTON:
+    PANEL:
+      BUTTON_PANEL_MODE:
+        UP: res/HVGA/button/button_panel_up.png
+        DOWN: res/HVGA/button/panel_mode_down.png
+        RECT: (13,291,70,29)
+        SELECT: MODE
+      BUTTON_PANEL_BAND:
+        UP: res/HVGA/button/button_panel_up.png
+        DOWN: res/HVGA/button/panel_band_down.png
+        RECT: (90,291,70,29)
+        SELECT: BAND
     GROUP:
       BAND:
         - BUTTON_BAND_1_8
@@ -1431,17 +1507,17 @@ HVGA:
         - BUTTON_BAND_50
         - BUTTON_BAND_GEN
       # CW:
-      # MODE:
-        # - BUTTON_MODE_LSB
-        # - BUTTON_MODE_USB
-        # - BUTTON_MODE_CWL
-        # - BUTTON_MODE_CWU
-        # - BUTTON_MODE_RL
-        # - BUTTON_MODE_RU
-        # - BUTTON_MODE_DL
-        # - BUTTON_MODE_DU
-        # - BUTTON_MODE_AM
-        # - BUTTON_MODE_FM
+      MODE:
+        - BUTTON_MODE_LSB
+        - BUTTON_MODE_USB
+        - BUTTON_MODE_CWL
+        - BUTTON_MODE_CWU
+        - BUTTON_MODE_RL
+        - BUTTON_MODE_RU
+        - BUTTON_MODE_DL
+        - BUTTON_MODE_DU
+        - BUTTON_MODE_AM
+        - BUTTON_MODE_FM
       # SCOPE:
       # VFO:
         # - BUTTON_VFO_0
@@ -1459,76 +1535,142 @@ HVGA:
         # - BUTTON_VFO_SWAP
     BUTTONS:
       BUTTON_BAND_1_8:
-        UP: res/HVGA/button/band_up.png
+        UP: res/HVGA/button/button_func_up.png
         DOWN: res/HVGA/button/band_1.8_down.png
         RECT: (13,194,70,42)
         FUNC: btn_func_band_1_8
         TYPE: CLICK
       BUTTON_BAND_3_5:
-        UP: res/HVGA/button/band_up.png
+        UP: res/HVGA/button/button_func_up.png
         DOWN: res/HVGA/button/band_3.5_down.png
         RECT: (90,194,70,42)
         FUNC: btn_func_band_3_5
         TYPE: CLICK
       BUTTON_BAND_5_3:
-        UP: res/HVGA/button/band_up.png
+        UP: res/HVGA/button/button_func_up.png
         DOWN: res/HVGA/button/band_5.3_down.png
         RECT: (167,194,70,42)
         FUNC: btn_func_band_5_3
         TYPE: CLICK
       BUTTON_BAND_7:
-        UP: res/HVGA/button/band_up.png
+        UP: res/HVGA/button/button_func_up.png
         DOWN: res/HVGA/button/band_7_down.png
         RECT: (244,194,70,42)
         FUNC: btn_func_band_7
         TYPE: CLICK
       BUTTON_BAND_10:
-        UP: res/HVGA/button/band_up.png
+        UP: res/HVGA/button/button_func_up.png
         DOWN: res/HVGA/button/band_10_down.png
         RECT: (321,194,70,42)
         FUNC: btn_func_band_10
         TYPE: CLICK
       BUTTON_BAND_14:
-        UP: res/HVGA/button/band_up.png
+        UP: res/HVGA/button/button_func_up.png
         DOWN: res/HVGA/button/band_14_down.png
         RECT: (398,194,70,42)
         FUNC: btn_func_band_14
         TYPE: CLICK
       BUTTON_BAND_18:
-        UP: res/HVGA/button/band_up.png
+        UP: res/HVGA/button/button_func_up.png
         DOWN: res/HVGA/button/band_18_down.png
         RECT: (13,242,70,42)
         FUNC: btn_func_band_18
         TYPE: CLICK
       BUTTON_BAND_21:
-        UP: res/HVGA/button/band_up.png
+        UP: res/HVGA/button/button_func_up.png
         DOWN: res/HVGA/button/band_21_down.png
         RECT: (90,242,70,42)
         FUNC: btn_func_band_21
         TYPE: CLICK
       BUTTON_BAND_24:
-        UP: res/HVGA/button/band_up.png
+        UP: res/HVGA/button/button_func_up.png
         DOWN: res/HVGA/button/band_24_down.png
         RECT: (167,242,70,42)
         FUNC: btn_func_band_24
         TYPE: CLICK
       BUTTON_BAND_28:
-        UP: res/HVGA/button/band_up.png
+        UP: res/HVGA/button/button_func_up.png
         DOWN: res/HVGA/button/band_28_down.png
         RECT: (244,242,70,42)
         FUNC: btn_func_band_28
         TYPE: CLICK
       BUTTON_BAND_50:
-        UP: res/HVGA/button/band_up.png
+        UP: res/HVGA/button/button_func_up.png
         DOWN: res/HVGA/button/band_50_down.png
         RECT: (321,242,70,42)
         FUNC: btn_func_band_50
         TYPE: CLICK
       BUTTON_BAND_GEN:
-        UP: res/HVGA/button/band_up.png
+        UP: res/HVGA/button/button_func_up.png
         DOWN: res/HVGA/button/band_GEN_down.png
         RECT: (398,242,70,42)
         FUNC: btn_func_band_gen
+        TYPE: CLICK
+      BUTTON_MODE_LSB:
+        UP: res/HVGA/button/button_func_up.png
+        DOWN: res/HVGA/button/mode_lsb_down.png
+        RECT: (13,194,70,42)
+        FUNC: btn_func_mode_lsb
+        TYPE: CLICK
+      BUTTON_MODE_USB:
+        UP: res/HVGA/button/button_func_up.png
+        DOWN: res/HVGA/button/mode_usb_down.png
+        RECT: (13,242,70,42)
+        FUNC: btn_func_mode_usb
+        TYPE: CLICK
+      BUTTON_MODE_CWL:
+        UP: res/HVGA/button/button_func_up.png
+        DOWN: res/HVGA/button/mode_cwl_down.png
+        RECT: (90,194,70,42)
+        FUNC: btn_func_mode_cwl
+        TYPE: CLICK
+      BUTTON_MODE_CWU:
+        UP: res/HVGA/button/button_func_up.png
+        DOWN: res/HVGA/button/mode_cwu_down.png
+        RECT: (90,242,70,42)
+        FUNC: btn_func_mode_cwu
+        TYPE: CLICK
+      BUTTON_MODE_RL:
+        UP: res/HVGA/button/button_func_up.png
+        DOWN: res/HVGA/button/mode_rl_down.png
+        RECT: (167,194,70,42)
+        FUNC: btn_func_mode_rl
+        TYPE: CLICK
+      BUTTON_MODE_RU:
+        UP: res/HVGA/button/button_func_up.png
+        DOWN: res/HVGA/button/mode_ru_down.png
+        RECT: (167,242,70,42)
+        FUNC: btn_func_mode_ru
+        TYPE: CLICK
+      BUTTON_MODE_DL:
+        UP: res/HVGA/button/button_func_up.png
+        DOWN: res/HVGA/button/mode_dl_down.png
+        RECT: (244,194,70,42)
+        FUNC: btn_func_mode_dl
+        TYPE: CLICK
+      BUTTON_MODE_DU:
+        UP: res/HVGA/button/button_func_up.png
+        DOWN: res/HVGA/button/mode_du_down.png
+        RECT: (244,242,70,42)
+        FUNC: btn_func_mode_du
+        TYPE: CLICK
+      BUTTON_MODE_AM:
+        UP: res/HVGA/button/button_func_up.png
+        DOWN: res/HVGA/button/mode_am_down.png
+        RECT: (321,194,70,42)
+        FUNC: btn_func_mode_am
+        TYPE: CLICK
+      BUTTON_MODE_FM:
+        UP: res/HVGA/button/button_func_up.png
+        DOWN: res/HVGA/button/mode_fm_down.png
+        RECT: (321,242,70,42)
+        FUNC: btn_func_mode_fm
+        TYPE: CLICK
+      BUTTON_MODE_C4FM:
+        UP: res/HVGA/button/button_func_up.png
+        DOWN: res/HVGA/button/mode_c4fm_down.png
+        RECT: (398,194,70,42)
+        FUNC: btn_func_mode_c4fm
         TYPE: CLICK
   ELEMENTS:
     PANEL:
