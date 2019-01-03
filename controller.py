@@ -277,14 +277,26 @@ class Button(object):
 
 class Switch(object):
     """ Class for Switch, click to switch status, trigger by MOUSEBUTTONUP """
-    def __init__(self, surface, stat_images, stat_list, btnRect):
-        self.stats = stat_list
-        self.current_stat = ''
+    def __init__(self, surface, stat_images, btnFunc, btnRect):
+        self.surface = surface
+        self.current_stat = 0
+        # self.funcs = {  # switch to next status
+        #     'OFF': 'GT01;'
+        #     ,'FAST': 'GT02;'
+        #     ,'MID': 'GT03;'
+        #     ,'SLOW': 'GT04;'
+        #     ,'AUTO': 'GT00;'
+        # }
+        # self.stats = stat_list          # list
+        self.stat_images = stat_images  # dict
+        self.button_rect = btnRect
 
     def test_pressed(self, mouse_x, mouse_y, event):
+        """ test press effected """
         pass
+
     def render(self):
-        pass
+        self.surface.blit(self.stat_images[self.current_stat],(self.button_rect[0],self.button_rect[1]))
 
 class Remote_Controller(object):
     def __init__(self, model, resolution, display_mode=0):

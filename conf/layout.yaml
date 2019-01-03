@@ -194,6 +194,15 @@ VGA:
         RECT: (439,418,70,46)
         FUNC: btn_func_mode_c4fm
         TYPE: CLICK
+      SWITCH_FUNC_AGC:
+        PATH: res/VGA/button/switch_agc_status.png
+        DOWN: res/VGA/button/switch_agc_down.png
+        STAT:
+          - 'OFF'
+          - 'FAST'
+          - 'MID'
+          - 'SLOW'
+        TYPE: SWITCH
   ELEMENTS:
     PANEL:
       PATH: res/VGA/panel/panel.png
