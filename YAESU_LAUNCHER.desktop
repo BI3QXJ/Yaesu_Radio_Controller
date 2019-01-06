@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Yaesu_Launcher
+Comment=Start Yaesu radio controller
+Exec=/usr/bin/python /home/pi/Yaesu_Radio_Controller/controller.py
+
+Terminal=true
+Type=Application

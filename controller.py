@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
 import pytz
 import random
 import datetime
@@ -12,6 +13,8 @@ import pygame
 from pygame.locals import *
 from sys import exit
 import rig
+
+cur_dir = '/home/pi/Yaesu_Radio_Controller'
 
 # global vars
 IS_UTC = False
@@ -307,7 +310,7 @@ class Remote_Controller(object):
         '''
         self.model = model
 
-        with open('conf/layout.yaml','r') as f:
+        with open(cur_dir+'/conf/layout.yaml','r') as f:
              ui_conf = yaml.load(f)[resolution]
         print resolution, ui_conf['RESOLUTION']
         self.__layout = ui_conf
@@ -315,7 +318,7 @@ class Remote_Controller(object):
         self.screen = pygame.display.set_mode(eval(ui_conf['RESOLUTION']), display_mode, 32)
         pygame.display.set_caption(model)
         
-        self.background = pygame.image.load(ui_conf['BACKGROUND']).convert()
+        self.background = pygame.image.load(cur_dir + '/' + ui_conf['BACKGROUND']).convert()
         # 全部元素图像+位置
         self.elements = {}
         # 当前生效按钮
@@ -452,7 +455,7 @@ class Remote_Controller(object):
             # print k, v
             self.elements[k] = {
                 'POS': eval(v['POS'])
-                ,'RES': self.load_resouce(v['PATH'], eval(v['SIZE']), v['STAT'])
+                ,'RES': self.load_resouce(cur_dir + '/'+ v['PATH'], eval(v['SIZE']), v['STAT'])
                 }
 
     def init_func_button(self):
@@ -462,8 +465,8 @@ class Remote_Controller(object):
             for btn in v:
                 self.buttons[k][btn] = Button(
                     self.screen
-                    ,self.__layout['BUTTON']['BUTTONS'][btn]['UP']
-                    ,self.__layout['BUTTON']['BUTTONS'][btn]['DOWN']
+                    ,cur_dir + '/'+ self.__layout['BUTTON']['BUTTONS'][btn]['UP']
+                    ,cur_dir + '/'+ self.__layout['BUTTON']['BUTTONS'][btn]['DOWN']
                     ,pygame.Rect(eval(self.__layout['BUTTON']['BUTTONS'][btn]['RECT']))
                     ,btn
                     ,'CAT'
@@ -473,8 +476,8 @@ class Remote_Controller(object):
         for btn, attr in self.__layout['BUTTON']['PANEL'].iteritems():
             self.panel_buttons[btn] = Button(
                 self.screen
-                ,attr['UP']
-                ,attr['DOWN']
+                ,cur_dir + '/'+ attr['UP']
+                ,cur_dir +'/'+  attr['DOWN']
                 ,pygame.Rect(eval(attr['RECT']))
                 ,attr['SELECT']
                 ,'PANEL'
@@ -690,7 +693,7 @@ def main():
         print 'UNSUPPORTED RESOLUTION. (Only VGA or HVGA)'
         exit()
 
-    with open('conf/custom.yaml','r') as f:
+    with open(cur_dir+'/conf/custom.yaml','r') as f:
         custome_config = yaml.load(f)
         model = custome_config['RADIO']['MODEL']
         port = custome_config['RADIO']['PORT']
@@ -710,10 +713,10 @@ def main():
     rc.init_func_button()
     rc.init_panel_button()
 
-    # start daemon threading for rig status polling
-    poll = Rig_Polling(model)
-    poll.setDaemon(True)
-    poll.start()
+    # # start daemon threading for rig status polling
+    # poll = Rig_Polling(model)
+    # poll.setDaemon(True)
+    # poll.start()
 
     while True:
         for event in pygame.event.get():
