@@ -6,7 +6,7 @@ from pygame.locals import *
 from sys import exit
 
 pygame.init()
-SCREEN_SIZE = (480, 320)
+SCREEN_SIZE = (640, 480)
 screen = pygame.display.set_mode(SCREEN_SIZE, FULLSCREEN, 32)
 
 font = pygame.font.SysFont("FreeMono", 11)
@@ -21,10 +21,11 @@ while True:
 
     for event in pygame.event.get():
         if event.type == QUIT:
+            pygame.quit()
             exit()
-        if event.type == KEYDOWN:
-            if event.key == K_x:
-                exit()
+        elif event.type == KEYDOWN and event.key == K_ESCAPE:
+            pygame.quit()
+            exit()
 
     screen.fill((255, 255, 255))
 
