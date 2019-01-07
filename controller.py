@@ -715,9 +715,9 @@ def main():
     rc.init_panel_button()
 
     # # start daemon threading for rig status polling
-    # poll = Rig_Polling(model)
-    # poll.setDaemon(True)
-    # poll.start()
+    poll = Rig_Polling(model)
+    poll.setDaemon(True)
+    poll.start()
 
     while True:
         for event in pygame.event.get():
