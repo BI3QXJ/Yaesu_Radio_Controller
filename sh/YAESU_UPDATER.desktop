@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Yaesu_Updater
+Comment=Update Yaesu radio controller
+Exec=bash /home/pi/Yaesu_Radio_Controller/sh/update.sh
+Icon=/home/pi/Yaesu_Radio_Controller/sh/update.png
+Terminal=true
+Type=Application

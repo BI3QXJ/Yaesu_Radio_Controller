@@ -8,7 +8,7 @@ import os
 import yaml
 import serial
 
-cur_dir = '/home/pi/Yaesu_Radio_Controller'
+# cur_dir = '/home/pi/Yaesu_Radio_Controller'
 
 
 # class COMMON_RIG(serial.Serial, object):
@@ -40,7 +40,7 @@ class YAESU_CAT3(serial.Serial, object):
             #write_timeout=1,
             timeout=0.1
         )
-        with open(cur_dir+'/conf/YAESU_CAT3.yaml','r') as f:
+        with open('conf/YAESU_CAT3.yaml','r') as f:
             self.__func = yaml.load(f)[model]
 
     def cmd_r(self, command):

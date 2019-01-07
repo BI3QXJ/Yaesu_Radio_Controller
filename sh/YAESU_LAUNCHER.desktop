@@ -2,6 +2,6 @@
 Name=Yaesu_Launcher
 Comment=Start Yaesu radio controller
 Exec=/usr/bin/python /home/pi/Yaesu_Radio_Controller/controller.py
-
+Icon=/home/pi/Yaesu_Radio_Controller/sh/start.png
 Terminal=true
 Type=Application
